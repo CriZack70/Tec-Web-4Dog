@@ -1,27 +1,15 @@
-
-
-header > p {
-    font-size: 150%;
-    padding-top: 1%;
+/* Regole reset */
+body, main {
+    margin: 0;
+    padding: 0;
 }
 
-header > h1 {
-    font-size: 300%;
-    padding-bottom: 1%;
-}
-
-header > div > form > input {
-    width: 35%;
-    padding: 0.5%;
-    font-size: 150%;
-}
-
-header button {
-    font-size: 170%;
+header .btn {
     background-color: transparent;
     border: none;
+    font-size: 120%;
 }
 
-header > div > form {
-    padding-bottom: 1%;
+header , nav{
+    background-color: green;
 }
