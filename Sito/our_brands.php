@@ -1,7 +1,7 @@
 <div class="col-md-2"></div>
 <div class="col-md-10">
     <h3 class="text-center">I nostri Brand</h3>
-    <div class="row text-center">
+    <div class="row text-center mb-3">
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div class="row text-center">
+    <div class="row text-center mb-5">
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
@@ -59,10 +59,6 @@
                     <p>Phil & Sons</p>
                 </div>
             </div>
-        </div>
-        <div class="row text-center py-4 bg-light border-top mt-3">
-            <h4>Offerte attive</h4>
-            <p>Approfittane ora!!!</p>
         </div>
     </div>
 </div>

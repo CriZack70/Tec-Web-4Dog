@@ -19,12 +19,12 @@
         </div>
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex flex-fill align-items-center">
-                <button class="btn btn-light" href="mascotte.php"><i class="fas fa-dog"></i></button>
+                <button class="btn btn-light" href="mascotte.php"><span class="fas fa-dog"></span></button>
                 <span class="our-dogs" href="mascotte.php">Le nostre Mascotte!</span>
             </div>
             <form class="d-flex flex-fill">
                 <input type="text" class="form-control" placeholder="Cerca..." name="search">
-                <button type="submit" class="btn btn-light"><i class="fa fa-search"></i></button>
+                <button type="submit" class="btn btn-light"><span class="fa fa-search"></span></button>
             </form>
             <div class="d-flex flex-fill justify-content-end">
                 <div class="dropdown d-inline-block">
@@ -37,7 +37,8 @@
                         <li><a class="dropdown-item" href="#">Il mio Doggy</a></li>
                     </ul>
                 </div>
-                <button class="btn btn-light"><i class="fa fa-shopping-cart"></i></button>
+                <button class="btn btn-light btn-cart"><span class="fa fa-shopping-cart"></span></button>
+
             </div>
         </div>
     </header>
@@ -47,25 +48,25 @@
         if(isset($templateParams["shop"])){
         ?>
             <div class="col-md-2 col-lg-2">
-                <nav class="navbar flex-column navbar-light border border-dark">
-                    <div class="container-fluid justify-content-center">
-                        <label class="navbar-brand">Categorie</label>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse overflow-hidden" id="collapsibleNavbar">
-                            <ul class="navbar-nav">
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="umido.php">Umido</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="crocchette.php">Crocchette</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="snack.php">Snack</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="abbigliamento.php">Abbigliamento</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="cucce.php">Cucce</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="giochi.php">Giochi</a></li>
-                                <li><a class="nav-link border-top border-bottom border-dark" <?php isActive("index.php");?> href="guinzaglieria.php">Guinzaglieria</a></li>
-                            </ul>
-                        </div>
+            <aside class="navbar navbar-expand-lg navbar-light">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <ul class="navbar-nav flex-column px-5">
+                        <li class="nav-item"><a class="nav-link border-top border-dark" href="#">Umido</a></li>
+                        <li class="nav-item"><a class="nav-link border-top border-dark" href="#">Crocchette</a></li>
+                        <li class="nav-item"><a class="nav-link border-top border-dark" href="#">Snack</a></li>
+                        <li class="nav-item"><a class="nav-link border-top border-dark" href="#">Abbigliamento</a></li>
+                        <li class="nav-item"><a class="nav-link border-top border-dark" href="#">Cucce</a></li>
+                        <li class="nav-item"><a class="nav-link border-top border-dark" href="#">Giochi</a></li>
+                        <li class="nav-item"><a class="nav-link border-top border-bottom border-dark" href="#">Guinzaglieria</a></li>
+
+                    </ul>
                     </div>
-                </nav>
+                </aside>
             </div>
             <div class="col-md-10 col-lg-10">
                 <?php
@@ -75,7 +76,7 @@
                 ?>
             </div>
         <?php
-        } else { 
+        } else {
         ?>
             <div class="col-md-12 col-lg-12">
                 <?php
@@ -84,7 +85,7 @@
                 }
                 ?>
             </div>
-        <?php } 
+        <?php }
         ?>
         </div>
         <div class="row">
@@ -95,7 +96,7 @@
                 require($templateParams["brands"]);
             }
             ?>
-        </div> 
+        </div>
     </main>
     <footer>
         <p>4Dogs - By dogs for dogs</p>
