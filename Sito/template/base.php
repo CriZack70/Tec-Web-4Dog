@@ -55,13 +55,9 @@
                         </button>
                         <div class="collapse navbar-collapse overflow-hidden" id="collapsibleNavbar">
                             <ul class="navbar-nav">
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="umido.php">Umido</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="crocchette.php">Crocchette</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="snack.php">Snack</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="abbigliamento.php">Abbigliamento</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="cucce.php">Cucce</a></li>
-                                <li><a class="nav-link border-top border-dark" <?php isActive("index.php");?> href="giochi.php">Giochi</a></li>
-                                <li><a class="nav-link border-top border-bottom border-dark" <?php isActive("index.php");?> href="guinzaglieria.php">Guinzaglieria</a></li>
+                            <?php foreach($templateParams["categories"] as $categoria): ?>
+                                <li><a class="nav-link border border-dark" <?php isActive("index.php");?> href="categoria.php?id=<?php echo $categoria["CodCategoria"]; ?>"><?php echo $categoria["Nome"]; ?></a></li>
+                            <?php endforeach; ?>
                             </ul>
                         </div>
                     </div>

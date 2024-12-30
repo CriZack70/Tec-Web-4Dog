@@ -3,7 +3,9 @@ require_once 'bootstrap.php';
 
 //Base Template
 $templateParams["titolo"] = "4Dogs - One of our best";
-$templateParams["nome"] = "singolo-prodotto.php";
+$templateParams["shop"] = true;
+$templateParams["name"] = "singolo-prodotto.php";
+$templateParams["categories"] = $dbh->getCategories();
 $templateParams["relatedprod"] = $dbh->getRandomProducts(4);
 //Home Template
 $idprodotto = -1;

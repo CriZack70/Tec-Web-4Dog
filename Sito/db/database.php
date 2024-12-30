@@ -18,7 +18,7 @@ class DatabaseHelper{
     }
 
     public function getRandomProducts($n){
-        $stmt = $this->db->prepare("SELECT CodProdotto, Nome FROM prodotto ORDER BY RAND() LIMIT ?");
+        $stmt = $this->db->prepare("SELECT CodProdotto, Nome, Percorso_Immagine FROM prodotto ORDER BY RAND() LIMIT ?");
         $stmt->bind_param('i',$n);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -27,9 +27,28 @@ class DatabaseHelper{
     }
 
     public function getProductById($id){
-        $query = "SELECT CodProdotto, Nome, Brand, Percorso_Immagine, Descrizione FROM articolo, autore WHERE CodProdotto=?";
+        $query = "SELECT CodProdotto, Nome, Brand, Percorso_Immagine, Descrizione FROM prodotto WHERE CodProdotto=?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i',$id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getCategoryById($idcategory){
+        $stmt = $this->db->prepare("SELECT Nome FROM categoria_prodotto WHERE CodCategoria=?");
+        $stmt->bind_param('i',$idcategory);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getProductsByCategory($idcategory){
+        $query = "SELECT CodProdotto, Nome, Percorso_Immagine FROM prodotto WHERE CodCategoria=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i',$idcategory);
         $stmt->execute();
         $result = $stmt->get_result();
 
