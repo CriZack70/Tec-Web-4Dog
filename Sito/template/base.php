@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/styleCRI.css">
 </head>
 <body>
     <header>
@@ -20,7 +20,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <div class="d-flex flex-fill align-items-center">
                 <button class="btn btn-light" href="mascotte.php"><span class="fas fa-dog"></span></button>
-                <span class="our-dogs" href="mascotte.php">Le nostre Mascotte!</span>
+                <span class="our-dogs ms-1" href="mascotte.php">Le nostre Mascotte!</span>
             </div>
             <form class="d-flex flex-fill">
                 <input type="text" class="form-control" placeholder="Cerca..." name="search">
@@ -32,8 +32,9 @@
                         Il mio Profilo
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#">Account</a></li>
+                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Account</a></li>
                         <li><a class="dropdown-item" href="#">Ordini</a></li>
+                        <li><a class="dropdown-item" href="#">Notifiche</a></li>
                         <li><a class="dropdown-item" href="#">Il mio Doggy</a></li>
                     </ul>
                 </div>
@@ -42,8 +43,14 @@
             </div>
         </div>
     </header>
+
     <main class="container-fluid">
-        <div class="row">
+    <div class="row">
+    <?php if(isUserLoggedIn()): ?>
+        $username = $_SESSION['Nome'];
+        <h2>Ciao <?php echo htmlspecialchars($username); ?>!</h2> 
+        <?php endif;?>
+
         <?php
         if(isset($templateParams["shop"])){
         ?>
@@ -87,7 +94,7 @@
         <div class="row">
             <?php
             if(isset($templateParams["relatedprod"])){
-                require($templateParams["relatedprod"]);
+                require 'prodotti-casuali.php';
             } elseif(isset($templateParams["brands"])){
                 require($templateParams["brands"]);
             }

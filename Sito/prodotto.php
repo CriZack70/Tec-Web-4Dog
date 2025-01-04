@@ -13,6 +13,7 @@ if(isset($_GET["id"])){
     $idprodotto = $_GET["id"];
 }
 $templateParams["prodotto"] = $dbh->getProductById($idprodotto);
+$templateParams["infoprodotto"] = $dbh->getProductInfos($idprodotto);
 
 require 'template/base.php';
 ?>

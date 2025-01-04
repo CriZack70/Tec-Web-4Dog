@@ -9,23 +9,11 @@
                         </div>
     </section>
     <section class="section2 px-3 py-3">
-    <h3 class="text-center">Offerte del mese</h3>
-    <div class="row">
-    <?php foreach($templateParams["casualprod"] as $casualprod): ?>
-        <div class="col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <img class="img-fluid" src="<?php echo UPLOAD_DIR.$casualprod["Percorso_Immagine"]; ?>" alt="" />
-                    <a href="prodotto.php?id=<?php echo $casualprod["CodProdotto"]; ?>"><?php echo $casualprod["Nome"]; ?></a>
-                </div>
-            </div>
+        <h3 class="text-center">Offerte del mese</h3>
+        <div class="row">
+        <?php
+            require 'prodotti-casuali.php';
+        ?>
         </div>
-    <?php endforeach; ?>
-    </div>
     </section>
-    <section class="section3">
-    <div class="row bg-light">
-        <h4 class="text-center">Offerte attive</h4>
-        <p class="text-center">Approfittane ora!!!</p>
-    </div>
-    </section>
+
