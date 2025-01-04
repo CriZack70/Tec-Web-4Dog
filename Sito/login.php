@@ -8,45 +8,26 @@ require_once 'bootstrap.php';
 if(isset($_POST["email"]) && isset($_POST["password"])){
     $usermail = $_POST["email"];
     $password = $_POST["password"];
-    $query = "SELECT Email, Pwd, Nome FROM utente_registrato WHERE  Email = ?";
-    $stmt = $dbh->db->prepare($query);
-    $stmt->bind_param('s', $usermail);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $result->fetch_all(MYSQLI_ASSOC);
+    $login_result = $dbh->checkLogin($_POST["email"]);   
     
-    if (count($result) > 0) {
-        
-        $hashed_password = $result["Pwd"];
-
-                // Verifica della password
-            if (password_verify($password, $hashed_password)) {
-                // Imposta la sessione
-                registerLoggedUser($result[0]);
-
-                echo "La variabile di sessione 'username' è impostata e il suo valore è: " . $_SESSION["Nome"];
-
-
-                
-            } else {
-                $templateParams["errorelogin"] = "Errore! Controllare username o password!";
-            }
-    } else {
+    
+    if(count($login_result)==0){
         echo "Utente non trovato!";
-    }
+    }else{
+        $hashed_password = $login_result[0]["Password"];
+        if (password_verify($password, $hashed_password)) {
+            // Imposta la sessione
+            registerLoggedUser($login_result[0]);
+            header("Location: index.php");
+            exit();         
+          
+        } else {
+            $templateParams["errorelogin"] = "Errore! Controllare username o password!";
+        }
+
+    }    
 }
 
-
-    
-    
-    
-    
-    
-    
-    
-
-        
-   
 
 
 if(isUserLoggedIn()){

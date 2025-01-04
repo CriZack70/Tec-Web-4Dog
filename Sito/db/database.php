@@ -64,9 +64,8 @@ class DatabaseHelper{
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    /*
     public function checkLogin($usermail){
-        $query = "SELECT Email, Pwd, Nome FROM utente_registrato WHERE  Email = ?";
+        $query = "SELECT Email, Password, Nome FROM utente_registrato WHERE  Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $usermail);
         $stmt->execute();
@@ -75,7 +74,6 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }  
 
-    */
 }
 
 ?>

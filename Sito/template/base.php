@@ -46,9 +46,10 @@
 
     <main class="container-fluid">
         <div class="row">
-        <?php if(isUserLoggedIn()): ?>
-            $username = $_SESSION['Nome'];
-            <h2>Ciao <?php echo htmlspecialchars($username); ?>!</h2> 
+        <?php if(isUserLoggedIn()): 
+        $username = $_SESSION["Nome"];
+        ?>
+        <h2 style="text-align:center;">Ciao <?php echo htmlspecialchars($username); ?>!</h2> 
         <?php endif;?>
 
         <?php
