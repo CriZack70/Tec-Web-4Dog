@@ -45,10 +45,10 @@
     </header>
 
     <main class="container-fluid">
-    <div class="row">
-    <?php if(isUserLoggedIn()): ?>
-        $username = $_SESSION['Nome'];
-        <h2>Ciao <?php echo htmlspecialchars($username); ?>!</h2> 
+        <div class="row">
+        <?php if(isUserLoggedIn()): ?>
+            $username = $_SESSION['Nome'];
+            <h2>Ciao <?php echo htmlspecialchars($username); ?>!</h2> 
         <?php endif;?>
 
         <?php

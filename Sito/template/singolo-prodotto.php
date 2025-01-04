@@ -14,7 +14,7 @@
         <h4 class="text-muted">Brand: <?php echo $prodotto["Brand"]; ?></h4>
         <p><?php echo $prodotto["Descrizione"]; ?></p>
         <p class="fs-4 text-success">Prezzo: €<?= number_format($infoprodotto[0]["Prezzo"], 2) ?></p>
-        <p class="text-<?= $infoprodotto[0]["Disponibilita"] === 'In Stock' ? 'success' : 'danger' ?>">
+        <p class="text-<?= $infoprodotto[0]["Disponibilita"] === 'In Stock' ? 'success' : 'danger' ?>">Disponibilità: 
                 <?= $infoprodotto[0]["Disponibilita"] ?>
         </p>
         <div class="flex-row">

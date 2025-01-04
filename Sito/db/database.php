@@ -54,10 +54,18 @@ class DatabaseHelper{
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-}
 
-/*
-  public function checkLogin($usermail){
+    public function getProductInfos($idprodotto) {
+        $query = "SELECT * FROM versione_prodotto WHERE CodProdotto=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('i',$idprodotto);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    /*
+    public function checkLogin($usermail){
         $query = "SELECT Email, Pwd, Nome FROM utente_registrato WHERE  Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $usermail);
@@ -67,6 +75,7 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }  
 
-*/
+    */
+}
 
 ?>
