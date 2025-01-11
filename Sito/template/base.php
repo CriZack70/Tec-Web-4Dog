@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="css/styleCRI.css">
 </head>
 <body>
@@ -32,10 +33,16 @@
                         Il mio Profilo
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Account</a></li>
+                        <?php if(!isUserLoggedIn()): ?>
+                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Accedi</a></li>                
+                        <?php else: ?>
+                        <li><a class="dropdown-item"<?php isActive("account.php");?> href="account.php">Account</a></li>
+                        <?php endif; ?>                        
                         <li><a class="dropdown-item" href="#">Ordini</a></li>
                         <li><a class="dropdown-item" href="#">Notifiche</a></li>
                         <li><a class="dropdown-item" href="#">Il mio Doggy</a></li>
+                        <li><a class="<?php echo isUserLoggedIn() ? 'dropdown-item' : 'dropdown-item d-none'; ?>" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>   
+                        
                     </ul>
                 </div>
                 <button class="btn btn-light btn-cart"><span class="fa fa-shopping-cart"></span></button>
@@ -49,7 +56,7 @@
         <?php if(isUserLoggedIn()): 
         $username = $_SESSION["Nome"];
         ?>
-        <h2 style="text-align:center;">Ciao <?php echo htmlspecialchars($username); ?>!</h2> 
+        <span class ="hello py-0 px-3 " style="text-align:right; font-size: 150%">Ciao <?php echo htmlspecialchars($username); ?>!</span> 
         <?php endif;?>
 
         <?php
@@ -114,6 +121,9 @@
         endforeach;
     endif;
     ?>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
+
+    
 </body>
 </html>
