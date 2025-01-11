@@ -72,7 +72,36 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         
         return $result->fetch_all(MYSQLI_ASSOC);
-    }  
+    } 
+    
+    public function createUser($usermail,  $surname, $name, $tel, $password){
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $query = "
+            INSERT INTO utente_registrato (Email, Cognome, Nome, Telefono, Password)
+            VALUES (?, ?, ?, ?, ?)
+        ";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('sssss', $usermail,  $surname, $name, $tel, $hashedPassword);
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkEmail($email){
+        $sql = "SELECT * FROM utente_registrato WHERE Email = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();        
+        return $exist = $result->num_rows > 0;
+        }
+    
+    
+
+
 
 }
 

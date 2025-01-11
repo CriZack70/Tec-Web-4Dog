@@ -5,7 +5,7 @@ elseif (isset($templateParams["relatedprod"])):
     $prodotti = $templateParams["relatedprod"];
 endif;
 ?>
-<div class="row">
+<div class="row flex-row flex-nowrap overflow-auto">
 <?php foreach($prodotti as $product): ?>
     <div class="col-md-3">
         <div class="card">
