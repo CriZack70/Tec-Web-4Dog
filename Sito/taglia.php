@@ -8,17 +8,17 @@ $templateParams["name"] = "singola-categoria.php";
 $templateParams["categories"] = $dbh->getCategories();
 $templateParams["brands"] = "our_brands.php";
 //Prodotti Categoria Template
-$idcategoria = -1;
+
 if(isset($_GET["id"])){
-    $idcategoria = $_GET["id"];
+    $taglia = $_GET["id"];
 }
-$nomecategoria = $dbh->getCategoryById($idcategoria);
-if(count($nomecategoria)>0){
-    $templateParams["titolo_pagina"] = "Prodotti della categoria ".$nomecategoria[0]["Nome"];
-    $templateParams["casualprod"] = $dbh->getProductsByCategory($idcategoria);
+
+if(isset($taglia)){
+    $templateParams["titolo_pagina"] = "Prodotti per la taglia " . $taglia;
+    $templateParams["casualprod"] = $dbh->getProductsBySize($taglia);
 }
 else{
-    $templateParams["titolo_pagina"] = "Categoria non trovata"; 
+    $templateParams["titolo_pagina"] = "Taglia non trovata"; 
     $templateParams["casualprod"] = array();   
 }
 

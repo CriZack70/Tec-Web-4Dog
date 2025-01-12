@@ -33,20 +33,11 @@ header h1 {
     text-decoration: none;
 }
 
-/*header span {
-    
-    font-size: 100%;
-    color:white;
-    font-style: oblique;
-}
-*/
+
 .d-block{
     font-size: 100%;
-    color:white;
-    
+    color:white;    
 }
-
-
 
 
 /* Header navigation and search styles */
@@ -84,6 +75,11 @@ button.btn.dropdown-toggle {
     border: none;
 }
 
+
+header .dropdown-item{
+    color: black;
+}
+
 header .btn-search {
     background-color: white;
     color: black;
@@ -106,6 +102,8 @@ header form .visually-hidden{
   border: 0;
 
 }
+
+
 
 aside{
     background-color:yellow;
@@ -171,9 +169,10 @@ main > div > div > section:nth-child(3) {
 main .section5 ul li a {
     font-family: Arial, sans-serif;  /* Imposto la dimensione delle 2 label */
     font-size: 150%;
+
 }
 
-main .section5 .btnlog{    /*bottone Accedi*/
+  .btnlog{    /*bottone Accedi*/
     font-family: Arial, sans-serif;
     font-size: 150%;
     background-color: yellowgreen;
@@ -181,11 +180,7 @@ main .section5 .btnlog{    /*bottone Accedi*/
     padding: 2%;
 }
 
-main .section5 form > div > label {
-    font-family: Arial, sans-serif;
-    font-size: 110%;
-    font-weight: bold;
-}
+ 
 
 
 

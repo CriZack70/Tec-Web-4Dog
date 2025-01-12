@@ -14,4 +14,7 @@ function registerLoggedUser($user){
     $_SESSION["Nome"] = $user["Nome"];
 }
 
+
+
+
 ?>
