@@ -35,7 +35,7 @@
                         <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Account</a></li>
                         <li><a class="dropdown-item" href="#">Ordini</a></li>
                         <li><a class="dropdown-item" href="#">Notifiche</a></li>
-                        <li><a class="dropdown-item" href="#">Il mio Doggy</a></li>
+                        <li><a class="dropdown-item" href="myDoggy.php">Il mio Doggy</a></li>
                     </ul>
                 </div>
                 <button class="btn btn-light btn-cart"><span class="fa fa-shopping-cart"></span></button>
@@ -46,10 +46,10 @@
 
     <main class="container-fluid">
         <div class="row">
-        <?php if(isUserLoggedIn()): 
+        <?php if(isUserLoggedIn()):
         $username = $_SESSION["Nome"];
         ?>
-        <h2 style="text-align:center;">Ciao <?php echo htmlspecialchars($username); ?>!</h2> 
+        <h2 style="text-align:center;">Ciao <?php echo htmlspecialchars($username); ?>!</h2>
         <?php endif;?>
 
         <?php

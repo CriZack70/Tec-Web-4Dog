@@ -6,7 +6,7 @@ class DatabaseHelper{
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
         if ($this->db->connect_error) {
             die("Connection failed: " . $db->connect_error);
-        }        
+        }
     }
 
     public function getCategories(){
@@ -70,10 +70,17 @@ class DatabaseHelper{
         $stmt->bind_param('s', $usermail);
         $stmt->execute();
         $result = $stmt->get_result();
-        
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }  
 
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    public function getDogByUserId($useremail) {
+        $query = "SELECT * FROM doggy WHERE Email = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }
 
 ?>
