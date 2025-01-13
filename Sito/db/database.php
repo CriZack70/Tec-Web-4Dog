@@ -74,14 +74,7 @@ class DatabaseHelper{
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    public function getDogByUserId($useremail) {
-        $query = "SELECT * FROM doggy WHERE Email = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
+
 
 
     public function getProductsBySize($taglia) {
@@ -120,6 +113,52 @@ class DatabaseHelper{
         $result = $stmt->get_result();
         return $exist = $result->num_rows > 0;
     }
+
+    public function getDogByEmail($email) {
+        $query = "SELECT * FROM doggy WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        if (!$stmt) {
+            die("Errore nella preparazione della query: " . $this->db->error);
+        }
+
+        $stmt->bind_param("s", $email);
+        if (!$stmt->execute()) {
+            die("Errore nell'esecuzione della query: " . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+        if ($result === false) {
+            die("Errore nel recupero dei risultati: " . $stmt->error);
+        }
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function insertDog($email, $nome, $taglia, $sesso, $data_nascita) {
+        $query = "INSERT INTO doggy (Email, Nome, Taglia, Sesso, Eta)
+                  VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssss", $email, $nome, $taglia, $sesso, $data_nascita);
+        return $stmt->execute();
+
+    }
+
+    public function updateDog($email, $nome, $taglia, $sesso, $data_nascita) {
+        $query = "UPDATE doggy
+                  SET Nome = ?, Taglia = ?, Sesso = ?, Eta = ?
+                  WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssss", $email, $nome, $taglia, $sesso, $data_nascita);
+        return $stmt->execute();
+    }
+    public function deleteDog($idUtente) {
+        $query = "DELETE FROM doggy WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $idUtente);
+        return $stmt->execute();
+    }
+
+
 
 }
 
