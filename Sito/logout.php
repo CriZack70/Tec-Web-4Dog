@@ -1,10 +1,10 @@
 <?php
 require_once 'bootstrap.php';
-
-    session_start();
+    
     session_unset();
-    session_destroy();
-    echo "<script>window.open('index.php','_self')</script>";   
+    session_destroy();    
+    header("Location: index.php");
+    exit(); 
 
 require 'template/base.php';    
 ?>
