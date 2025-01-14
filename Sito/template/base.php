@@ -18,8 +18,11 @@
             <span class="d-block">Spedizione gratuita</span>
             <a href="index.php"><h1>4Dogs</h1></a>
         </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex flex-fill align-items-center">
+        <div class="d-flex justify-content-center align-items-center mb-2 position-relative">
+
+        
+       
+        <div class="d-flex flex-fill align-items-center">
                 <button class="btn btn-light" href="mascotte.php"><span class="fas fa-dog"></span></button>
                 <span class="our-dogs ms-1" href="mascotte.php">Le nostre Mascotte!</span>
             </div>
@@ -34,20 +37,22 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <?php if(!isUserLoggedIn()): ?>
-                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Accedi</a></li>                
+                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Accedi</a></li> 
+                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Ordini</a></li>
+                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Notifiche</a></li>
+                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Il mio Doggy</a></li>               
                         <?php else: ?>
                         <li><a class="dropdown-item"<?php isActive("account.php");?> href="account.php">Account</a></li>
-                        <?php endif; ?>                        
                         <li><a class="dropdown-item" href="#">Ordini</a></li>
                         <li><a class="dropdown-item" href="#">Notifiche</a></li>
                         <li><a class="dropdown-item" href="#">Il mio Doggy</a></li>
-                        <li><a class="<?php echo isUserLoggedIn() ? 'dropdown-item' : 'dropdown-item d-none'; ?>" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>   
-                        
+                        <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
+                        <?php endif; ?>                                           
                     </ul>
                 </div>
                 <button class="btn btn-light btn-cart"><span class="fa fa-shopping-cart"></span></button>
 
-            </div>
+            </div> 
         </div>
     </header>
 

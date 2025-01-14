@@ -2,9 +2,9 @@
         <div class="text-center mb-2">
             <h2>Scegli la taglia del tuo Cane:</h2>
             <div class="d-flex justify-content-center">
-                <button class="btn btn-light mx-2"><span class="fa fa-paw fs-3 pe-2"></span><a class="text-decoration-none text-dark" href="taglia.php?id=S">Piccolo</a></button>
-                <button class="btn btn-light mx-2"><span class="fa fa-paw fs-3 pe-2"></span><a class="text-decoration-none text-dark" href="taglia.php?id=M">Medio</a></button>
-                <button class="btn btn-light mx-2"><span class="fa fa-paw fs-3 pe-2"></span><a class="text-decoration-none text-dark" href="taglia.php?id=L">Grande</a></button>
+            <a class="text-decoration-none text-dark" href="taglia.php?id=S"><button class="btn btn-light mx-2"><span class="fa fa-paw fs-3 pe-2"></span>Piccolo</button></a>
+            <a class="text-decoration-none text-dark" href="taglia.php?id=M"><button class="btn btn-light mx-2"><span class="fa fa-paw fs-3 pe-2"></span>Medio</button></a>
+            <a class="text-decoration-none text-dark" href="taglia.php?id=L"><button class="btn btn-light mx-2"><span class="fa fa-paw fs-3 pe-2"></span>Grande</button></a>
             </div>
         </div>
     </section>
