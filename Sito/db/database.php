@@ -6,7 +6,7 @@ class DatabaseHelper{
         $this->db = new mysqli($servername, $username, $password, $dbname, $port);
         if ($this->db->connect_error) {
             die("Connection failed: " . $db->connect_error);
-        }        
+        }
     }
 
     public function getCategories(){
@@ -64,19 +64,21 @@ class DatabaseHelper{
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    
+
     public function checkLogin($usermail){
         $query = "SELECT Email, Password, Nome FROM utente_registrato WHERE  Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $usermail);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+
+
     public function getProductsBySize($taglia) {
-        $query = "SELECT p.CodProdotto, p.Nome, p.Percorso_Immagine FROM prodotto p, 
+        $query = "SELECT p.CodProdotto, p.Nome, p.Percorso_Immagine FROM prodotto p,
                     versione_prodotto vp WHERE vp.TagliaCane LIKE ? AND vp.CodProdotto = p.CodProdotto";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s',$taglia);
@@ -86,7 +88,7 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    
+
     public function createUser($usermail,  $surname, $name, $tel, $password){
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         $query = "
@@ -108,10 +110,56 @@ class DatabaseHelper{
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
-        $result = $stmt->get_result();        
+        $result = $stmt->get_result();
         return $exist = $result->num_rows > 0;
     }
-    
+
+    public function getDogByEmail($email) {
+        $query = "SELECT * FROM doggy WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        if (!$stmt) {
+            die("Errore nella preparazione della query: " . $this->db->error);
+        }
+
+        $stmt->bind_param("s", $email);
+        if (!$stmt->execute()) {
+            die("Errore nell'esecuzione della query: " . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+        if ($result === false) {
+            die("Errore nel recupero dei risultati: " . $stmt->error);
+        }
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function insertDog($email, $nome, $taglia, $sesso, $data_nascita) {
+        $query = "INSERT INTO doggy (Email, Nome, Taglia, Sesso, Eta)
+                  VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssss", $email, $nome, $taglia, $sesso, $data_nascita);
+        return $stmt->execute();
+
+    }
+
+    public function updateDog($email, $nome, $taglia, $sesso, $data_nascita) {
+        $query = "UPDATE doggy
+                  SET Nome = ?, Taglia = ?, Sesso = ?, Eta = ?
+                  WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssss", $email, $nome, $taglia, $sesso, $data_nascita);
+        return $stmt->execute();
+    }
+    public function deleteDog($idUtente) {
+        $query = "DELETE FROM doggy WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $idUtente);
+        return $stmt->execute();
+    }
+
+
+
 }
 
 ?>
