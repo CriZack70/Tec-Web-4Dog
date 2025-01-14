@@ -1,6 +1,6 @@
 <?php
 require_once 'bootstrap.php';
-session_start(); // Assicurati che la sessione sia avviata
+//session_start(); // Assicurati che la sessione sia avviata
 
 // Controlla se l'utente è loggato
 if (isUserLoggedIn()) {
@@ -9,10 +9,16 @@ if (isUserLoggedIn()) {
 
     // Recupera i dettagli del cane associato all'utente loggato
     $dog = $dbh->getDogByEmail($user_email);
-
+    
+    
     if ($dog && count($dog) > 0) {
         // Cane già presente: Mostra il form precompilato per modifica o cancellazione
-        $templateParams["dog"] = $dog[0]; // Prendi il primo (e unico) cane trovato
+        $templateParams["dog"]= [
+            "nome" => $dog[0]["Nome"],
+            "taglia" => $dog[0]["Taglia"],
+            "sesso" => $dog[0]["Sesso"],
+            "eta" => $dog[0]["Eta"]
+        ]; // Prendi il primo (e unico) cane trovato
         $templateParams["action"] = "modifica"; // Azione specifica per il form
         $templateParams["titolo_pagina"] = "Modifica o Cancella i dati del tuo Doggy";
     } else {

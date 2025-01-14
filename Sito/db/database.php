@@ -91,18 +91,12 @@ class DatabaseHelper{
 
     public function createUser($usermail,  $surname, $name, $tel, $password){
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = "
-            INSERT INTO utente_registrato (Email, Cognome, Nome, Telefono, Password)
-            VALUES (?, ?, ?, ?, ?)
-        ";
+        $query = "INSERT INTO utente_registrato (Email, Cognome, Nome, Telefono, Password)
+            VALUES (?, ?, ?, ?, ?)";
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('sssss', $usermail,  $surname, $name, $tel, $hashedPassword);
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $stmt->execute();
     }
 
     public function checkEmail($email){
@@ -134,22 +128,22 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function insertDog($email, $nome, $taglia, $sesso, $data_nascita) {
+    public function insertDog($email, $nome, $taglia, $sesso, $eta) {
         $query = "INSERT INTO doggy (Email, Nome, Taglia, Sesso, Eta)
                   VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sssss", $email, $nome, $taglia, $sesso, $data_nascita);
+        $stmt->bind_param("sssss", $email, $nome, $taglia, $sesso, $eta);
         return $stmt->execute();
 
     }
 
-    public function updateDog($email, $nome, $taglia, $sesso, $data_nascita) {
+    public function updateDog($email, $nome, $taglia, $sesso, $eta) {
         $query = "UPDATE doggy
                   SET Nome = ?, Taglia = ?, Sesso = ?, Eta = ?
                   WHERE Email = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("sssss", $email, $nome, $taglia, $sesso, $data_nascita);
-        return $stmt->execute();
+        $stmt->bind_param("sssss", $nome, $taglia, $sesso, $eta, $email);
+        return $stmt->execute();     
     }
     public function deleteDog($idUtente) {
         $query = "DELETE FROM doggy WHERE Email = ?";
