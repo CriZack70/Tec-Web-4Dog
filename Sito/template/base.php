@@ -19,21 +19,19 @@
             <a href="index.php"><h1>4Dogs</h1></a>
         </div>
         <div class="d-flex justify-content-center align-items-center mb-2 position-relative">
-
-        
-       
-        <div class="d-flex flex-fill align-items-center">
-                <button class="btn btn-light" href="mascotte.php"><span class="fas fa-dog"></span></button>
-                <span class="our-dogs ms-1" href="mascotte.php">Le nostre Mascotte!</span>
+            <div class="d-flex flex-fill align-items-center">
+                <button class="btn btn-light me-1" href="mascotte.php"><span class="fas fa-dog"></span></button>
+                <span class="our-dogs ms-1 d-none d-md-block" href="mascotte.php">Le nostre Mascotte!</span>
             </div>
-            <form class="d-flex flex-fill">
+            <form class="d-flex flex-fill me-1">
                 <input type="text" class="form-control" placeholder="Cerca..." name="search">
-                <button type="submit" class="btn btn-light"><span class="fa fa-search"></span></button>
+                <button type="submit" class="btn btn-light ms-1"><span class="fa fa-search"></span></button>
             </form>
             <div class="d-flex flex-fill justify-content-end">
                 <div class="dropdown d-inline-block">
-                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                        Il mio Profilo
+                    <button class="btn btn-light dropdown-toggle p-2 ms-1" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-user"></i>
+                        <span class="">Profilo</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <?php if(!isUserLoggedIn()): ?>

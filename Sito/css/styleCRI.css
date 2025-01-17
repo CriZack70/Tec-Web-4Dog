@@ -49,7 +49,7 @@ header .btn {
 */
 
 header .btn-cart {
-    margin-left: 5%; /* Aggiunge 10px di distanza dal bottone precedente */
+    margin-left: 3%; /* Aggiunge 10px di distanza dal bottone precedente */
 }
 
 header .btn-cart:hover{
