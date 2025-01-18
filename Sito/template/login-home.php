@@ -45,10 +45,8 @@ unset($_SESSION["errorelogin"]);
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 
 
- <script src="./js/tab-pane.js"></script>
-    
- 
-	 		
+<!-- <script src="./js/tab-pane.js"></script> -->
+    	
 </section>
 
 				

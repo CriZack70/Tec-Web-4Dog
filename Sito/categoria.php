@@ -7,6 +7,7 @@ $templateParams["shop"] = true;
 $templateParams["name"] = "singola-categoria.php";
 $templateParams["categories"] = $dbh->getCategories();
 $templateParams["brands"] = "our_brands.php";
+$templateParams["js"] = array("js/rand-utils.js");
 //Prodotti Categoria Template
 $idcategoria = -1;
 if(isset($_GET["id"])){

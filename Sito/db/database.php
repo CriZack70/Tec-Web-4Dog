@@ -65,6 +65,17 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getRelatedProducts($ricerca){
+        $stmt = $this->db->prepare("SELECT CodProdotto, Nome, Percorso_Immagine FROM prodotto WHERE Nome LIKE ? ORDER BY RAND()");
+        $termine = "%" . $ricerca . "%";
+        $stmt->bind_param('s', $termine);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
     public function checkLogin($usermail){
         $query = "SELECT Email, Password, Nome FROM utente_registrato WHERE  Email = ?";
         $stmt = $this->db->prepare($query);

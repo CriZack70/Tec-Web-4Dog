@@ -7,7 +7,8 @@ $templateParams["shop"] = true;
 $templateParams["name"] = "singolo-prodotto.php";
 $templateParams["categories"] = $dbh->getCategories();
 $templateParams["relatedprod"] = $dbh->getRandomProducts(4);
-$templateParams["js"] = array("js/product-utils.js");
+$templateParams["js"] = array("js/product-utils.js", "js/rand-utils.js");
+
 //Home Template
 $idprodotto = -1;
 if(isset($_GET["id"])){

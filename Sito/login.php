@@ -27,7 +27,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
     }    
 }
 
-
+$templateParams["js"] = array("./js/tab-pane.js");
 
 if(isUserLoggedIn()){
     $templateParams["name"] = "home.php";
