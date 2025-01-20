@@ -23,7 +23,7 @@
                 <button class="btn btn-light me-1" href="mascotte.php"><span class="fas fa-dog"></span></button>
                 <span class="our-dogs ms-1 d-none d-md-block" href="mascotte.php">Le nostre Mascotte!</span>
             </div>
-            <form class="d-flex flex-fill me-1">
+            <form class="d-flex flex-fill me-1" method="GET" action="cerca.php">
                 <input type="text" class="form-control" placeholder="Cerca..." name="search">
                 <button type="submit" class="btn btn-light ms-1"><span class="fa fa-search"></span></button>
             </form>
@@ -68,14 +68,16 @@
             <div class="col-md-2 col-lg-2">
                 <aside class="navbar flex-column navbar-light">
                     <div class="container-fluid justify-content-center">
-                        <label class="navbar-brand">Categorie</label>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                        <label class="navbar-brand border-bottom border-dark">Categorie</label>
+                        <button id="cat-button" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                        onclick="toggleUpAndDown()">
+                            <i id="icon-down" class="fas fa-caret-down"></i>
+                            <i id="icon-up" class="fas fa-caret-up d-none"></i>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav flex-column px-5">
                             <?php foreach($templateParams["categories"] as $categoria): ?>
-                                <li class="nav-item"><a class="nav-link border-top border-bottom border-dark" <?php isActive("index.php");?> href="categoria.php?id=<?php echo $categoria["CodCategoria"]; ?>"><?php echo $categoria["Nome"]; ?></a></li>
+                                <li class="nav-item"><a class="nav-link border-bottom border-dark" <?php isActive("index.php");?> href="categoria.php?id=<?php echo $categoria["CodCategoria"]; ?>"><?php echo $categoria["Nome"]; ?></a></li>
                             <?php endforeach; ?>
                             </ul>
                         </div>
@@ -126,7 +128,6 @@
     ?>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
-
     
 </body>
 </html>
