@@ -1,7 +1,7 @@
 <?php
 require_once 'bootstrap.php';
  
-
+$templateParams["js"] = array("./js/gestisci-Doggy.js");
 // Controlla se l'utente è loggato
 if (isUserLoggedIn()) {
     // Ottieni l'ID utente dalla sessione
@@ -19,7 +19,7 @@ if (isUserLoggedIn()) {
             "sesso" => $dog[0]["Sesso"],
             "eta" => $dog[0]["Eta"]
         ]; // Prendi il primo (e unico) cane trovato
-        $templateParams["js"] = array("./js/gestisci-Doggy.js");
+        
         $templateParams["action"] = "modifica"; // Azione specifica per il form*/
         $templateParams["titolo_pagina"] = "Modifica o Cancella i dati del tuo Doggy";
     } else {
@@ -32,6 +32,7 @@ if (isUserLoggedIn()) {
         ];
         $templateParams["action"] = "inserisci"; // Azione specifica per il form
         $templateParams["titolo_pagina"] = "Inserisci i dati del tuo Doggy";
+        
     }
 
     // Imposta i parametri del template

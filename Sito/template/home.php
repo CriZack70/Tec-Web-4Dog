@@ -16,7 +16,7 @@
         <?php
         } else {
         ?>
-            <h3 class="text-center">Prodotti in evidenza></h3>
+            <h3 class="text-center">Prodotti in evidenza</h3>
         <?php }
         ?>
         <div class="row">
