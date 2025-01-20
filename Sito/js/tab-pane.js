@@ -1,16 +1,17 @@
 let scriptLoaded = false;
 let contentLoaded = false;
+let contentloadreg = false
+let scriptLoadedreg = false;
 
-
-jQuery(document).ready(function() { 
+$(document).ready(function() { 
     // Carica il contenuto del tab attivo all'avvio
-    if (!contentLoaded) {
-        jQuery('#accediContent').load('template/accedi.php', function() {
+    if (!contentLoaded) {       
+        $('#accediContent').load('template/accedi.php', function() {
             if (typeof errorMessage !== 'undefined' && errorMessage !== '') {
-                jQuery('#accediContent').prepend('<p style="color: red; text-align:center">' + errorMessage + '</p>');
+                $('#accediContent').prepend('<p style="color: red; text-align:center">' + errorMessage + '</p>');
             }
-            if (!scriptLoaded) {
-                jQuery.getScript('js/accedi-utils.js', function() {
+            if (!scriptLoaded) {                
+                $.getScript('js/accedi-utils.js', function() {
                     scriptLoaded = true;
                 });
             } 
@@ -19,37 +20,29 @@ jQuery(document).ready(function() {
         });
     }
 
-    jQuery('#accedi-tab').on('shown.bs.tab', function () {
-        if (!contentLoaded) {
-            jQuery('#accediContent').load('template/accedi.php', function() {
-                if (!scriptLoaded) {
-                    if (typeof errorMessage !== 'undefined' && errorMessage !== '') {
-                        jQuery('#accediContent').prepend('<p style="color: red; text-align:center">' + errorMessage + '</p>');
-                    }
-                    jQuery.getScript('js/accedi-utils.js', function() {
-                        scriptLoaded = true;
+   
+
+
+    $('#registrati-tab').on('shown.bs.tab', function () {
+        if (!contentloadreg) {        
+            $('#registratiContent').load('template/registrati.php', function() {
+                if (!scriptLoadedreg) {            
+                    $.getScript('js/registrati-utils.js', function() {
+                        scriptLoadedreg = true;
                     });
-                } 
-                contentLoaded = true;
-                
-            });
+                }
+                contentloadreg = true;           
+             });
         }
     });
-
-
-    jQuery('#registrati-tab').on('shown.bs.tab', function () {
-        jQuery('#registratiContent').load('template/registrati.php', function() {            
-            jQuery.getScript('js/registrati-utils.js');            
-        });
-    });
     
     
-    jQuery('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-        let target = jQuery(e.target).attr("href"); // ottieni il tab attivo
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        let target = $(e.target).attr("href"); // ottieni il tab attivo
         if (target === '#accedi') {
-            jQuery('#accedi input').val(''); // svuota i campi del form
+            $('#accedi input').val(''); // svuota i campi del form
         } else if (target === '#registrati') {
-            jQuery('#registrati input').val(''); // svuota i campi del form
+            $('#registrati input').val(''); // svuota i campi del form
         }
     });
 });

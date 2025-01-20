@@ -152,8 +152,71 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
+    public function getUserByEmail($email) {
+        $query = "SELECT * FROM utente_registrato WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        if (!$stmt) {
+            die("Errore nella preparazione della query: " . $this->db->error);
+        }
+
+        $stmt->bind_param("s", $email);
+        if (!$stmt->execute()) {
+            die("Errore nell'esecuzione della query: " . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+        if ($result === false) {
+            die("Errore nel recupero dei risultati: " . $stmt->error);
+        }
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
 
+    public function updateUser($email, $cognome, $nome, $phone){
+        $query = "UPDATE utente_registrato
+                  SET Cognome = ? , Nome = ?, Telefono = ?
+                  WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ssss", $cognome, $nome, $phone, $email);
+        return $stmt->execute(); 
+
+    }
+
+    public function getWishlistInfoes($email) {
+        $query = "SELECT lista_desideri.CodProdotto, lista_desideri.Codice, prodotto.Nome,prodotto.Descrizione, 
+        versione_prodotto.TagliaCane, prodotto.Brand, versione_prodotto.Prezzo,versione_prodotto.SessoCane, 
+        versione_prodotto.EtaCane, versione_prodotto.Colore, versione_prodotto.Composizione_Materiale, prodotto.Percorso_Immagine
+        FROM lista_desideri, versione_prodotto, prodotto
+        WHERE lista_desideri.Email= ? AND lista_desideri.CodProdotto = prodotto.CodProdotto AND 
+        prodotto.CodProdotto = versione_prodotto.CodProdotto AND versione_prodotto.Codice = lista_desideri.Codice";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s',$email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+
+    public function deleteWishProduct($email, $codice) {
+        $query = "DELETE FROM lista_desideri WHERE Email = ? AND Codice = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $email, $codice);
+        return $stmt->execute();
+    }
+
+    public function casualProdDoggy($taglia, $eta, $sesso, $n) {
+        $stmt = $this->db->prepare("SELECT versione_prodotto.CodProdotto, prodotto.Nome, prodotto.Percorso_Immagine FROM versione_prodotto, prodotto
+         WHERE versione_prodotto.CodProdotto= prodotto.CodProdotto AND ( versione_prodotto.TagliaCane = ? OR EtaCane= ? OR SessoCane = ? ) LIMIT ? ");
+        $stmt->bind_param('sssi',$taglia, $eta, $sesso,  $n);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
 }
 
+
+   
 ?>

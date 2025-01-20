@@ -19,7 +19,6 @@ endif;
 </div>
 <section class="section3">
     <div class="row bg-light">
-        <h4 class="text-center">Offerte attive</h4>
-        <p class="text-center">Approfittane ora!!!</p>
+        <h4 class="text-center">Approfittane ora!!!</h4>            
     </div>
 </section>

@@ -5,11 +5,6 @@ unset($_SESSION["errorelogin"]);
 <script>
         let errorMessage = "<?php echo $errorMessage; ?>";
     </script>
-
-
-<?php if(isset($templateParams["titolo_pagina"])): ?>
-<h2 style="text-align:center;"><?php echo $templateParams["titolo_pagina"]; ?></h2>
-<?php endif;?>
                         
 <section class="section5 mt-3 mb-2 border border-0 shadow-none" style="background-color: white;">
         
@@ -45,7 +40,7 @@ unset($_SESSION["errorelogin"]);
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 
 
- <script src="./js/tab-pane.js"></script>
+ 
     
  
 	 		
