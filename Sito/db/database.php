@@ -55,10 +55,20 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getProductInfos($idprodotto) {
+    public function getProductVersions($idprodotto) {
         $query = "SELECT * FROM versione_prodotto WHERE CodProdotto=?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i',$idprodotto);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getProductInfos($idprodotto, $idversione) {
+        $query = "SELECT TagliaCane, EtaCane, Composizione_Materiale, Prezzo, Disponibilita FROM versione_prodotto WHERE CodProdotto=? AND Codice=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii',$idprodotto, $idversione);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -163,8 +173,54 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
+    public function addToCart($userId, $prodVer, $productId, $quantity) {
+        $query = "INSERT INTO carrello (Email, Codice, CodProdotto, Quantita) VALUES (?, ?, ?, ?) 
+                  ON DUPLICATE KEY UPDATE Quantita = Quantita + ?";
+        $stmt = $this->db->prepare($query);
 
+        $stmt->bind_param("siiii", $userId, $prodVer, $productId, $quantity, $quantity);
+        $stmt->execute();
 
+        return $stmt->insert_id;
+    }
+    
+    public function addToWishlist($userId, $prodVer, $productId) {
+        $query = "INSERT INTO lista_desideri (Codice, CodProdotto, Email) VALUES (?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("iis", $prodVer, $productId, $userId);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
+
+    public function getCart($userId) {
+        $query = "SELECT p.CodProdotto, p.Nome, p.Percorso_Immagine, c.Quantita, vp.Codice, vp.TagliaCane, vp.EtaCane, vp.Composizione_Materiale, vp.Prezzo, vp.Disponibilita FROM prodotto p,
+                    carrello c, versione_prodotto vp WHERE c.Email LIKE ? AND c.CodProdotto = p.CodProdotto AND c.CodProdotto = vp.CodProdotto AND c.Codice = vp.Codice";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s',$userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function removeFromCart($userId, $productId, $version) {
+        $query = "DELETE FROM carrello WHERE Email = ? AND CodProdotto = ? AND Codice = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sii", $userId, $productId, $version);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
+
+    public function updateCart($quantity, $userId, $productId, $version) {
+        $query = "UPDATE carrello SET Quantita = ? WHERE Email = ? AND CodProdotto = ? AND Codice = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("isii", $quantity, $userId, $productId, $version);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
 }
 
 ?>

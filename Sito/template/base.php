@@ -48,8 +48,7 @@
                         <?php endif; ?>                                           
                     </ul>
                 </div>
-                <button class="btn btn-light btn-cart"><span class="fa fa-shopping-cart"></span></button>
-
+                <a class="ms-1" href="carrello.php"><button class="btn btn-light btn-cart h-100 w-100"><i class="fa fa-shopping-cart"></i></button></a>
             </div> 
         </div>
     </header>
