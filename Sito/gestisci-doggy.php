@@ -23,7 +23,7 @@ try {
             throw new Exception("Errore durante l'inserimento: " . $dbh->error);
         }
         $msg = "Cane inserito correttamente!";
-    } elseif ($action === "modifica") {
+    } elseif ($action === "salva") {
         
             $nome = htmlspecialchars($_POST["nome"]);
             $taglia = htmlspecialchars($_POST["taglia"]);

@@ -177,17 +177,36 @@ class DatabaseHelper{
         $query = "INSERT INTO carrello (Email, Codice, CodProdotto, Quantita) VALUES (?, ?, ?, ?) 
                   ON DUPLICATE KEY UPDATE Quantita = Quantita + ?";
         $stmt = $this->db->prepare($query);
-
         $stmt->bind_param("siiii", $userId, $prodVer, $productId, $quantity, $quantity);
         $stmt->execute();
 
         return $stmt->insert_id;
     }
-    
-    public function addToWishlist($userId, $prodVer, $productId) {
-        $query = "INSERT INTO lista_desideri (Codice, CodProdotto, Email) VALUES (?, ?, ?)";
+        
+    public function getUserByEmail($email) {
+        $query = "SELECT * FROM utente_registrato WHERE Email = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("iis", $prodVer, $productId, $userId);
+        if (!$stmt) {
+            die("Errore nella preparazione della query: " . $this->db->error);
+        }
+
+        $stmt->bind_param("s", $email);
+        if (!$stmt->execute()) {
+            die("Errore nell'esecuzione della query: " . $stmt->error);
+        }
+
+        $result = $stmt->get_result();
+        if ($result === false) {
+            die("Errore nel recupero dei risultati: " . $stmt->error);
+        }
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addToWishlist($userId, $productId) {
+        $query = "INSERT INTO lista_desideri (CodProdotto, Email) VALUES (?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $productId, $userId);
         $stmt->execute();
 
         return $stmt->insert_id;
@@ -198,6 +217,44 @@ class DatabaseHelper{
                     carrello c, versione_prodotto vp WHERE c.Email LIKE ? AND c.CodProdotto = p.CodProdotto AND c.CodProdotto = vp.CodProdotto AND c.Codice = vp.Codice";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s',$userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+        
+    public function updateUser($email, $cognome, $nome, $phone){
+        $query = "UPDATE utente_registrato
+                  SET Cognome = ? , Nome = ?, Telefono = ?
+                  WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ssss", $cognome, $nome, $phone, $email);
+        return $stmt->execute(); 
+
+    }
+
+    public function getWishlistInfoes($email) {
+        $query = "SELECT lista_desideri.CodProdotto, prodotto.Nome, prodotto.Descrizione, prodotto.Brand, prodotto.Percorso_Immagine
+        FROM lista_desideri, prodotto
+        WHERE lista_desideri.Email= ? AND lista_desideri.CodProdotto = prodotto.CodProdotto";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s',$email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function deleteWishProduct($email, $codice) {
+        $query = "DELETE FROM lista_desideri WHERE Email = ? AND CodProdotto = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $email, $codice);
+        return $stmt->execute();
+    }
+
+    public function casualProdDoggy($taglia, $eta, $sesso, $n) {
+        $stmt = $this->db->prepare("SELECT versione_prodotto.CodProdotto, prodotto.Nome, prodotto.Percorso_Immagine FROM versione_prodotto, prodotto
+         WHERE versione_prodotto.CodProdotto= prodotto.CodProdotto AND ( versione_prodotto.TagliaCane = ? OR EtaCane= ? OR SessoCane = ? ) LIMIT ? ");
+        $stmt->bind_param('sssi',$taglia, $eta, $sesso,  $n);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -220,6 +277,17 @@ class DatabaseHelper{
         $stmt->execute();
 
         return $stmt->insert_id;
+
+    }
+
+    public function isInWishList($userId, $productId) {
+        $query = "SELECT COUNT(*) AS total FROM lista_desideri WHERE Email = ? AND CodProdotto = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $userId, $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()["total"];
     }
 }
 

@@ -25,7 +25,7 @@ if ($listType === 'cart') {
     $dbh->addToCart($userId, $version, $productId, $quantity);
     echo json_encode(['status' => 'success', 'message' => 'Item added to cart']);
 } elseif ($listType === 'wishlist') {
-    $dbh->addToWishlist($userId, $version, $productId);
+    $dbh->addToWishlist($userId, $productId);
     echo json_encode(['status' => 'success', 'message' => 'Item added to wishlist']);
 }
 

@@ -1,5 +1,5 @@
 <div class="container mt-4">
-    <h2>Il tuo Carrello</h2>
+    <h2>Il mio Carrello</h2>
 
     <?php if (empty($templateParams["cartprod"])): ?>
         <p>Il carrello è vuoto.</p>
@@ -43,6 +43,6 @@
     </table>
 
     <h3>Totale: <span id="totale"><?= number_format($total, 2) ?><span> €</h3>
-    <a href="ordini.php"><button class="btn btn-primary">Prosegui Ordine</button><a>
+    <a href="ordini.php"><button class="btn btn-primary mb-3">Prosegui Ordine</button><a>
     <?php endif; ?>
 </div>

@@ -3,7 +3,8 @@
 <?php endif;?>
 
 
-<section class="section6 mt-3 border-0 shadow-none" style="background-color: white;">
+
+<section class="section6 mt-5 border-0 shadow-none" style="background-color: white;">
     <div class="container d-flex justify-content-center align-items-center mt-1 mb-2">
         <div class="row w-100">
             <div class="col-12 col-md-6 mx-auto">
@@ -12,11 +13,11 @@
                     <div class="mb-3">
                         <label for="nome" class="form-label">Nome Cucciolo:</label>
                         <input type="text" id="nome" class="form-control" name="nome"
-                               value="<?php echo htmlspecialchars($templateParams["dog"]["nome"]); ?>" required/>
+                               value="<?php echo htmlspecialchars($templateParams["dog"]["nome"]); ?>" disabled/>
                     </div>
                     <div class="mb-3">
                         <label for="taglia" class="form-label">Taglia:</label>
-                        <select id="taglia" name="taglia" class="form-select" required>
+                        <select id="taglia" name="taglia" class="form-select" disabled>
                             <option value="" disabled selected>Seleziona una taglia</option>
                             <option value="S" <?php echo $templateParams["dog"]["taglia"] === "S" ? "selected" : ""; ?>>Piccola</option>
                             <option value="M" <?php echo $templateParams["dog"]["taglia"] === "M" ? "selected" : ""; ?>>Media</option>
@@ -26,14 +27,14 @@
                     <div class="mb-3">
                         <label>Sesso:</label><br>
                         <input type="radio" id="maschio" name="sesso" value="M"
-                               <?php echo $templateParams["dog"]["sesso"] === "M" ? "checked" : ""; ?> required/>
+                               <?php echo $templateParams["dog"]["sesso"] === "M" ? "checked" : ""; ?> disabled/>
                         <label for="maschio">Maschio</label>
                         <input type="radio" id="femmina" name="sesso" value="F"
-                               <?php echo $templateParams["dog"]["sesso"] === "F" ? "checked" : ""; ?> required/>
+                               <?php echo $templateParams["dog"]["sesso"] === "F" ? "checked" : ""; ?> disabled/>
                         <label for="femmina">Femmina</label>
                     </div>
                     <div class="mb-3">
-                    <select id="eta" name="eta" class="form-select" required>
+                    <select id="eta" name="eta" class="form-select" disabled>
                             <option value="" disabled selected>Seleziona età</option>
                             <option value="Puppy" <?php echo $templateParams["dog"]["eta"] === "Puppy" ? "selected" : ""; ?>>Puppy</option>
                             <option value="Adult" <?php echo $templateParams["dog"]["eta"] === "Adult" ? "selected" : ""; ?>>Adult</option>
@@ -42,7 +43,8 @@
                     </div>
                     
                     <div class="d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary">
+                    <input type="hidden" id="actionField" name="action" value="<?php echo $templateParams["action"]; ?>"/>
+                        <button type="<?php echo $templateParams["action"] === "modifica" ? "button" : "submit"; ?>" id="editButton" class="btn btn-primary">
                             <?php echo $templateParams["action"] === "modifica" ? "Modifica" : "Inserisci"; ?>
                         </button>                    
                         <?php if ($templateParams["action"] === "modifica"): ?>

@@ -2,14 +2,14 @@
 if (isset($templateParams["casualprod"])): 
     $prodotti = $templateParams["casualprod"];
 elseif (isset($templateParams["relatedprod"])): 
-    $prodotti = $templateParams["relatedprod"];
-endif;
-?>
-<div class="row mt-3 mb-5">
-    <div class="d-flex justify-content-center">
+    $prodotti = $templateParams["relatedprod"]; ?>
+    <div class="row mt-3 mb-5">
+    <div class="d-flex justify-content-center bg-light mb-3 pt-2">
         <h3>Potrebbero interessarti anche...<h3>
     </div>
-<div>
+    <div>
+<?php endif;
+?>
 <div class="row flex-row flex-nowrap overflow-auto">
 <?php foreach($prodotti as $product): ?>
     <div class="col-md-3">

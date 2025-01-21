@@ -14,7 +14,7 @@
 </head>
 <body>
     <header>
-        <div class="container">
+        <div class="container mb-0">
             <span class="d-block">Spedizione gratuita</span>
             <a href="index.php"><h1>4Dogs</h1></a>
         </div>
@@ -64,7 +64,7 @@
         <?php
         if(isset($templateParams["shop"])){
         ?>
-            <div class="col-md-2 col-lg-2">
+            <div class="col-md-2 col-lg-2 mb-3">
                 <aside class="navbar flex-column navbar-light">
                     <div class="container-fluid justify-content-center">
                         <label class="navbar-brand border-bottom border-dark">Categorie</label>

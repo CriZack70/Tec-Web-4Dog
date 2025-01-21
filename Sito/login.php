@@ -16,7 +16,8 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
             // Imposta la sessione
             $_SESSION["errorelogin"] ="";
             registerLoggedUser($login_result[0]);            
-            echo "<script>window.open('index.php','_self')</script>";         
+            header("Location: index.php");
+            exit;         
           
         } else {      
             $_SESSION["errorelogin"] = "Email o password errati!    Non sei registrato? Registrati!";
@@ -27,25 +28,17 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
     }    
 }
 
-$templateParams["js"] = array("./js/tab-pane.js");
+$templateParams["js"]= array("./js/tab-pane.js");
 
-if(isUserLoggedIn()){
-    $templateParams["name"] = "home.php";
-    $templateParams["titolo"] = "4Dogs - Account";
-    $templateParams["titolo_pagina"] = "Il mio Account";
-    
-    
-    if(isset($_GET["formmsg"])){
-        $templateParams["formmsg"] = $_GET["formmsg"];
-    }
-}
-else{
+
+if(!isUserLoggedIn()){
     $templateParams["name"] = "login-home.php";
     $templateParams["titolo"] = "4Dogs - Login";
-    $templateParams["titolo_pagina"] = "Accedi/Registrati";
+    $templateParams["titolo_pagina"] = "Accedi/Registrati";   
     
-       
+    
 }
+
 
 require 'template/base.php';
 

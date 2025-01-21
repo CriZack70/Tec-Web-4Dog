@@ -1,5 +1,5 @@
 <div class="col-md-2"></div>
-<div class="col-md-10">
+<div class="col-md-10 mt-5">
     <h3 class="text-center">I nostri Brand</h3>
     <div class="row text-center mb-3">
         <div class="col-md-3">

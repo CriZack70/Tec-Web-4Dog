@@ -8,7 +8,7 @@ body {
 
 /* Header styles */
 header {
-    margin-bottom: 2%; /* Spazio sotto l'header */
+    margin-bottom: 0; /* Spazio sotto l'header */
 }
 
 header , footer{
@@ -180,9 +180,74 @@ main .section5 ul li a {
     padding: 2%;
 }
 
+
+.card-wish {
+    position: relative; /* Necessario per posizionare il checkbox */
+    width: 100px;
+    margin-bottom: 15px; /* Spaziatura tra le card */
+    border: 1px solid #ddd; /* Bordo leggero */
+    border-radius: 5px; /* Arrotondamento angoli */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra */
+    margin: 4px; /* Aggiunge uno spazio tra le card */
+    background-color: white;
+}
+
+.card-bodyW {
+    width: 100%; /* Imposta la larghezza della card body al 100% della card */
+    text-align: center; /* Centra il contenuto */    
+    padding-bottom: 30px; /* Aggiunge spazio per il checkbox */
+    
+}
+.card-checkbox {
+    position: absolute;
+    bottom: 10px; /* Posiziona il checkbox a 10px dal fondo */
+    left: 10px; /* Posiziona il checkbox a 10px dal lato sinistro */
+}
+
+.card-wish  .card-bodyW img{
+    border-bottom: 2px solid  red;
+    margin-bottom: 5px;
+    max-width: 100%; /* Imposta la larghezza massima dell'immagine al 100% della card body */
+    height: auto; /* Mantiene le proporzioni dell'immagine */
+    display: block; /* Assicura che l'immagine sia un elemento a blocco */
+    margin-left:  0; 
+    margin-right: 0;
+}
  
+.card-wish  .card-bodyW  a {
+    text-decoration: none; /* Rimuove la sottolineatura */
+    color:blue; /* Colore del link */
+    font-weight: bold; 
+    display: block; /* Assicura che il link sia un elemento a blocco */
+        margin-top: 5px; /* Aggiunge uno spazio tra l'immagine e il testo */
+    font-size: 70%;
+}
 
+.card-wish  .card-bodyW  a:hover {
+    text-decoration: underline; /* Aggiunge sottolineatura al passaggio del mouse */
+    color: #0056b3; /* Colore del link al passaggio del mouse */
+}
+ 
+.my-dog{
+    border: 1px solid #ddd; /* Bordo leggero */
+    border-radius: 5px; /* Arrotondamento angoli */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra */
+}
+.buttonDog{
+    text-decoration: none;
+}
 
+.buttonDog span{
+    font-size: 200%;
+    color:blue;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.buttonDog span:hover{
+    
+    color: lightskyblue;
+}
 
 /* Footer styles */
 footer {
@@ -193,5 +258,5 @@ footer {
 }
 
 a.text-decoration-none:hover {
-    color: #007bff !important; /* Optional: Adds a hover effect */
+    color: #007bff !important; 
 }

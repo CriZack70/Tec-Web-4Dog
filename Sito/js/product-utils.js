@@ -3,6 +3,8 @@ function updateProductDetails(price, availability, version) {
     document.getElementById('availability').textContent = availability;
     document.getElementById('version').textContent = version;
     document.getElementById('quantity').value = 1;
+    document.getElementsByClassName('btn-plus')[0].disabled = false;
+    document.getElementsByClassName('btn-minus')[0].disabled = true;
 }
 
 function updateVersionCode(versionCode) {
@@ -66,24 +68,40 @@ const btnMin = document.getElementsByClassName('btn-minus')[0];
 const btnPlus = document.getElementsByClassName('btn-plus')[0];
 
 function decreaseQuantity() {
+    const availability = document.getElementById('availability').textContent;
     value = parseInt(qta.value, 10);
-    qta.value--;
     if (value > 1) {
-        btnMin.disabled = false;
-        btnPlus.disabled = false;
-    } else if (value < 1) {
+        qta.value--;
+    }
+    if (value <= 2) {
         btnMin.disabled = true;
+    }
+    if (value <= availability) {
+        btnPlus.disabled = false;
     }
 }
 
 function increaseQuantity() {
     const availability = document.getElementById('availability').textContent;
-    qta.value++;
     value = parseInt(qta.value, 10);
     if (value < availability) {
-        btnPlus.disabled = false;
-        btnMin.disabled = false;
-    } else {
+        qta.value++;
+    } 
+    if (value >= availability - 1) {
         btnPlus.disabled = true;
     }
+    if (value >= 1) {
+        btnMin.disabled = false;
+    }
 }
+
+const btnWishList = document.getElementById('add-to-wishlist');
+
+btnWishList.addEventListener('click', () => {
+    btnWishList.classList.remove('btn-outline-secondary');
+    btnWishList.classList.add('btn-danger');
+
+    document.getElementById("text-wishlist").textContent = 'Nella lista Desideri';
+
+    btnWishList.disabled = "disabled";
+});
