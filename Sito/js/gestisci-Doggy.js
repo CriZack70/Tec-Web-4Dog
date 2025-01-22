@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('eta').disabled = false;
         document.getElementById('eta').required = true;
     }
-    console.log('Azione:', action); // Aggiungi questo per verificare il valore dell'azione
-
+    
     if (action === 'inserisci') {
         enableFields();
     }

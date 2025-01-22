@@ -23,11 +23,11 @@
                 <span id="version">Scegli la versione</span>
             </button>
             <ul class="dropdown-menu">
-            <?php foreach ($infoprodotto as $versione): $selezionato = $versione['TagliaCane'] . " - " . $versione['Composizione_Materiale'] . " - " . $versione['EtaCane'] ?>
+            <?php foreach ($infoprodotto as $versione): $selezionato =  $versione['TagliaCane'] . " - " . $versione['EtaCane'] . " - " . $versione['Composizione_Materiale']  ?>
                 <li>
                     <a class="dropdown-item" href="#" 
                         onclick="updateProductDetails('<?= $versione['Prezzo'] ?>', '<?= $versione['Disponibilita'] ?>', '<?= $selezionato ?>'); return false;">
-                        <?= $versione['TagliaCane'] ?> - <?= $versione['Composizione_Materiale'] ?> - <?= $versione['EtaCane'] ?>
+                        Per cani taglia: <?= $versione['TagliaCane'] ?> -  età:  <?= $versione['EtaCane'] ?> - <?= $versione['Composizione_Materiale'] ?>
                     </a>
                 </li>
             <?php endforeach; ?>
