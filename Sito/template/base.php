@@ -48,8 +48,7 @@
                         <?php endif; ?>                                           
                     </ul>
                 </div>
-                <button class="btn btn-light btn-cart"><span class="fa fa-shopping-cart"></span></button>
-
+                <a class="ms-1" href="carrello.php"><button class="btn btn-light btn-cart h-100 w-100"><i class="fa fa-shopping-cart"></i></button></a>
             </div> 
         </div>
     </header>
@@ -65,7 +64,7 @@
         <?php
         if(isset($templateParams["shop"])){
         ?>
-            <div class="col-md-2 col-lg-2">
+            <div class="col-md-2 col-lg-2 mb-3">
                 <aside class="navbar flex-column navbar-light">
                     <div class="container-fluid justify-content-center">
                         <label class="navbar-brand border-bottom border-dark">Categorie</label>

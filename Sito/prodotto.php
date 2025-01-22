@@ -1,6 +1,8 @@
 <?php
 require_once 'bootstrap.php';
 
+$user =  $_SESSION["Email"];
+
 //Base Template
 $templateParams["titolo"] = "4Dogs - One of our best";
 $templateParams["shop"] = true;
@@ -15,7 +17,8 @@ if(isset($_GET["id"])){
     $idprodotto = $_GET["id"];
 }
 $templateParams["prodotto"] = $dbh->getProductById($idprodotto);
-$templateParams["infoprodotto"] = $dbh->getProductInfos($idprodotto);
+$templateParams["infoprodotto"] = $dbh->getProductVersions($idprodotto);
+$templateParams["owned"] = $dbh->isInWishList($user, $idprodotto);
 
 require 'template/base.php';
 ?>

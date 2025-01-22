@@ -55,10 +55,20 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getProductInfos($idprodotto) {
+    public function getProductVersions($idprodotto) {
         $query = "SELECT * FROM versione_prodotto WHERE CodProdotto=?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i',$idprodotto);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getProductInfos($idprodotto, $idversione) {
+        $query = "SELECT TagliaCane, EtaCane, Composizione_Materiale, Prezzo, Disponibilita FROM versione_prodotto WHERE CodProdotto=? AND Codice=?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ii',$idprodotto, $idversione);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -163,6 +173,16 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
+    public function addToCart($userId, $prodVer, $productId, $quantity) {
+        $query = "INSERT INTO carrello (Email, Codice, CodProdotto, Quantita) VALUES (?, ?, ?, ?) 
+                  ON DUPLICATE KEY UPDATE Quantita = Quantita + ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("siiii", $userId, $prodVer, $productId, $quantity, $quantity);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
+        
     public function getUserByEmail($email) {
         $query = "SELECT * FROM utente_registrato WHERE Email = ?";
         $stmt = $this->db->prepare($query);
@@ -183,7 +203,26 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function addToWishlist($userId, $productId) {
+        $query = "INSERT INTO lista_desideri (CodProdotto, Email) VALUES (?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $productId, $userId);
+        $stmt->execute();
 
+        return $stmt->insert_id;
+    }
+
+    public function getCart($userId) {
+        $query = "SELECT p.CodProdotto, p.Nome, p.Percorso_Immagine, c.Quantita, vp.Codice, vp.TagliaCane, vp.EtaCane, vp.Composizione_Materiale, vp.Prezzo, vp.Disponibilita FROM prodotto p,
+                    carrello c, versione_prodotto vp WHERE c.Email LIKE ? AND c.CodProdotto = p.CodProdotto AND c.CodProdotto = vp.CodProdotto AND c.Codice = vp.Codice";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s',$userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+        
     public function updateUser($email, $cognome, $nome, $phone){
         $query = "UPDATE utente_registrato
                   SET Cognome = ? , Nome = ?, Telefono = ?
@@ -195,12 +234,9 @@ class DatabaseHelper{
     }
 
     public function getWishlistInfoes($email) {
-        $query = "SELECT lista_desideri.CodProdotto, lista_desideri.Codice, prodotto.Nome,prodotto.Descrizione, 
-        versione_prodotto.TagliaCane, prodotto.Brand, versione_prodotto.Prezzo,versione_prodotto.SessoCane, 
-        versione_prodotto.EtaCane, versione_prodotto.Colore, versione_prodotto.Composizione_Materiale, prodotto.Percorso_Immagine
-        FROM lista_desideri, versione_prodotto, prodotto
-        WHERE lista_desideri.Email= ? AND lista_desideri.CodProdotto = prodotto.CodProdotto AND 
-        prodotto.CodProdotto = versione_prodotto.CodProdotto AND versione_prodotto.Codice = lista_desideri.Codice";
+        $query = "SELECT lista_desideri.CodProdotto, prodotto.Nome, prodotto.Descrizione, prodotto.Brand, prodotto.Percorso_Immagine
+        FROM lista_desideri, prodotto
+        WHERE lista_desideri.Email= ? AND lista_desideri.CodProdotto = prodotto.CodProdotto";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s',$email);
         $stmt->execute();
@@ -208,9 +244,8 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-
     public function deleteWishProduct($email, $codice) {
-        $query = "DELETE FROM lista_desideri WHERE Email = ? AND Codice = ?";
+        $query = "DELETE FROM lista_desideri WHERE Email = ? AND CodProdotto = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("si", $email, $codice);
         return $stmt->execute();
@@ -224,10 +259,36 @@ class DatabaseHelper{
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
+    public function removeFromCart($userId, $productId, $version) {
+        $query = "DELETE FROM carrello WHERE Email = ? AND CodProdotto = ? AND Codice = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sii", $userId, $productId, $version);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+    }
+
+    public function updateCart($quantity, $userId, $productId, $version) {
+        $query = "UPDATE carrello SET Quantita = ? WHERE Email = ? AND CodProdotto = ? AND Codice = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("isii", $quantity, $userId, $productId, $version);
+        $stmt->execute();
+
+        return $stmt->insert_id;
+
+    }
+
+    public function isInWishList($userId, $productId) {
+        $query = "SELECT COUNT(*) AS total FROM lista_desideri WHERE Email = ? AND CodProdotto = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $userId, $productId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc()["total"];
     }
 }
 
-
-   
 ?>

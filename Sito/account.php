@@ -21,14 +21,10 @@ if(isUserLoggedIn()){
        
     }
 
-    
-    
-
     $templateParams["name"]= "account-form.php";
     $templateParams["titolo"] = "4Dogs - Account";
     $templateParams["titolo_pagina"] = "Il mio Account";
     
-
 }
 
 

@@ -65,7 +65,7 @@
                         <div class="card-bodyW" >
                             <img class="img-fluid" src="<?php echo UPLOAD_DIR.$wish["Percorso_Immagine"]; ?>" alt=""  />
                             <a href="prodotto.php?id=<?php echo $wish["CodProdotto"]; ?>" ><?php echo $wish["Nome"]; ?> </a>
-                            <input type="checkbox" class="card-checkbox" name="prodotti[]" value="<?php echo $wish["Codice"]; ?>" disabled />
+                            <input type="checkbox" class="card-checkbox" name="prodotti[]" value="<?php echo $wish["CodProdotto"]; ?>" disabled />
                         </div>
                     </div>
                
