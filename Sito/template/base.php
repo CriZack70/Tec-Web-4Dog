@@ -53,7 +53,7 @@
         </div>
     </header>
 
-    <main class="container-fluid">
+    <main class="container-fluid mt-3">
         <div class="row">
         <?php if(isUserLoggedIn()): 
         $username = $_SESSION["Nome"];
