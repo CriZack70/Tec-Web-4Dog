@@ -2,13 +2,6 @@
     <h2>Ordine Completato</h2>
     <p>Grazie per aver effettuato un ordine! Ecco i dettagli:</p>
 
-    <pre>
-        <?php
-        // Debug: Visualizza i dettagli direttamente sulla pagina (facoltativo)
-        print_r($templateParams["orderDetails"]);
-        ?>
-    </pre>
-
     <table class="table table-striped table-borderless">
         <thead class="table-info">
             <tr>
