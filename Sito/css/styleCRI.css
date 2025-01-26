@@ -6,6 +6,18 @@ body {
     padding: 0;
 }
 
+html,body{
+    height: 100%
+}
+
+.content {
+    flex: 1 0 auto; /* Allow content to grow and push footer down */
+}
+
+footer {
+    flex-shrink: 0; /* Ensure the footer doesn't shrink */
+}
+
 /* Header styles */
 header {
     margin-bottom: 0; /* Spazio sotto l'header */

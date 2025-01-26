@@ -96,7 +96,15 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function checkAdmin($id) {
+        $query = "SELECT Id_Adm, Password FROM admin WHERE Id_Adm = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 
     public function getProductsBySize($taglia) {
         $query = "SELECT p.CodProdotto, p.Nome, p.Percorso_Immagine FROM prodotto p,
@@ -108,7 +116,6 @@ class DatabaseHelper{
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
 
     public function createUser($usermail,  $surname, $name, $tel, $password){
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -166,6 +173,7 @@ class DatabaseHelper{
         $stmt->bind_param("sssss", $nome, $taglia, $sesso, $eta, $email);
         return $stmt->execute();     
     }
+
     public function deleteDog($idUtente) {
         $query = "DELETE FROM doggy WHERE Email = ?";
         $stmt = $this->db->prepare($query);
@@ -214,7 +222,7 @@ class DatabaseHelper{
 
     public function getCart($userId) {
         $query = "SELECT p.CodProdotto, p.Nome, p.Percorso_Immagine, c.Quantita, vp.Codice, vp.TagliaCane, vp.EtaCane, vp.Composizione_Materiale, vp.Prezzo, vp.Disponibilita FROM prodotto p,
-                    carrello c, versione_prodotto vp WHERE c.Email LIKE ? AND c.CodProdotto = p.CodProdotto AND c.CodProdotto = vp.CodProdotto AND c.Codice = vp.Codice AND c.Numero IS NULL";
+                    carrello c, versione_prodotto vp WHERE c.Email LIKE ? AND c.CodProdotto = p.CodProdotto AND c.CodProdotto = vp.CodProdotto AND c.Codice = vp.Codice";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s',$userId);
         $stmt->execute();
@@ -288,6 +296,79 @@ class DatabaseHelper{
         $result = $stmt->get_result();
 
         return $result->fetch_assoc()["total"];
+    }
+
+    public function getAllUsers() {
+        $stmt = $this->db->prepare("SELECT * FROM utente_registrato");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllOrders() {
+        $stmt = $this->db->prepare("SELECT * FROM ordine");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    public function getAllProducts() {
+        $stmt = $this->db->prepare("SELECT * FROM prodotto");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function getAllVersions() {
+        $query = "SELECT * FROM versione_prodotto ORDER BY CodProdotto";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function deleteUser($user) {
+        $query = "DELETE FROM utente_registrato WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $user);
+
+        return $stmt->execute();
+    }
+
+    public function deleteProduct($productId, $productVer) {
+        $query = "DELETE FROM versione_prodotto WHERE CodProdotto = ? AND Codice = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ii", $productId, $productVer);
+
+        return $stmt->execute();
+    }
+
+    public function editProduct($price, $availability, $productId, $productVer) {
+        $query = "UPDATE versione_prodotto SET Prezzo = ?, Disponibilita = ? WHERE CodProdotto = ? AND Codice = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("diii", $price, $availability, $productId, $productVer);
+
+        return $stmt->execute();
+    }
+
+    public function addVersion($productId, $size, $age, $color, $fabric, $price, $quantity) {
+        $query = "INSERT INTO versione_prodotto (CodProdotto, TagliaCane, EtaCane, Colore, Composizione_Materiale, Prezzo, Disponibilita) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("issssdi", $productId, $size, $age, $color, $fabric, $price, $quantity);
+        
+        return $stmt->execute();
+    }
+
+    public function addProduct($name, $brand, $desc, $img, $category) {
+        $query = "INSERT INTO prodotto (Nome, Brand, Descrizione, Percorso_Immagine, CodCategoria) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ssssi", $name, $brand, $desc, $img, $category);
+        
+        return $stmt->execute();
     }
 }
 

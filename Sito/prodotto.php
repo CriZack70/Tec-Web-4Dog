@@ -16,11 +16,12 @@ if(isset($_GET["id"])){
 }
 $templateParams["prodotto"] = $dbh->getProductById($idprodotto);
 $templateParams["infoprodotto"] = $dbh->getProductVersions($idprodotto);
-$templateParams["owned"] = 0;
 
 if (isUserLoggedIn()) {
     $user =  $_SESSION["Email"];
     $templateParams["owned"] = $dbh->isInWishList($user, $idprodotto);
+} else {
+    $templateParams["owned"] = false;
 }
 
 require 'template/base.php';
