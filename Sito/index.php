@@ -12,14 +12,12 @@ $templateParams["casualprod"] = $dbh->getRandomProducts(4);
 $templateParams["brands"] = "our_brands.php";
 $templateParams["js"] = array("js/rand-utils.js");
 
-require 'template/base.php';
 }else {
     $email = $_SESSION["Email"];
     $isDog = $dbh->getDogByEmail($email);
     if(empty($isDog)){
     $templateParams["casualprod"] = $dbh->getRandomProducts(4);
     $templateParams["brands"] = "our_brands.php";
-    require 'template/base.php';
     }else{
         $taglia = $isDog[0]["Taglia"];
         $eta = $isDog[0]["Eta"];
@@ -31,8 +29,9 @@ require 'template/base.php';
         ];
         $templateParams["casualprod"] = $dbh->casualProdDoggy($taglia, $eta, $sesso, 4);
         $templateParams["brands"] = "our_brands.php";
-       require 'template/base.php';
     }
 }
+
+require 'template/base.php';
 
 ?>
