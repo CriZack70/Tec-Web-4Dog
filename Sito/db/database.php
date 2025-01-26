@@ -298,7 +298,6 @@ class DatabaseHelper{
         return $result->fetch_assoc()["total"];
     }
 
-<<<<<<< HEAD
         // Inserisce un nuovo ordine e restituisce l'ID dell'ordine
         public function insertOrder($email, $dataOrdine) {
             $query = "INSERT INTO ordine (Email, Data) VALUES (?, ?)";
@@ -370,7 +369,6 @@ class DatabaseHelper{
 
 
 
-=======
     public function getAllUsers() {
         $stmt = $this->db->prepare("SELECT * FROM utente_registrato");
         $stmt->execute();
@@ -386,7 +384,7 @@ class DatabaseHelper{
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-    
+
     public function getAllProducts() {
         $stmt = $this->db->prepare("SELECT * FROM prodotto");
         $stmt->execute();
@@ -432,7 +430,7 @@ class DatabaseHelper{
         $query = "INSERT INTO versione_prodotto (CodProdotto, TagliaCane, EtaCane, Colore, Composizione_Materiale, Prezzo, Disponibilita) VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("issssdi", $productId, $size, $age, $color, $fabric, $price, $quantity);
-        
+
         return $stmt->execute();
     }
 
@@ -440,10 +438,9 @@ class DatabaseHelper{
         $query = "INSERT INTO prodotto (Nome, Brand, Descrizione, Percorso_Immagine, CodCategoria) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ssssi", $name, $brand, $desc, $img, $category);
-        
+
         return $stmt->execute();
     }
->>>>>>> dd6418e0cd110670091df1a2867096c6b06437e4
 }
 
 ?>
