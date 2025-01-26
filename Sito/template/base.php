@@ -35,30 +35,30 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <?php if(!isUserLoggedIn()): ?>
-                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Accedi</a></li> 
+                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Accedi</a></li>
                         <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Ordini</a></li>
                         <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Notifiche</a></li>
-                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Il mio Doggy</a></li>               
+                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Il mio Doggy</a></li>
                         <?php else: ?>
                         <li><a class="dropdown-item"<?php isActive("account.php");?> href="account.php">Account</a></li>
-                        <li><a class="dropdown-item" href="#">Ordini</a></li>
+                        <li><a class="dropdown-item" <?php isActive("ordini-totali.php");?> href="ordini-totali.php">Ordini</a></li>
                         <li><a class="dropdown-item" href="#">Notifiche</a></li>
                         <li><a class="dropdown-item"<?php isActive("myDoggy.php");?>  href="myDoggy.php">Il mio Doggy</a></li>
                         <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
-                        <?php endif; ?>                                           
+                        <?php endif; ?>
                     </ul>
                 </div>
                 <a class="ms-1" href="carrello.php"><button class="btn btn-light btn-cart h-100 w-100"><i class="fa fa-shopping-cart"></i></button></a>
-            </div> 
+            </div>
         </div>
     </header>
 
     <main class="container-fluid">
         <div class="row">
-        <?php if(isUserLoggedIn()): 
+        <?php if(isUserLoggedIn()):
         $username = $_SESSION["Nome"];
         ?>
-        <span class ="hello py-0 px-3 " style="text-align:right; font-size: 150%">Ciao <?php echo htmlspecialchars($username); ?>!</span> 
+        <span class ="hello py-0 px-3 " style="text-align:right; font-size: 150%">Ciao <?php echo htmlspecialchars($username); ?>!</span>
         <?php endif;?>
 
         <?php
@@ -126,7 +126,7 @@
     endif;
     ?>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
-    
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 </body>
 </html>

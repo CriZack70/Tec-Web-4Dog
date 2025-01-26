@@ -164,7 +164,7 @@ class DatabaseHelper{
                   WHERE Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("sssss", $nome, $taglia, $sesso, $eta, $email);
-        return $stmt->execute();     
+        return $stmt->execute();
     }
     public function deleteDog($idUtente) {
         $query = "DELETE FROM doggy WHERE Email = ?";
@@ -174,7 +174,7 @@ class DatabaseHelper{
     }
 
     public function addToCart($userId, $prodVer, $productId, $quantity) {
-        $query = "INSERT INTO carrello (Email, Codice, CodProdotto, Quantita) VALUES (?, ?, ?, ?) 
+        $query = "INSERT INTO carrello (Email, Codice, CodProdotto, Quantita) VALUES (?, ?, ?, ?)
                   ON DUPLICATE KEY UPDATE Quantita = Quantita + ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("siiii", $userId, $prodVer, $productId, $quantity, $quantity);
@@ -182,7 +182,7 @@ class DatabaseHelper{
 
         return $stmt->insert_id;
     }
-        
+
     public function getUserByEmail($email) {
         $query = "SELECT * FROM utente_registrato WHERE Email = ?";
         $stmt = $this->db->prepare($query);
@@ -222,14 +222,14 @@ class DatabaseHelper{
 
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-        
+
     public function updateUser($email, $cognome, $nome, $phone){
         $query = "UPDATE utente_registrato
                   SET Cognome = ? , Nome = ?, Telefono = ?
                   WHERE Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ssss", $cognome, $nome, $phone, $email);
-        return $stmt->execute(); 
+        return $stmt->execute();
 
     }
 
@@ -289,6 +289,78 @@ class DatabaseHelper{
 
         return $result->fetch_assoc()["total"];
     }
+
+        // Inserisce un nuovo ordine e restituisce l'ID dell'ordine
+        public function insertOrder($email, $dataOrdine) {
+            $query = "INSERT INTO ordine (Email, Data) VALUES (?, ?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("ss", $email, $dataOrdine);
+            $stmt->execute();
+            return $this->db->insert_id; // Restituisce l'ID dell'ordine appena inserito
+        }
+
+        // Inserisce i dettagli di un ordine
+        public function insertOrderDetail($idOrdine, $codProdotto,$codiceVersione, $quantita, $prezzo) {
+            $query = "INSERT INTO ordine_prodotto (Numero, CodProdotto,Codice,Quantita, Prezzo)
+                      VALUES (?, ?, ?, ?,?)";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("iiiid", $idOrdine, $codProdotto, $codiceVersione,$quantita, $prezzo);
+            $stmt->execute();
+        }
+
+        // Svuota il carrello dell'utente
+        public function clearCart($email) {
+            $query = "DELETE FROM carrello WHERE Email = ?";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+        }
+
+        public function getOrderDetails($orderId) {
+            $stmt = $this->db->prepare("SELECT d.Numero, d.CodProdotto, d.Codice, d.Quantita, d.Prezzo, p.Nome, p.Percorso_Immagine
+                                        FROM ordine_prodotto d
+                                        INNER JOIN prodotto p ON d.CodProdotto = p.CodProdotto
+                                        WHERE d.Numero = ?");
+            $stmt->bind_param("i", $orderId); // Assicurati di legare l'ID dell'ordine come intero
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $orderDetails = [];
+
+            while ($row = $result->fetch_assoc()) {
+                $orderDetails[] = $row;
+            }
+
+            return $orderDetails;
+        }
+
+        public function getUserOrders($userId) {
+            $stmt = $this->db->prepare("
+                SELECT o.Numero, o.Data,
+                       d.Codice, d.CodProdotto, d.Quantita, d.Prezzo,
+                       p.Nome, p.Percorso_Immagine
+                FROM ordine o
+                INNER JOIN ordine_prodotto d ON o.Numero = d.Numero
+                INNER JOIN prodotto p ON d.CodProdotto = p.CodProdotto
+                WHERE o.Email = ?
+                ORDER BY o.Data DESC
+            ");
+            $stmt->bind_param("s", $userId);
+            $stmt->execute();
+
+            $result = $stmt->get_result();
+            $orders = [];
+
+            while ($row = $result->fetch_assoc()) {
+                $orders[$row['Numero']]['Data'] = $row['Data'];
+                $orders[$row['Numero']]['prodotto'][] = $row;
+            }
+
+            return $orders;
+        }
+
+
+
 }
 
 ?>
