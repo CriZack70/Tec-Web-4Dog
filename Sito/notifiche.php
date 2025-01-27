@@ -2,10 +2,15 @@
 require_once 'bootstrap.php';
 
 
-if(!isUserLoggedIn()){
-    $templateParams["name"] = "login-home.php";
-    $templateParams["titolo"] = "4Dogs - Login";
-    $templateParams["titolo_pagina"] = "Notifiche";   
+if(isUserLoggedIn()){
+    $email = $_SESSION["Email"];
+    $templateParams["js"] = array("./js/notifiche.js");
+    $templateParams["name"] = "notifiche-form.php";
+    $templateParams["titolo"] = "4Dogs - Notifiche";
+    $templateParams["titolo_pagina"] = "Le mie Notifiche";   
+    $notification = $dbh->getNotifications($email);
+    
+    $templateParams["notifications"]= $notification;
     
     
 }

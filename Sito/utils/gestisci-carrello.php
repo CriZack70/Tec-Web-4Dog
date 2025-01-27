@@ -26,7 +26,11 @@ if ($action === 'remove') {
 } elseif ($action === 'update') {
     $quantity = $_POST['quantity'] ?? 1;
     $dbh->updateCart($quantity, $userId, $productId, $version);
-    echo json_encode(['status' => 'success', 'message' => 'Quantity updated']);
+    $cartCount = getCartCount($userId);
+    echo json_encode(['status' => 'success', 'message' => 'Quantity updated', 'cartCount' => $cartCount]);
+    
+}else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid action']);
 }
 
 ?>

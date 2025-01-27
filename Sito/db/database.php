@@ -289,6 +289,60 @@ class DatabaseHelper{
 
         return $result->fetch_assoc()["total"];
     }
+
+    public function  getcartCount($email){
+        $query = "SELECT SUM(Quantita) AS cart FROM carrello WHERE Email = ? ;";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            return $row['cart'];
+        } else {
+            return 0; // Restituisce 0 se non ci sono risultati
+        }
+    }
+
+    public function getNotifications($email){
+        $query = "SELECT notifica.Numero, notifica.Descrizione, notifica.Data, notifica.Letta, ordine.Email FROM notifica, ordine 
+        WHERE notifica.Numero = ordine.Numero AND ordine.Email = ?
+        ORDER BY notifica.Data DESC ";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
+
+    public function updateNotificationsStatus($num, $desc){
+        $query = "UPDATE notifica SET Letta = 1 WHERE Numero = ? AND Descrizione = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $num, $desc);
+        return  $stmt->execute();
+    }
+
+    public function deleteNotificationsStatus($num, $desc){
+        $query = "DELETE FROM notifica  WHERE Numero = ? AND Descrizione = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $num, $desc);       
+        return  $stmt->execute();
+    }
+    
+    public function  getNotificationsToread($email){
+        $query = "SELECT COUNT(*) AS totalNot FROM notifica, ordine WHERE notifica.Numero = ordine.Numero AND ordine.Email = ? AND notifica.Letta = 0";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            return $row['cart'];
+        } else {
+            return 0; // Restituisce 0 se non ci sono risultati
+        }
+    }
+    
+
 }
 
 ?>

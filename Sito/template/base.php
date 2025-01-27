@@ -42,14 +42,22 @@
                         <?php else: ?>
                         <li><a class="dropdown-item"<?php isActive("account.php");?> href="account.php">Account</a></li>
                         <li><a class="dropdown-item" href="#">Ordini</a></li>
-                        <li><a class="dropdown-item" href="#">Notifiche</a></li>
+                        <li><a class="dropdown-item" <?php isActive("notifiche.php");?>  href="notifiche.php">Notifiche</a></li>
                         <li><a class="dropdown-item"<?php isActive("myDoggy.php");?>  href="myDoggy.php">Il mio Doggy</a></li>
                         <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
                         <?php endif; ?>                                           
                     </ul>
                 </div>
                 <a class="ms-1" href="carrello.php"><button class="btn btn-light btn-cart h-100 w-100"><i class="fa fa-shopping-cart"></i></button></a>
-            </div> 
+                <?php if(isUserLoggedIn()): 
+                    $email = $_SESSION["Email"]; 
+                    $cartCount = $dbh->getCartCount($email);?>
+                    
+                    <?php if ($cartCount > 0): ?>
+                        <span class="cart-badge" id="cart-count"><?php echo $cartCount; ?></span>
+                        <?php endif; ?>  
+                    <?php endif; ?>       
+                </div> 
         </div>
     </header>
 

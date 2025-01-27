@@ -28,7 +28,6 @@ elseif (isset($templateParams["relatedprod"])):
 </div>
 <section class="section3 mt-3">
     <div class="row bg-light">
-        <h4 class="text-center mt-3">Offerte attive</h4>
-        <p class="text-center">Approfittane ora!!!</p>
+        <h4 class="text-center mt-3">Aprrofittane ora!!</h4>        
     </div>
 </section>

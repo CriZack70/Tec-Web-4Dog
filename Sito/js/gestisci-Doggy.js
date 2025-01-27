@@ -33,8 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.type = 'submit';
 
                 actionField.value = 'salva';
-
-                console.log('Campi abilitati e bottone cambiato in Salva');
+                
             }
         });
     } 
