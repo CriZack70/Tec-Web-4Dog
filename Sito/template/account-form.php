@@ -2,8 +2,6 @@
     <h2 style = "text-align:center;"><?php echo $templateParams["titolo_pagina"]; ?></h2>
 <?php endif;?>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>   
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
 <section class="section7 mb-3 mt-4 border-0 shadow-none" style="background-color: white;">
     <div class="container-fluid  mt-3 mb-2">
         <div class="row ">

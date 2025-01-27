@@ -9,11 +9,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styleCRI.css">
 </head>
-<body>
-    <header>
+<body class="d-flex flex-column">
+    <header class="border-bottom">
         <div class="container mb-0">
             <span class="d-block">Spedizione gratuita</span>
             <a href="index.php"><h1>4Dogs</h1></a>
@@ -34,21 +35,26 @@
                         <span class="">Profilo</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <?php if(!isUserLoggedIn()): ?>
-                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Accedi</a></li> 
+                        <?php if(!isUserLoggedIn() && !isAdminLoggedIn()): ?>
+                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Accedi</a></li>
                         <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Ordini</a></li>
                         <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Notifiche</a></li>
-                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Il mio Doggy</a></li>               
-                        <?php else: ?>
+                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Il mio Doggy</a></li>
+                        <?php elseif(isAdminLoggedIn()) : ?>
+                        <li><a class="dropdown-item"<?php isActive("admin.php");?> href="admin.php">Admin</a></li>
+                        <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
+                        <?php elseif(isUserLoggedIn()): ?>
                         <li><a class="dropdown-item"<?php isActive("account.php");?> href="account.php">Account</a></li>
-                        <li><a class="dropdown-item" href="#">Ordini</a></li>
+                        <li><a class="dropdown-item" <?php isActive("ordini-totali.php");?> href="ordini-totali.php">Ordini</a></li>
                         <li><a class="dropdown-item" <?php isActive("notifiche.php");?>  href="notifiche.php">Notifiche</a></li>
                         <li><a class="dropdown-item"<?php isActive("myDoggy.php");?>  href="myDoggy.php">Il mio Doggy</a></li>
                         <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
-                        <?php endif; ?>                                           
+                        <?php endif; ?>
                     </ul>
                 </div>
+                <?php if(!isAdminLoggedIn()) : ?>
                 <a class="ms-1" href="carrello.php"><button class="btn btn-light btn-cart h-100 w-100"><i class="fa fa-shopping-cart"></i></button></a>
+                <?php endif; ?>
                 <?php if(isUserLoggedIn()): 
                     $email = $_SESSION["Email"]; 
                     $cartCount = $dbh->getCartCount($email);?>
@@ -57,16 +63,16 @@
                         <span class="cart-badge" id="cart-count"><?php echo $cartCount; ?></span>
                         <?php endif; ?>  
                     <?php endif; ?>       
-                </div> 
+                </div>
         </div>
     </header>
 
-    <main class="container-fluid">
+    <main class="content container-fluid mt-3">
         <div class="row">
-        <?php if(isUserLoggedIn()): 
+        <?php if(isUserLoggedIn()):
         $username = $_SESSION["Nome"];
         ?>
-        <span class ="hello py-0 px-3 " style="text-align:right; font-size: 150%">Ciao <?php echo htmlspecialchars($username); ?>!</span> 
+        <span class ="hello py-0 px-3 " style="text-align:right; font-size: 150%">Ciao <?php echo htmlspecialchars($username); ?>!</span>
         <?php endif;?>
 
         <?php
@@ -121,7 +127,7 @@
             ?>
         </div>
     </main>
-    <footer>
+    <footer class="text-center py-3 border-top">
         <p>4Dogs - By dogs for dogs</p>
     </footer>
     <?php
@@ -133,8 +139,6 @@
         endforeach;
     endif;
     ?>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>  
-    
+
 </body>
 </html>

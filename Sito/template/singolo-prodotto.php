@@ -46,7 +46,7 @@
                 <button id="add-to-cart" onclick="addToList(<?= $idprodotto ?>, 'cart', document.getElementById('codVersione').value, document.getElementById('availability').textContent)" class="mt-2 btn btn-primary "><i class="fas fa-cart-plus"></i> Aggiungi al Carrello</button>
             </div>
         </div>
-        <button id="add-to-wishlist" onclick="addToList(<?= $idprodotto ?>, 'wishlist', document.getElementById('codVersione').value, document.getElementById('availability').textContent)" <?= $templateParams["owned"] > 0 ? 'disabled' : '' ?> class="btn <?= $templateParams["owned"] > 0 ? 'btn-danger' : 'btn-outline-secondary' ?> mt-3 ms-0">
+        <button id="add-to-wishlist" onclick="addToList(<?= $idprodotto ?>, 'wishlist', document.getElementById('codVersione').value, document.getElementById('availability').textContent)" <?= isUserLoggedIn() ? '' : 'disabled' ?> class="btn <?= $templateParams["owned"] > 0 ? 'btn-danger' : 'btn-outline-secondary' ?> mt-3 ms-0">
             <i class="fas fa-heart"></i>
             <span id="text-wishlist"><?= $templateParams["owned"] > 0 ? 'Nella Lista Desideri' : 'Aggiungi alla Lista Desideri' ?><span>
         </button>
