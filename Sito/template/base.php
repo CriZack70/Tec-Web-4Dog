@@ -43,10 +43,16 @@
                         <?php elseif(isAdminLoggedIn()) : ?>
                         <li><a class="dropdown-item"<?php isActive("admin.php");?> href="admin.php">Admin</a></li>
                         <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
-                        <?php elseif(isUserLoggedIn()): ?>
+                        <?php elseif(isUserLoggedIn()):?>
                         <li><a class="dropdown-item"<?php isActive("account.php");?> href="account.php">Account</a></li>
                         <li><a class="dropdown-item" <?php isActive("ordini-totali.php");?> href="ordini-totali.php">Ordini</a></li>
-                        <li><a class="dropdown-item" <?php isActive("notifiche.php");?>  href="notifiche.php">Notifiche</a></li>
+                        <li><a class="dropdown-item" <?php isActive("notifiche.php");?> href="notifiche.php"> Notifiche
+                        <?php
+                        $unreadNotification =$dbh->getUnreadNotifications($_SESSION["Email"]);
+                        if ($unreadNotification > 0): ?>
+                        <span class="not-badge badge-danger"><?php echo $unreadNotification; ?></span>
+                        <?php endif; ?>
+                        </a></li>
                         <li><a class="dropdown-item"<?php isActive("myDoggy.php");?>  href="myDoggy.php">Il mio Doggy</a></li>
                         <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
                         <?php endif; ?>
