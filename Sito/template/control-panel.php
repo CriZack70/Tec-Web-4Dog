@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <div class="container mt-5 mb-5">
     <h2 class="text-center">Pannello di Controllo</h2>
     <div class="d-flex justify-content-center align-items-center mb-4">
@@ -22,7 +24,7 @@
         <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
             <h3>Gestione Utenti</h3>
             <p>Visualizza, modifica e gestisci gli utenti.</p>
-            <table class="table">
+            <table id="usersTable" class="table">
                 <thead>
                     <tr>
                         <th>Cognome</th>
@@ -49,12 +51,17 @@
                 </tbody>
             </table>
         </div>
+        <script>
+        $(document).ready(function(){
+            $('#usersTable').dataTable();
+        });
+        </script>
 
         <!-- Order Management Section -->
         <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
             <h3>Gestione Ordini</h3>
             <p>Visualizza e processa gli ordini.</p>
-            <table class="table">
+            <table id="orderTable" class="table">
                 <thead>
                     <tr>
                         <th>Numero</th>
@@ -70,26 +77,31 @@
                     <tr class="align-middle">
                         <td><?= $ordine['Numero'] ?></td>
                         <td><?= $ordine['Email'] ?></td>
-                        <td><?= $ordine['Importo'] ?></td>
+                        <td><?= $ordine['Totale'] ?></td>
                         <td><?= $ordine['Data'] ?></td>
-                        <td><?= $ordine['pagato'] ?></td>
+                        <td><?= $ordine['Stato'] ?></td>
                         <td>
-                            <button class="btn btn-primary btn-sm my-1" onclick="updateOrderStatus(<?= $ordine['id'] ?>)">Aggiorna Stato</button>
-                            <button class="btn btn-info btn-sm my-1" onclick="sendNotification(<?= $ordine['id'] ?>)">Notifica Utente</button>
+                            <button class="btn btn-primary btn-sm my-1 me-1" onclick="openStatusModal(<?= $ordine['Numero'] ?>)">Aggiorna Stato</button>
+                            <button class="btn btn-info btn-sm my-1" onclick="sendNotification(<?= $ordine['Numero'] ?>, '<?= $ordine['Stato'] ?>')">Notifica Utente</button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
+        <script>
+        $(document).ready(function(){
+            $('#orderTable').dataTable();
+        });
+        </script>
 
         <!-- Product Management Section -->
         <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">
             <h3>Gestione Prodotti</h3>
             <p>Aggiungi, modifica, elimina i prodotti.</p>
-            <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addProductModal">Aggiungi Prodotto</button>
+            <button class="btn btn-success mb-3 me-1" data-bs-toggle="modal" data-bs-target="#addProductModal">Aggiungi Prodotto</button>
             <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addVersionModal">Aggiungi Versione</button>
-            <table class="table">
+            <table id="productTable" class="table">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -117,8 +129,8 @@
                                 <td><?= $versione['Prezzo'] ?></td>
                                 <td><?= $versione['Disponibilita'] ?></td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm mx-1 mb-1" onclick="editProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Modifica</button>
-                                    <button class="btn btn-danger btn-sm mx-1 mt-1" onclick="deleteProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Rimuovi</button>
+                                    <button class="btn btn-warning btn-sm my-1 me-1" onclick="editProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Modifica</button>
+                                    <button class="btn btn-danger btn-sm my-1" onclick="deleteProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Rimuovi</button>
                                 </td>
                             </tr>
                             <?php endif; ?>
@@ -127,6 +139,11 @@
                 </tbody>
             </table>
         </div>
+        <script>
+        $(document).ready(function(){
+            $('#productTable').dataTable();
+        });
+        </script>
     </div>
     <!-- Add Product Modal -->
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
@@ -225,6 +242,39 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                     <button type="button" class="btn btn-primary" onclick="addVersion()" id="saveVersionBtn">Salva</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Order Status Modal -->
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="statusModalLabel">Nuovo Prodotto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="statusForm">
+                        <div class="mb-3">
+                            <label for="orderID" class="form-label">Ordine #</label>
+                            <span id="modalOrderID" class="form-control" name="modalOrderID"></span>
+                            <input type="hidden" id="orderID" name="orderID" value="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="orderStatus" class="form-label">Nuovo Stato</label>
+                            <select class="form-select" id="orderStatus" name="orderStatus" required>
+                                <option value="" disabled selected>Seleziona uno Stato</option>
+                                <?php foreach($templateParams["stati"] as $stato) : ?>
+                                    <option value="<?= $stato["Descrizione"] ?>"><?= $stato["Descrizione"] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <button type="button" class="btn btn-primary"  onclick="updateOrderStatus()" id="updateOrderBtn">Salva</button>
                 </div>
             </div>
         </div>

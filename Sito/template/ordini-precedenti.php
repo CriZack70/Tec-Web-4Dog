@@ -24,15 +24,15 @@
                         <tbody>
                             <?php foreach ($order['prodotto'] as $item): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($item['Nome']) ?></td>
-                                    <td>
+                                    <td style="width:35%"><?= htmlspecialchars($item['Nome']) ?></td>
+                                    <td style="width:20%">
                                         <img src="<?= htmlspecialchars(UPLOAD_DIR.$item['Percorso_Immagine']) ?>"
                                              alt="<?= htmlspecialchars($item['Nome']) ?>"
                                              style="width: 50px;">
                                     </td>
-                                    <td><?= $item['Quantita'] ?></td>
-                                    <td><?= number_format($item['Prezzo'], 2) ?> €</td>
-                                    <td><?= number_format($item['Quantita'] * $item['Prezzo'], 2) ?> €</td>
+                                    <td style="width:15%"><?= $item['Quantita'] ?></td>
+                                    <td style="width:15%"><?= number_format($item['Prezzo'], 2) ?> €</td>
+                                    <td style="width:15%"><?= number_format($item['Quantita'] * $item['Prezzo'], 2) ?> €</td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

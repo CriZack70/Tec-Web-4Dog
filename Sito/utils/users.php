@@ -7,8 +7,8 @@ header('Content-Type: application/json');
 $result["utenteEliminato"] = false;
 $userId = $_POST["userId"];
 if (isset($userId)) {
-    $action = $dbh->deleteUser($userId);
-    if ($action) {
+    $done = $dbh->deleteUser($userId);
+    if ($done) {
         $result["utenteEliminato"] = true;
     }
 }

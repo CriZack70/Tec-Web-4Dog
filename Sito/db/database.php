@@ -299,7 +299,7 @@ class DatabaseHelper{
     }
 
     public function  getcartCount($email){
-        $query = "SELECT SUM(Quantita) AS cart FROM carrello WHERE Email = ? ;";
+        $query = "SELECT SUM(Quantita) AS cart FROM carrello WHERE Email = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -309,6 +309,14 @@ class DatabaseHelper{
         } else {
             return 0; // Restituisce 0 se non ci sono risultati
         }
+    }
+
+    public function createNotification($orderId, $status) {
+        $query = "INSERT INTO notifica (Numero, Descrizione) VALUES (?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("is", $orderId, $status);
+
+        return $stmt->execute();
     }
 
     public function getNotifications($email){
@@ -350,76 +358,74 @@ class DatabaseHelper{
         }
     }
     
+    // Inserisce un nuovo ordine e restituisce l'ID dell'ordine
+    public function insertOrder($email, $dataOrdine, $total) {
+        $query = "INSERT INTO ordine (Email, Data, Totale, Stato) VALUES (?, ?, ?, 'Effettuato')";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ssd", $email, $dataOrdine, $total);
+        $stmt->execute();
+        return $this->db->insert_id; // Restituisce l'ID dell'ordine appena inserito
+    }
 
+    // Inserisce i dettagli di un ordine
+    public function insertOrderDetail($idOrdine, $codProdotto,$codiceVersione, $quantita, $prezzo) {
+        $query = "INSERT INTO ordine_prodotto (Numero, CodProdotto,Codice,Quantita, Prezzo)
+                    VALUES (?, ?, ?, ?,?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("iiiid", $idOrdine, $codProdotto, $codiceVersione,$quantita, $prezzo);
+        $stmt->execute();
+    }
 
-        // Inserisce un nuovo ordine e restituisce l'ID dell'ordine
-        public function insertOrder($email, $dataOrdine) {
-            $query = "INSERT INTO ordine (Email, Data) VALUES (?, ?)";
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param("ss", $email, $dataOrdine);
-            $stmt->execute();
-            return $this->db->insert_id; // Restituisce l'ID dell'ordine appena inserito
+    // Svuota il carrello dell'utente
+    public function clearCart($email) {
+        $query = "DELETE FROM carrello WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+    }
+
+    public function getOrderDetails($orderId) {
+        $stmt = $this->db->prepare("SELECT d.Numero, d.CodProdotto, d.Codice, d.Quantita, d.Prezzo, p.Nome, p.Percorso_Immagine
+                                    FROM ordine_prodotto d
+                                    INNER JOIN prodotto p ON d.CodProdotto = p.CodProdotto
+                                    WHERE d.Numero = ?");
+        $stmt->bind_param("i", $orderId); // Assicurati di legare l'ID dell'ordine come intero
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $orderDetails = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $orderDetails[] = $row;
         }
 
-        // Inserisce i dettagli di un ordine
-        public function insertOrderDetail($idOrdine, $codProdotto,$codiceVersione, $quantita, $prezzo) {
-            $query = "INSERT INTO ordine_prodotto (Numero, CodProdotto,Codice,Quantita, Prezzo)
-                      VALUES (?, ?, ?, ?,?)";
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param("iiiid", $idOrdine, $codProdotto, $codiceVersione,$quantita, $prezzo);
-            $stmt->execute();
+        return $orderDetails;
+    }
+
+    public function getUserOrders($userId) {
+        $stmt = $this->db->prepare("
+            SELECT o.Numero, o.Data,
+                    d.Codice, d.CodProdotto, d.Quantita, d.Prezzo,
+                    p.Nome, p.Percorso_Immagine
+            FROM ordine o
+            INNER JOIN ordine_prodotto d ON o.Numero = d.Numero
+            INNER JOIN prodotto p ON d.CodProdotto = p.CodProdotto
+            WHERE o.Email = ?
+            ORDER BY o.Data DESC
+        ");
+        $stmt->bind_param("s", $userId);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $orders = [];
+
+        while ($row = $result->fetch_assoc()) {
+            $orders[$row['Numero']]['Data'] = $row['Data'];
+            $orders[$row['Numero']]['prodotto'][] = $row;
         }
 
-        // Svuota il carrello dell'utente
-        public function clearCart($email) {
-            $query = "DELETE FROM carrello WHERE Email = ?";
-            $stmt = $this->db->prepare($query);
-            $stmt->bind_param("s", $email);
-            $stmt->execute();
-        }
-
-        public function getOrderDetails($orderId) {
-            $stmt = $this->db->prepare("SELECT d.Numero, d.CodProdotto, d.Codice, d.Quantita, d.Prezzo, p.Nome, p.Percorso_Immagine
-                                        FROM ordine_prodotto d
-                                        INNER JOIN prodotto p ON d.CodProdotto = p.CodProdotto
-                                        WHERE d.Numero = ?");
-            $stmt->bind_param("i", $orderId); // Assicurati di legare l'ID dell'ordine come intero
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-            $orderDetails = [];
-
-            while ($row = $result->fetch_assoc()) {
-                $orderDetails[] = $row;
-            }
-
-            return $orderDetails;
-        }
-
-        public function getUserOrders($userId) {
-            $stmt = $this->db->prepare("
-                SELECT o.Numero, o.Data,
-                       d.Codice, d.CodProdotto, d.Quantita, d.Prezzo,
-                       p.Nome, p.Percorso_Immagine
-                FROM ordine o
-                INNER JOIN ordine_prodotto d ON o.Numero = d.Numero
-                INNER JOIN prodotto p ON d.CodProdotto = p.CodProdotto
-                WHERE o.Email = ?
-                ORDER BY o.Data DESC
-            ");
-            $stmt->bind_param("s", $userId);
-            $stmt->execute();
-
-            $result = $stmt->get_result();
-            $orders = [];
-
-            while ($row = $result->fetch_assoc()) {
-                $orders[$row['Numero']]['Data'] = $row['Data'];
-                $orders[$row['Numero']]['prodotto'][] = $row;
-            }
-
-            return $orders;
-        }
+        return $orders;
+    }
 
 
 
@@ -492,6 +498,23 @@ class DatabaseHelper{
         $query = "INSERT INTO prodotto (Nome, Brand, Descrizione, Percorso_Immagine, CodCategoria) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ssssi", $name, $brand, $desc, $img, $category);
+
+        return $stmt->execute();
+    }
+
+    public function getOrderStates() {
+        $query = "SELECT * FROM stato_ordine";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function changeOrderStatus($orderStatus, $orderID) {
+        $query = "UPDATE ordine SET Stato = ? WHERE Numero = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $orderStatus, $orderID);
 
         return $stmt->execute();
     }

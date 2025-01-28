@@ -36,8 +36,8 @@ switch ($action) {
             $price = $_POST["Prezzo"];
             $disp = $_POST["Disponibilita"];
             if (isset($price) && isset($disp)) {
-                $action = $dbh->editProduct($price, $disp, $productId, $productVer);
-                if ($action) {
+                $done = $dbh->editProduct($price, $disp, $productId, $productVer);
+                if ($done) {
                     $result["prodottoModificato"] = true;
                 }
             }
@@ -46,18 +46,17 @@ switch ($action) {
 
     case 'delete':
         if (isset($productVer) && isset($productId)) {
-            $action = $dbh->deleteProduct($productId, $productVer);
-            if ($action) {
+            $done = $dbh->deleteProduct($productId, $productVer);
+            if ($done) {
                 $result["prodottoEliminato"] = true;
             }
-            $result["prodottoEliminato"] = true;
         }
         break;
 
     case 'new':
         if (isset($productCategory)) {
-            $action = $dbh->addProduct($productName, $productBrand, $productDescription, $productImage, $productCategory);
-            if ($action) {
+            $done = $dbh->addProduct($productName, $productBrand, $productDescription, $productImage, $productCategory);
+            if ($done) {
                 $result["prodottoAggiunto"] = true;
             }
         }
@@ -65,8 +64,8 @@ switch ($action) {
     
     case 'add':
         if (isset($versionCod)) {
-            $action = $dbh->addVersion($versionCod, $versionSize, $versionAge, $versionColor, $versionFabric, $versionPrice, $versionQuantity);
-            if ($action) {
+            $done = $dbh->addVersion($versionCod, $versionSize, $versionAge, $versionColor, $versionFabric, $versionPrice, $versionQuantity);
+            if ($done) {
                 $result["versioneAggiunta"] = true;
             }
         }

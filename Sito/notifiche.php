@@ -10,6 +10,10 @@ if(isUserLoggedIn()){
     $templateParams["titolo_pagina"] = "Le mie Notifiche";   
     $notification = $dbh->getNotifications($email);
     
+    echo "<pre>";
+    print_r($notification);
+    echo "</pre>";
+
     $templateParams["notifications"]= $notification;
     
     

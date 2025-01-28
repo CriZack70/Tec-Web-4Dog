@@ -25,4 +25,7 @@
 
         </tbody>
     </table>
+
+    <h4>Totale: <span id="totale"><?= number_format($total, 2) ?><span> €</h4>
+
 </div>

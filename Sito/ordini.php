@@ -17,10 +17,16 @@ if (empty($cartItems)) {
     exit;
 }
 
+foreach($cartItems as $cartItem) {
+    $total += $cartItem['Prezzo'] * $cartItem['Quantita'];
+}
+
+echo "<pre>Totale $total</pre>";
+
 
     // Inserisci l'ordine nella tabella 'ordini'
     $dataOrdine = date("Y-m-d H:i:s"); // Data e ora attuale
-    $orderId = $dbh->insertOrder($userId, $dataOrdine);
+    $orderId = $dbh->insertOrder($userId, $dataOrdine, $total);
 
     // Inserisci ogni prodotto del carrello nella tabella 'dettagli_ordine'
     foreach ($cartItems as $item) {

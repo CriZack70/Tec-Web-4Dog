@@ -26,42 +26,76 @@ async function deleteUser(userId) {
 }
 
 // Handle order actions
-function updateOrderStatus(orderId) {
-    const status = prompt("Enter the new status for the order:");
-    if (status) {
-        fetch('orders.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `action=updateStatus&orderId=${orderId}&status=${encodeURIComponent(status)}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Order status updated successfully!');
-                location.reload();
-            } else {
-                alert('Failed to update order status: ' + data.error);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
+
+function openStatusModal(orderID) {
+    const numero = document.getElementById('modalOrderID');
+    const input = document.getElementById('orderID');
+
+    numero.textContent = orderID;
+    input.value = orderID;
+
+    $('#statusModal').modal('show');
 }
 
-function sendNotification(orderId) {
-    fetch('orders.php', {
+async function updateOrderStatus() {
+    const modalStatus = document.getElementById('statusForm');
+
+    const formData = new FormData(modalStatus);
+    formData.append('azione', 'update');
+
+    try {
+        const response = await fetch('utils/orders.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `action=notify&orderId=${orderId}`
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Notification sent successfully!');
+        body: formData
+        });
+        console.log(response);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        } 
+        const json = await response.json();
+        console.log(json);
+        if (json["statoAggiornato"]) {
+            sessionStorage.setItem('activeTab', 'pills-orders-tab');
+            location.reload();
         } else {
-            alert('Failed to send notification: ' + data.error);
+            alert('Failed to update order');
         }
-    })
-    .catch(error => console.error('Error:', error));
+    } catch (error) {
+        console.log(error.message);
+    }
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById('statusModal'));
+    modal.hide();
+}
+
+async function sendNotification(orderID, orderStatus) {
+    
+    const formData = new FormData();
+    formData.append('orderID', orderID);
+    formData.append('orderStatus', orderStatus);
+    formData.append('azione', 'send');
+    
+    try {
+        const response = await fetch('utils/orders.php', {
+        method: 'POST',
+        body: formData
+        });
+        console.log(response);
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        } 
+        const json = await response.json();
+        console.log(json);
+        if (json["notificaInviata"]) {
+            alert('Notification sent!')
+            sessionStorage.setItem('activeTab', 'pills-orders-tab');
+            location.reload();
+        } else {
+            alert('Failed to send notification');
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
 }
 
 // Handle product actions

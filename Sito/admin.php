@@ -15,6 +15,7 @@ if(isAdminLoggedIn()){
     $templateParams["ordini"] = $dbh->getAllOrders();
     $templateParams["versioni"] = $dbh->getAllVersions();
     $templateParams["js"] = array("js/admin-utils.js");
+    $templateParams["stati"] = $dbh->getOrderStates();
 } else {
     header("Location: login.php");
 }
