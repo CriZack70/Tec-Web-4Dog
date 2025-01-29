@@ -24,8 +24,4 @@ function registerAdmin($user){
     $_SESSION["Nome"] = "DreamTeam";
 }
 
-function isAdmin(){
-    return !empty($_SESSION["Admin"]);
-}
-
 ?>

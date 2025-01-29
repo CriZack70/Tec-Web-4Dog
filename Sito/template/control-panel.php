@@ -29,7 +29,6 @@
                     <tr>
                         <th>Cognome</th>
                         <th>Nome</th>
-                        <th>CF</th>
                         <th>Telefono</th>
                         <th>Email</th>
                         <th>Azioni</th>
@@ -40,7 +39,6 @@
                     <tr>
                         <td><?= $utente['Cognome'] ?></td>
                         <td><?= $utente['Nome'] ?></td>
-                        <td><?= $utente['CF'] ?></td>
                         <td><?= $utente['Telefono'] ?></td>
                         <td><?= $utente['Email'] ?></td>
                         <td>

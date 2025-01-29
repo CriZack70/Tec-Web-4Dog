@@ -12,7 +12,6 @@ $userId = $_SESSION['Email'];
 // Controlla se il carrello è vuoto
 $cartItems = $dbh->getCart($userId);
 if (empty($cartItems)) {
-    echo "<pre>Carrello vuoto per l'utente $userId</pre>";
     header("Location: carrello.php");
     exit;
 }
@@ -21,34 +20,30 @@ foreach($cartItems as $cartItem) {
     $total += $cartItem['Prezzo'] * $cartItem['Quantita'];
 }
 
-echo "<pre>Totale $total</pre>";
+// Inserisci l'ordine nella tabella 'ordini'
+$dataOrdine = date("Y-m-d H:i:s"); // Data e ora attuale
+$orderId = $dbh->insertOrder($userId, $dataOrdine, $total);
 
+// Inserisci ogni prodotto del carrello nella tabella 'dettagli_ordine'
+foreach ($cartItems as $item) {
+    $dbh->insertOrderDetail(
+        $orderId,
+        $item['CodProdotto'], // Codice della versione prodotto
+        $item['Codice'],
+        $item['Quantita'],
+        $item['Prezzo']
+    );
+}
 
-    // Inserisci l'ordine nella tabella 'ordini'
-    $dataOrdine = date("Y-m-d H:i:s"); // Data e ora attuale
-    $orderId = $dbh->insertOrder($userId, $dataOrdine, $total);
+// Svuota il carrello
+$dbh->clearCart($userId);
 
-    // Inserisci ogni prodotto del carrello nella tabella 'dettagli_ordine'
-    foreach ($cartItems as $item) {
-        $dbh->insertOrderDetail(
-            $orderId,
-            $item['CodProdotto'], // Codice della versione prodotto
-            $item['Codice'],
-            $item['Quantita'],
-            $item['Prezzo']
-        );
-    }
+// Recupera i dettagli dell'ordine per visualizzarli nella pagina
+$templateParams["orderDetails"] = $dbh->getOrderDetails($orderId);
 
-    // Svuota il carrello
-    $dbh->clearCart($userId);
-    echo "<pre>Carrello svuotato per l'utente $userId</pre>";
-
-    // Recupera i dettagli dell'ordine per visualizzarli nella pagina
-    $templateParams["orderDetails"] = $dbh->getOrderDetails($orderId);
-
-    // Mostra pagina di conferma
-    $templateParams["titolo"] = "4Dogs - Ordine Completato";
-    $templateParams["name"] = "ordine-completato.php";
-    require 'template/base.php';
+// Mostra pagina di conferma
+$templateParams["titolo"] = "4Dogs - Ordine Completato";
+$templateParams["name"] = "ordine-completato.php";
+require 'template/base.php';
 
 ?>

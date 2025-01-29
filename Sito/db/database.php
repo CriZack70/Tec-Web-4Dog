@@ -518,6 +518,33 @@ class DatabaseHelper{
 
         return $stmt->execute();
     }
+
+    public function getPaymentMethods($email) {
+        $query = "SELECT Numero_Carta, Scadenza FROM metodo_pagamento WHERE Email = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function addCard($email, $cardNumber, $expiryDate, $cvv) {
+        
+        $query = "INSERT INTO metodo_pagamento (Email, Numero_Carta, Scadenza, CVV) VALUES (?, ?, ?, ?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("sssi",$email, $cardNumber, $expiryDate, $cvv);
+
+        return $stmt->execute();
+    }
+
+    public function removeCard($email, $cardNumber) {
+        $query = "DELETE FROM metodo_pagamento WHERE Email = ? AND Numero_Carta = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("ss", $email, $cardNumber);
+        
+        return $stmt->execute();
+    }
 }
 
 ?>

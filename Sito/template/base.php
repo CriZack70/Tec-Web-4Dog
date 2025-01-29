@@ -37,9 +37,6 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <?php if(!isUserLoggedIn() && !isAdminLoggedIn()): ?>
                         <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Accedi</a></li>
-                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Ordini</a></li>
-                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Notifiche</a></li>
-                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Il mio Doggy</a></li>
                         <?php elseif(isAdminLoggedIn()) : ?>
                         <li><a class="dropdown-item"<?php isActive("admin.php");?> href="admin.php">Admin</a></li>
                         <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
@@ -53,6 +50,7 @@
                         <span class="not-badge badge-danger"><?php echo $unreadNotification; ?></span>
                         <?php endif; ?>
                         </a></li>
+                        <li><a class="dropdown-item" <?php isActive("carte.php");?> href="carte.php">Pagamenti</a></li>
                         <li><a class="dropdown-item"<?php isActive("myDoggy.php");?>  href="myDoggy.php">Il mio Doggy</a></li>
                         <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
                         <?php endif; ?>
