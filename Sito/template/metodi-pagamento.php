@@ -19,7 +19,7 @@
                 <td><?= str_repeat('*', 12) . substr($card['Numero_Carta'], -4); ?></td>
                 <td><?= $card['Scadenza'] ?></td>
                 <td>
-                    <button class='btn btn-danger btn-sm' onclick="deletePaymentMethod(<?= $card['Numero_Carta'] ?>)">Rimuovi</button>
+                    <button class='btn btn-danger btn-sm' onclick="confirmDeleteCard(<?= $card['Numero_Carta'] ?>)">Rimuovi</button>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -62,6 +62,35 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                 <button type="button" class="btn btn-primary" onclick="addPaymentMethod()">Salva</button>
             </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Confirmation Payment Modal -->
+<div class="modal fade" id="deletePaymentModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabelPayment" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteConfirmModalLabelPayment">Conferma Eliminazione Carta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Vuoi davvero eliminare questo metodo di pagamento?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                <button type="button" class="btn btn-danger" id="deleteBtn" onclick="deletePaymentMethod()" >Elimina</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Toast Notification -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="toastMessage" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                <p id="toastText">Text</p>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
     </div>
 </div>

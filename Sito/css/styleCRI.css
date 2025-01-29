@@ -136,27 +136,23 @@ header .btn-search:hover {
 
 header form .visually-hidden{
     position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
-
-
 
 aside{
     background-color:yellow;
 }
 
-aside  ul  li  a:hover{
+aside ul li a:hover{
     font-weight: bold;
     font-size: 90%;
 }
-
 
 /* Stile per section2 */
 main > div > div > section:nth-child(2) {

@@ -8,13 +8,16 @@
 
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="class=" role="presentation">
-            <button class="nav-link" id="pills-users-tab" data-bs-toggle="pill" data-bs-target="#users" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Users</button>
+            <button class="nav-link" id="pills-users-tab" data-bs-toggle="pill" data-bs-target="#users" type="button" role="tab" aria-controls="pills-users" aria-selected="true">Users</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-orders-tab" data-bs-toggle="pill" data-bs-target="#orders" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Orders</button>
+            <button class="nav-link" id="pills-orders-tab" data-bs-toggle="pill" data-bs-target="#orders" type="button" role="tab" aria-controls="pills-orders" aria-selected="false">Orders</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-products-tab" data-bs-toggle="pill" data-bs-target="#products" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Products</button>
+            <button class="nav-link" id="pills-products-tab" data-bs-toggle="pill" data-bs-target="#products" type="button" role="tab" aria-controls="pills-products" aria-selected="false">Products</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-category-tab" data-bs-toggle="pill" data-bs-target="#category" type="button" role="tab" aria-controls="pills-category" aria-selected="false">Category</button>
         </li>
     </ul>
 
@@ -36,13 +39,13 @@
                 </thead>
                 <tbody>
                     <?php foreach ($templateParams["utenti"] as $utente): ?>
-                    <tr>
+                    <tr class="align-middle">
                         <td><?= $utente['Cognome'] ?></td>
                         <td><?= $utente['Nome'] ?></td>
                         <td><?= $utente['Telefono'] ?></td>
                         <td><?= $utente['Email'] ?></td>
                         <td>
-                            <button class="btn btn-danger btn-sm" onclick="deleteUser('<?= $utente['Email'] ?>')">Cancella</button>
+                            <button class="btn btn-danger btn-sm" onclick="confirmDeleteUser('<?= $utente['Email'] ?>')">Cancella</button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -103,10 +106,10 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
+                        <th>Categoria</th>
                         <th>Brand</th>
                         <th>Taglia</th>
                         <th>Età</th>
-                        <th>Colore</th>
                         <th>Materiale</th>
                         <th>Prezzo</th>
                         <th>Disponibilità</th>
@@ -117,18 +120,22 @@
                     <?php foreach ($templateParams["prodotti"] as $prodotto): ?>
                         <?php foreach ($templateParams["versioni"] as $versione): ?>
                             <?php if ($prodotto['CodProdotto'] === $versione['CodProdotto']) : ?>
-                            <tr>
+                            <tr class="align-middle">
                                 <td><?= $prodotto['Nome'] ?></td>
+                                <?php foreach ($templateParams["categorie"] as $categoria): ?>
+                                    <?php if ($categoria['CodCategoria'] === $prodotto['CodCategoria']) : ?>
+                                        <td><?= $categoria['Nome'] ?></td>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                                 <td><?= $prodotto['Brand'] ?></td>
                                 <td><?= $versione['TagliaCane'] ?></td>
                                 <td><?= $versione['EtaCane'] ?></td>
-                                <td><?= $versione['Colore'] ?></td>
                                 <td><?= $versione['Composizione_Materiale'] ?></td>
                                 <td><?= $versione['Prezzo'] ?></td>
                                 <td><?= $versione['Disponibilita'] ?></td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm my-1 me-1" onclick="editProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Modifica</button>
-                                    <button class="btn btn-danger btn-sm my-1" onclick="deleteProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Rimuovi</button>
+                                    <button class="btn btn-warning btn-sm my-1 me-1" onclick="confirmEditProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Modifica</button>
+                                    <button class="btn btn-danger btn-sm my-1" onclick="confirmDeleteProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Rimuovi</button>
                                 </td>
                             </tr>
                             <?php endif; ?>
@@ -140,6 +147,35 @@
         <script>
         $(document).ready(function(){
             $('#productTable').dataTable();
+        });
+        </script>
+        <!-- Category Management Section -->
+        <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">
+            <h3>Gestione Categorie</h3>
+            <p>Aggiungi o elimina una categoria.</p>
+            <button class="btn btn-success mb-3 me-1" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Aggiungi Categoria</button>
+            <table id="categoryTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($templateParams["categorie"] as $categoria): ?>
+                        <tr class="align-middle">
+                            <td><?= $categoria['Nome'] ?></td>
+                            <td>
+                                <button class="btn btn-danger btn-sm my-1" onclick="confirmDeleteCategory('<?= $categoria['Nome'] ?>')">Rimuovi</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <script>
+        $(document).ready(function(){
+            $('#categoryTable').dataTable();
         });
         </script>
     </div>
@@ -165,14 +201,9 @@
                             <label for="productCategory" class="form-label">Categoria</label>
                             <select class="form-select" id="productCategory" name="productCategory" required>
                                 <option value="" disabled selected>Seleziona una categoria</option>
-                                <option value="1">Umido</option>
-                                <option value="2">Crocchette</option>
-                                <option value="3">Snack</option>
-                                <option value="4">Abbigliamento</option>
-                                <option value="5">Cucce</option>
-                                <option value="6">Cura e Igiene</option>
-                                <option value="7">Giochi</option>
-                                <option value="8">Guinzaglieria</option>
+                                <?php foreach ($templateParams["categorie"] as $categoria): ?>
+                                    <option value="<?= $categoria["CodCategoria"] ?>"><?= $categoria["Nome"] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -220,10 +251,6 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="versionColor" class="form-label">Colore</label>
-                            <input type="text" class="form-control" id="versionColor" name="versionColor" required>
-                        </div>
-                        <div class="mb-3">
                             <label for="versionFabric" class="form-label">Composizione</label>
                             <input type="text" class="form-control" id="versionFabric" name="versionFabric" required>
                         </div>
@@ -240,6 +267,29 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                     <button type="button" class="btn btn-primary" onclick="addVersion()" id="saveVersionBtn">Salva</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add Category Modal -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCategoryModalLabel">Nuova Categoria</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCategoryForm">
+                        <div class="mb-3">
+                            <label for="categoryName" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                    <button type="button" class="btn btn-primary"  onclick="addCategory()" id="saveCategoryBtn">Salva</button>
                 </div>
             </div>
         </div>
@@ -274,6 +324,107 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
                     <button type="button" class="btn btn-primary"  onclick="updateOrderStatus()" id="updateOrderBtn">Salva</button>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Confirmation Product Modal -->
+    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabelProduct" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmModalLabelProduct">Conferma Eliminazione Prodotto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Siete sicuri di voler eliminare questo prodotto?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn" onclick="deleteProduct()" >Elimina</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Confirmation Users Modal -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabelUser" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmModalLabelUser">Conferma Eliminazione Utente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Siete sicuri di voler eliminare questo utente?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                    <button type="button" class="btn btn-danger" id="userDeleteBtn" onclick="deleteUser()" >Elimina</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Confirmation Category Modal -->
+    <div class="modal fade" id="deleteCategoryModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabelCategory" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmModalLabelCategory">Conferma Eliminazione Utente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Siete sicuri di voler eliminare questa categoria?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                    <button type="button" class="btn btn-danger" id="categoryDeleteBtn" onclick="deleteCategory()" >Elimina</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Confirmation Product Modal -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editConfirmModalLabelProduct" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editConfirmModalLabelProduct">Modifica Prodotto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                    <div class="mb-3">
+                            <label for="productCategory" class="form-label">Categoria</label>
+                            <select class="form-select" id="productCategory" name="productCategory" required>
+                                <option value="" disabled selected>Seleziona una categoria</option>
+                                <?php foreach ($templateParams["categorie"] as $categoria): ?>
+                                    <option value="<?= $categoria["CodCategoria"] ?>"><?= $categoria["Nome"] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPrice" class="form-label">Prezzo</label>
+                            <input type="number" class="form-control" id="editPrice" name="editPrice" step="0.01" min="0.01"required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editQuantity" class="form-label">Disponibilità</label>
+                            <input type="number" class="form-control" id="editQuantity" name="editQuantity" min="1" step="1" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                    <button type="button" class="btn btn-danger" id="confirmEditBtn" onclick="editProduct()" >Modifica</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Toast Notification -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="toastMessage" class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <p id="toastText">Text</p>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
     </div>

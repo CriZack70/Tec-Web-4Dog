@@ -478,18 +478,26 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
-    public function editProduct($price, $availability, $productId, $productVer) {
-        $query = "UPDATE versione_prodotto SET Prezzo = ?, Disponibilita = ? WHERE CodProdotto = ? AND Codice = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("diii", $price, $availability, $productId, $productVer);
+    public function editProduct($price, $availability, $productId, $productVer, $categoryID) {
+        $queryVer = "UPDATE versione_prodotto SET Prezzo = ?, Disponibilita = ? WHERE CodProdotto = ? AND Codice = ?";
+        $queryProd = "UPDATE prodotto SET CodCategoria = ? WHERE CodProdotto = ?";
+        
+        $stmtVer = $this->db->prepare($queryVer);
+        $stmtProd = $this->db->prepare($queryProd);
 
-        return $stmt->execute();
+        $stmtVer->bind_param("diii", $price, $availability, $productId, $productVer);
+        $stmtProd->bind_param("ii", $categoryID, $productId);
+
+        $ver = $stmtVer->execute();
+        $prod = $stmtProd->execute();
+        
+        return $ver && $prod;
     }
 
-    public function addVersion($productId, $size, $age, $color, $fabric, $price, $quantity) {
-        $query = "INSERT INTO versione_prodotto (CodProdotto, TagliaCane, EtaCane, Colore, Composizione_Materiale, Prezzo, Disponibilita) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public function addVersion($productId, $size, $age, $fabric, $price, $quantity) {
+        $query = "INSERT INTO versione_prodotto (CodProdotto, TagliaCane, EtaCane, Composizione_Materiale, Prezzo, Disponibilita) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("issssdi", $productId, $size, $age, $color, $fabric, $price, $quantity);
+        $stmt->bind_param("isssdi", $productId, $size, $age, $fabric, $price, $quantity);
 
         return $stmt->execute();
     }
@@ -542,6 +550,23 @@ class DatabaseHelper{
         $query = "DELETE FROM metodo_pagamento WHERE Email = ? AND Numero_Carta = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ss", $email, $cardNumber);
+        
+        return $stmt->execute();
+    }
+
+    public function createCategory($name) {
+        
+        $query = "INSERT INTO categoria_prodotto (Nome) VALUES (?)";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s",$name);
+
+        return $stmt->execute();
+    }
+
+    public function removeCategory($name) {
+        $query = "DELETE FROM categoria_prodotto WHERE Nome = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $name);
         
         return $stmt->execute();
     }

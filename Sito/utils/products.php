@@ -23,20 +23,17 @@ $productImage = $_POST['productImage'] ?? '';
 $versionSize = $_POST['versionSize'] ?? '';
 $versionAge = $_POST['versionAge'] ?? '';
 $versionCod = $_POST['versionCod'] ?? '';
-$versionColor = $_POST['versionColor'] ?? '';
 $versionFabric = $_POST['versionFabric'] ?? '';
 $versionPrice = $_POST['versionPrice'] ?? '';
 $versionQuantity = $_POST['versionQuantity'] ?? '';
 
-
-
 switch ($action) {
     case 'edit':
         if (isset($productVer) && isset($productId)) {
-            $price = $_POST["Prezzo"];
-            $disp = $_POST["Disponibilita"];
+            $price = $_POST["editPrice"];
+            $disp = $_POST["editQuantity"];
             if (isset($price) && isset($disp)) {
-                $done = $dbh->editProduct($price, $disp, $productId, $productVer);
+                $done = $dbh->editProduct($price, $disp, $productId, $productVer, $productCategory);
                 if ($done) {
                     $result["prodottoModificato"] = true;
                 }
@@ -64,7 +61,7 @@ switch ($action) {
     
     case 'add':
         if (isset($versionCod)) {
-            $done = $dbh->addVersion($versionCod, $versionSize, $versionAge, $versionColor, $versionFabric, $versionPrice, $versionQuantity);
+            $done = $dbh->addVersion($versionCod, $versionSize, $versionAge, $versionFabric, $versionPrice, $versionQuantity);
             if ($done) {
                 $result["versioneAggiunta"] = true;
             }

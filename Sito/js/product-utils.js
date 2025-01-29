@@ -16,15 +16,22 @@ function updateVersionCode(versionCode) {
 function addToList(productId, listType, version, availability) {
 
     const quantity = document.getElementById('quantity').value;
+    let alertBox = document.getElementsByClassName('alert')[0];
     
     if (listType === 'cart') {
         if (isNaN(quantity) || quantity < 1) {
-            alert('Si prega di inserire un numero maggiore di 0.');
+            alertBox.classList.remove("alert-success");
+            alertBox.classList.add("alert-danger");
+            alertBox.textContent = "";
+            alertBox.textContent = "Si prega di inserire un numero maggiore di 0.";
             return;
         }
 
         if (quantity > parseInt(availability, 10)) {
-            alert(`La quantità non può essere maggiore della disponibilità del prodotto.`);
+            alertBox.classList.remove("alert-success");
+            alertBox.classList.add("alert-danger");
+            alertBox.textContent = "";
+            alertBox.textContent = "La quantità non può essere maggiore della disponibilità del prodotto.";
             return;
         }
     }
@@ -42,7 +49,6 @@ function addToList(productId, listType, version, availability) {
         }),
     })
         .then(response => {
-            let alertBox = document.getElementsByClassName('alert')[0];
             if (response.ok) {
                 alertBox.classList.remove("alert-danger");
                 alertBox.classList.add("alert-success");
