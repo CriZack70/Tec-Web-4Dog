@@ -1,4 +1,4 @@
-    <section class=" section1 px-3 py-1" style="background-color: lightblue;">
+    <section class="px-3 py-1" style="background-color: lightblue;">
         <div class="text-center mb-2">
             <h2>Scegli la taglia del tuo Cane</h2>
             <div class="d-flex justify-content-center">
@@ -8,7 +8,7 @@
             </div>
         </div>
     </section>
-    <section class="section2 px-3 py-3">
+    <section class="px-3 py-3">
         <?php
         if(isset($templateParams["dog"])){
         ?>

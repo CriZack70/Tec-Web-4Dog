@@ -1,10 +1,10 @@
 <?php
-if (isset($templateParams["casualprod"])): 
+if (isset($templateParams["casualprod"])):
     $prodotti = $templateParams["casualprod"];
-elseif (isset($templateParams["relatedprod"])): 
+elseif (isset($templateParams["relatedprod"])):
     $prodotti = $templateParams["relatedprod"]; ?>
-    <div class="row mt-3 mb-5">
-    <div class="d-flex justify-content-center bg-light mb-3 pt-2">
+    <div class="row mt-3">
+    <div class="d-flex justify-content-center bg-light pt-2">
         <h3>Potrebbero interessarti anche...<h3>
     </div>
     <div>
@@ -26,8 +26,10 @@ elseif (isset($templateParams["relatedprod"])):
     </div>
 <?php endforeach; ?>
 </div>
-<section class="section3 mt-3">
-    <div class="row bg-light">
-        <h4 class="text-center mt-3">Aprrofittane ora!!</h4>        
+<section class="mt-1">
+    <div class="container">
+        <div class="row bg-light">
+            <h4 class="text-center">Approfittane ora!!</h4>
+        </div>
     </div>
 </section>
