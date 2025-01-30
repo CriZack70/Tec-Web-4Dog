@@ -31,6 +31,7 @@ switch ($action) {
     case 'edit':
         if (isset($productVer) && isset($productId)) {
             $price = $_POST["editPrice"];
+            $productCategory = $_POST['editCategory'];
             $disp = $_POST["editQuantity"];
             if (isset($price) && isset($disp)) {
                 $done = $dbh->editProduct($price, $disp, $productId, $productVer, $productCategory);

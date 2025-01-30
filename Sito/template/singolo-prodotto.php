@@ -9,10 +9,10 @@
         $versioneDefault = $infoprodotto[0];
 ?>
 <div class="d-flex flex-column flex-md-row align-items-center">
-    <img class="img-fluid rounded shadow me-3 mb-3 mt-3" style="min-width: 250px;"src="<?php echo UPLOAD_DIR.$prodotto["Percorso_Immagine"]; ?>" alt=""  style="max-width: 30%;">
+    <img class="img-fluid rounded shadow me-3 mb-3 mt-3" style="min-width: 250px; max-width: 30%;" src="<?php echo UPLOAD_DIR.$prodotto["Percorso_Immagine"]; ?>" alt=""/>
     <div>
-        <h3 class="display-5"><?php echo $prodotto["Nome"]; ?></h3>
-        <h4 class="text-muted">Brand: <?php echo $prodotto["Brand"]; ?></h4>
+        <h2 class="display-5"><?php echo $prodotto["Nome"]; ?></h2>
+        <h3 class="text-muted">Brand: <?php echo $prodotto["Brand"]; ?></h3>
         <p><?php echo $prodotto["Descrizione"]; ?></p>
         <p class="fs-4 text-success"><strong>Prezzo: </strong><span id="price"><?= number_format($versioneDefault["Prezzo"], 2) ?></span> €</p>
         <p class="text-<?= $versioneDefault["Disponibilita"] > 0 ? 'success' : 'danger' ?>"><strong>Disponibilità: </strong>
@@ -39,16 +39,17 @@
         <div class="flex-row">
             <div class=" col-md-10">
                 <div class="d-flex">
-                    <button class="btn btn-primary btn-minus" onclick="decreaseQuantity()" disabled="true">-</button>
-                    <input class="me-2 ms-2" id="quantity" value="1" min="1" readonly>
+                    <button class="btn btn-primary btn-minus" onclick="decreaseQuantity()" disabled>-</button>
+                    <input type="text" class="me-2 ms-2" id="quantity" value="1" readonly>
+                    <label for="quantity" hidden>qta</label>
                     <button class="btn btn-primary btn-plus" onclick="increaseQuantity()">+</button>
                 </div>
-                <button id="add-to-cart" onclick="addToList(<?= $idprodotto ?>, 'cart', document.getElementById('codVersione').value, document.getElementById('availability').textContent)" class="mt-2 btn btn-primary "><i class="fas fa-cart-plus"></i> Aggiungi al Carrello</button>
+                <button id="add-to-cart" onclick="addToList(<?= $idprodotto ?>, 'cart', document.getElementById('codVersione').value, document.getElementById('availability').textContent)" class="mt-2 btn btn-primary "><strong class="fas fa-cart-plus"></strong> Aggiungi al Carrello</button>
             </div>
         </div>
         <button id="add-to-wishlist" onclick="addToList(<?= $idprodotto ?>, 'wishlist', document.getElementById('codVersione').value, document.getElementById('availability').textContent)" <?= isUserLoggedIn() ? '' : 'disabled' ?> class="btn <?= $templateParams["owned"] > 0 ? 'btn-danger' : 'btn-outline-secondary' ?> mt-3 ms-0">
-            <i class="fas fa-heart"></i>
-            <span id="text-wishlist"><?= $templateParams["owned"] > 0 ? 'Nella Lista Desideri' : 'Aggiungi alla Lista Desideri' ?><span>
+            <strong class="fas fa-heart"></strong>
+            <span id="text-wishlist"><?= $templateParams["owned"] > 0 ? 'Nella Lista Desideri' : 'Aggiungi alla Lista Desideri' ?></span>
         </button>
         
     </div>

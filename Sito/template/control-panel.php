@@ -1,31 +1,31 @@
-<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
-<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+<script src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <div class="container mt-5 mb-5">
     <h2 class="text-center">Pannello di Controllo</h2>
     <div class="d-flex justify-content-center align-items-center mb-4">
-        <h3>Benvenuti, Amministratori!</h2>
+        <h3>Benvenuti, Amministratori!</h3>
     </div>
 
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="class=" role="presentation">
-            <button class="nav-link" id="pills-users-tab" data-bs-toggle="pill" data-bs-target="#users" type="button" role="tab" aria-controls="pills-users" aria-selected="true">Users</button>
+            <button class="nav-link" id="pills-users-tab" data-bs-toggle="pill" data-bs-target="#users-tab" type="button" role="tab" aria-controls="users-tab" aria-selected="true">Users</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-orders-tab" data-bs-toggle="pill" data-bs-target="#orders" type="button" role="tab" aria-controls="pills-orders" aria-selected="false">Orders</button>
+            <button class="nav-link" id="pills-orders-tab" data-bs-toggle="pill" data-bs-target="#orders-tab" type="button" role="tab" aria-controls="orders-tab" aria-selected="false">Orders</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-products-tab" data-bs-toggle="pill" data-bs-target="#products" type="button" role="tab" aria-controls="pills-products" aria-selected="false">Products</button>
+            <button class="nav-link" id="pills-products-tab" data-bs-toggle="pill" data-bs-target="#products-tab" type="button" role="tab" aria-controls="products-tab" aria-selected="false">Products</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-category-tab" data-bs-toggle="pill" data-bs-target="#category" type="button" role="tab" aria-controls="pills-category" aria-selected="false">Category</button>
+            <button class="nav-link" id="pills-category-tab" data-bs-toggle="pill" data-bs-target="#category-tab" type="button" role="tab" aria-controls="category-tab" aria-selected="false">Category</button>
         </li>
     </ul>
 
     <!-- Tab content -->
     <div class="tab-content" id="adminTabsContent">
         <!-- User Management Section -->
-        <div class="tab-pane fade" id="users" role="tabpanel" aria-labelledby="users-tab">
-            <h3>Gestione Utenti</h3>
+        <div class="tab-pane fade" id="users-tab" role="tabpanel">
+            <h4>Gestione Utenti</h4>
             <p>Visualizza, modifica e gestisci gli utenti.</p>
             <table id="usersTable" class="table">
                 <thead>
@@ -59,8 +59,8 @@
         </script>
 
         <!-- Order Management Section -->
-        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-            <h3>Gestione Ordini</h3>
+        <div class="tab-pane fade" id="orders-tab" role="tabpanel">
+            <h4>Gestione Ordini</h4>
             <p>Visualizza e processa gli ordini.</p>
             <table id="orderTable" class="table">
                 <thead>
@@ -97,8 +97,8 @@
         </script>
 
         <!-- Product Management Section -->
-        <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">
-            <h3>Gestione Prodotti</h3>
+        <div class="tab-pane fade" id="products-tab" role="tabpanel">
+            <h4>Gestione Prodotti</h4>
             <p>Aggiungi, modifica, elimina i prodotti.</p>
             <button class="btn btn-success mb-3 me-1" data-bs-toggle="modal" data-bs-target="#addProductModal">Aggiungi Prodotto</button>
             <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addVersionModal">Aggiungi Versione</button>
@@ -150,8 +150,8 @@
         });
         </script>
         <!-- Category Management Section -->
-        <div class="tab-pane fade" id="category" role="tabpanel" aria-labelledby="category-tab">
-            <h3>Gestione Categorie</h3>
+        <div class="tab-pane fade" id="category-tab" role="tabpanel">
+            <h4>Gestione Categorie</h4>
             <p>Aggiungi o elimina una categoria.</p>
             <button class="btn btn-success mb-3 me-1" data-bs-toggle="modal" data-bs-target="#addCategoryModal">Aggiungi Categoria</button>
             <table id="categoryTable" class="table">
@@ -195,7 +195,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="productBrand" class="form-label">Brand</label>
-                            <input type="text" class="form-control" id="productBrand" name="productBrand" step="0.01" required>
+                            <input type="text" class="form-control" id="productBrand" name="productBrand" required>
                         </div>
                         <div class="mb-3">
                             <label for="productCategory" class="form-label">Categoria</label>
@@ -239,7 +239,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="versionAge" class="form-label">Età Cane</label>
-                            <input type="text" class="form-control" id="versionAge" name="versionAge" step="0.01" required>
+                            <input type="text" class="form-control" id="versionAge" name="versionAge" required>
                         </div>
                         <div class="mb-3">
                             <label for="versionCod" class="form-label">Prodotto</label>
@@ -305,8 +305,8 @@
                 <div class="modal-body">
                     <form id="statusForm">
                         <div class="mb-3">
-                            <label for="orderID" class="form-label">Ordine #</label>
-                            <span id="modalOrderID" class="form-control" name="modalOrderID"></span>
+                            <label class="form-label">Ordine #</label>
+                            <span id="modalOrderID" class="form-control"></span>
                             <input type="hidden" id="orderID" name="orderID" value="">
                         </div>
                         <div class="mb-3">
@@ -392,8 +392,8 @@
                 <div class="modal-body">
                     <form id="editForm">
                     <div class="mb-3">
-                            <label for="productCategory" class="form-label">Categoria</label>
-                            <select class="form-select" id="productCategory" name="productCategory" required>
+                            <label for="editCategory" class="form-label">Categoria</label>
+                            <select class="form-select" id="editCategory" name="editCategory" required>
                                 <option value="" disabled selected>Seleziona una categoria</option>
                                 <?php foreach ($templateParams["categorie"] as $categoria): ?>
                                     <option value="<?= $categoria["CodCategoria"] ?>"><?= $categoria["Nome"] ?></option>
@@ -402,7 +402,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="editPrice" class="form-label">Prezzo</label>
-                            <input type="number" class="form-control" id="editPrice" name="editPrice" step="0.01" min="0.01"required>
+                            <input type="number" class="form-control" id="editPrice" name="editPrice" step="0.01" min="0.01" required>
                         </div>
                         <div class="mb-3">
                             <label for="editQuantity" class="form-label">Disponibilità</label>

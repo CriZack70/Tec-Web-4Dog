@@ -1,10 +1,25 @@
-    <section class=" section1 px-3 py-1" style="background-color: lightblue;">
+    <section class=" section1 px-3 py-1" style="background-color: #62A0EA;">
         <div class="text-center mb-2">
             <h2>Scegli la taglia del tuo Cane</h2>
             <div class="d-flex justify-content-center">
-            <a class="text-decoration-none text-dark" href="taglia.php?id=S"><button class="btn btn-light mx-2"><span class="fa fa-paw fs-3 pe-2"></span>Piccolo</button></a>
-            <a class="text-decoration-none text-dark" href="taglia.php?id=M"><button class="btn btn-light mx-2"><span class="fa fa-paw fs-3 pe-2"></span>Medio</button></a>
-            <a class="text-decoration-none text-dark" href="taglia.php?id=L"><button class="btn btn-light mx-2"><span class="fa fa-paw fs-3 pe-2"></span>Grande</button></a>
+            <form class="text-decoration-none text-dark" action="taglia.php?id=S" method="GET">
+                <input type="hidden" name="id" value="S">
+                <button class="btn btn-light mx-2">
+                    <span class="fa fa-paw fs-3 pe-2"></span>Piccolo
+                </button>
+            </form>
+            <form class="text-decoration-none text-dark" action="taglia.php?id=M" method="GET">
+                <input type="hidden" name="id" value="M">
+                <button class="btn btn-light mx-2">
+                    <span class="fa fa-paw fs-3 pe-2"></span>Medio
+                </button>
+            </form>
+            <form class="text-decoration-none text-dark" action="taglia.php?id=L" method="GET">
+                <input type="hidden" name="id" value="L">    
+                <button class="btn btn-light mx-2">
+                    <span class="fa fa-paw fs-3 pe-2"></span>Grande
+                </button>
+            </form>
             </div>
         </div>
     </section>

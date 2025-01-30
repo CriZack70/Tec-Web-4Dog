@@ -1,9 +1,9 @@
 <div class="container mt-5">
-    <h3 class="mb-4">Payment Methods</h3>
+    <h2 class="mb-4">Payment Methods</h2>
 
     <!-- List Payment Methods -->
     <div class="mb-4">
-        <h4>I tuoi metodi di pagamento</h4>
+        <h3>I tuoi metodi di pagamento</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -39,7 +39,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addPaymentModalLabel">Aggiungi metodo di pagamento</h5>
+                <h4 class="modal-title" id="addPaymentModalLabel">Aggiungi metodo di pagamento</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -70,7 +70,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteConfirmModalLabelPayment">Conferma Eliminazione Carta</h5>
+                <h4 class="modal-title" id="deleteConfirmModalLabelPayment">Conferma Eliminazione Carta</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
