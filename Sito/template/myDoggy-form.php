@@ -4,7 +4,7 @@
 
 
 
-<section class="section6 mt-5 border-0 shadow-none" style="background-color: white;">
+<section class="mt-5 border-0 shadow-none" style="background-color: white;">
     <div class="container d-flex justify-content-center align-items-center mt-1 mb-2">
         <div class="row w-100">
             <div class="col-12 col-md-6 mx-auto">
@@ -41,12 +41,12 @@
                             <option value="Senior" <?php echo $templateParams["dog"]["eta"] === "Senior" ? "selected" : ""; ?>>Senior</option>
                         </select>
                     </div>
-                    
+
                     <div class="d-flex justify-content-between">
                     <input type="hidden" id="actionField" name="action" value="<?php echo $templateParams["action"]; ?>"/>
                         <button type="<?php echo $templateParams["action"] === "modifica" ? "button" : "submit"; ?>" id="editButton" class="btn btn-primary">
                             <?php echo $templateParams["action"] === "modifica" ? "Modifica" : "Inserisci"; ?>
-                        </button>                    
+                        </button>
                         <?php if ($templateParams["action"] === "modifica"): ?>
                             <button type="submit" formaction="gestisci-doggy.php" name="action" value="cancella" class="btn btn-danger">Cancella</button>
                         <?php endif; ?>

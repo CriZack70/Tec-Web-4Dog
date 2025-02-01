@@ -1,29 +1,75 @@
-// Handle user actions
-async function deleteUser(userId) {
-    if (confirm("Volete davvero eliminare questo utente?")) {
-        const url = 'utils/users.php';
-        const formData = new FormData();
-        formData.append('userId', userId);
-        try {
-                const response = await fetch(url, {
-                method: "POST",                   
-                body: formData
-            });
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            } 
-            const json = await response.json();
-            if (json["utenteEliminato"]) {
-                sessionStorage.setItem('activeTab', 'pills-users-tab');
-                location.reload();
-            } else {
-                alert('Failed to delete user');
-            }
-        } catch (error) {
-            console.log(error.message);
-        }
-    }
+// Custom alert notification
+function showMessage(message, isSuccess) {
+    const toastElement = document.getElementById('toastMessage');
+    const toastText = document.getElementById('toastText');
+
+    toastText.textContent = message;
+    toastElement.classList.remove('bg-danger', 'bg-success');
+    toastElement.classList.add(isSuccess ? 'bg-success' : 'bg-danger');
+
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
 }
+
+let selectedProductID = null;
+let selectedVersionID = null;
+let selectedUserID = null;
+let selectedCategoryID = null;
+
+function confirmDeleteUser(userID) {
+    selectedUserID = userID;
+    const modal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
+    modal.show();
+}
+
+function confirmDeleteProduct(productID, versionID) {
+    selectedProductID = productID;
+    selectedVersionID = versionID;
+    const modal = new bootstrap.Modal(document.getElementById('deleteProductModal'));
+    modal.show();
+}
+
+function confirmDeleteCategory(categoryID) {
+    selectedCategoryID = categoryID;
+    const modal = new bootstrap.Modal(document.getElementById('deleteCategoryModal'));
+    modal.show();
+}
+
+function confirmEditProduct(productID, versionID) {
+    selectedProductID = productID;
+    selectedVersionID = versionID;
+    const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
+    modal.show();
+}
+
+
+// Handle user actions
+async function deleteUser() {
+    const url = 'utils/users.php';
+    const formData = new FormData();
+    formData.append('userId', selectedUserID);
+    try {
+            const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        } 
+        const json = await response.json();
+        if (json["utenteEliminato"]) {
+            sessionStorage.setItem('activeTab', 'pills-users-tab');
+            location.reload();
+        } else {
+            showMessage("Failed to delete user", false);
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+
+    bootstrap.Modal.getInstance(document.getElementById('deleteUserModal')).hide();
+}
+
 
 // Handle order actions
 
@@ -48,17 +94,15 @@ async function updateOrderStatus() {
         method: 'POST',
         body: formData
         });
-        console.log(response);
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         } 
         const json = await response.json();
-        console.log(json);
         if (json["statoAggiornato"]) {
             sessionStorage.setItem('activeTab', 'pills-orders-tab');
             location.reload();
         } else {
-            alert('Failed to update order');
+            showMessage("Failed to update order", false);
         }
     } catch (error) {
         console.log(error.message);
@@ -80,18 +124,16 @@ async function sendNotification(orderID, orderStatus) {
         method: 'POST',
         body: formData
         });
-        console.log(response);
         if (!response.ok) {
+            showMessage("Failed to send notification (already sent?)", false);
             throw new Error(`Response status: ${response.status}`);
         } 
         const json = await response.json();
-        console.log(json);
         if (json["notificaInviata"]) {
-            alert('Notification sent!')
+            showMessage("Notification sent!", true);
             sessionStorage.setItem('activeTab', 'pills-orders-tab');
-            location.reload();
         } else {
-            alert('Failed to send notification');
+            showMessage("Failed to send notification!", false);
         }
     } catch (error) {
         console.log(error.message);
@@ -106,23 +148,20 @@ async function addProduct() {
 
     const formData = new FormData(modalProd);
     formData.append('azione', 'new');
-
     try {
         const response = await fetch('utils/products.php', {
         method: 'POST',
         body: formData
         });
-        console.log(response);
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         } 
         const json = await response.json();
-        console.log(json);
         if (json["prodottoAggiunto"]) {
             sessionStorage.setItem('activeTab', 'pills-products-tab');
             location.reload();
         } else {
-            alert('Failed to add product');
+            showMessage("Failed to add Product!", false);
         }
     } catch (error) {
         console.log(error.message);
@@ -145,17 +184,15 @@ async function addVersion() {
         method: 'POST',
         body: formData
         });
-        console.log(response);
         if (!response.ok) {
             throw new Error(`Response status: ${response.status}`);
         } 
         const json = await response.json();
-        console.log(json);
         if (json["versioneAggiunta"]) {
             sessionStorage.setItem('activeTab', 'pills-products-tab');
             location.reload();
         } else {
-            alert('Failed to add version');
+            showMessage("Failed to add Version!", false);
         }
     } catch (error) {
         console.log(error.message);
@@ -166,67 +203,124 @@ async function addVersion() {
 
 }
 
+async function editProduct() {
 
-async function editProduct(productId, productVer) {
-    const productQnt = prompt("Inserisci una nuova disponibilità per il prodotto:");
-    const productPrice = prompt("Inserisci il nuovo prezzo del prodotto:");
-    if (productQnt && productPrice) {
-        const url = 'utils/products.php';
-        const formData = new FormData();
-        formData.append('CodProdotto', productId);
-        formData.append('Codice', productVer);
-        formData.append('Disponibilita', productQnt);
-        formData.append('Prezzo', productPrice);
-        formData.append('azione', 'edit');
-        console.log(formData);
-        try {
+    const modalEdit = document.getElementById('editForm');
+
+    const url = 'utils/products.php';
+    const formData = new FormData(modalEdit);
+    formData.append('CodProdotto', selectedProductID);
+    formData.append('Codice', selectedVersionID);
+    formData.append('azione', 'edit');
+    try {
+        const response = await fetch(url, {
+        method: "POST",                   
+        body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        } 
+        const json = await response.json();
+        if (json["prodottoModificato"]) {
+            sessionStorage.setItem('activeTab', 'pills-products-tab');
+            location.reload();
+        } else {
+            showMessage("Failed to edit product!", false);
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+async function deleteProduct() {
+    
+    const url = 'utils/products.php';
+    const formData = new FormData();
+    formData.append('CodProdotto', selectedProductID);
+    formData.append('Codice', selectedVersionID);
+    formData.append('azione', 'delete');
+    try {
             const response = await fetch(url, {
             method: "POST",                   
             body: formData
-            });
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            } 
-            const json = await response.json();
-            if (json["prodottoModificato"]) {
-                sessionStorage.setItem('activeTab', 'pills-products-tab');
-                location.reload();
-            } else {
-                alert('Failed to edit product');
-            }
-        } catch (error) {
-            console.log(error.message);
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        } 
+        const json = await response.json();
+        if (json["prodottoEliminato"]) {
+            sessionStorage.setItem('activeTab', 'pills-products-tab');
+            location.reload();
+        } else {
+            showMessage("Failed to delete Product!", true);
         }
+    } catch (error) {
+        console.log(error.message);
     }
+    
 }
 
-async function deleteProduct(productId, productVer) {
-    if (confirm("Volete davvero eliminare questo prodotto?")) {
-        const url = 'utils/products.php';
-        const formData = new FormData();
-        formData.append('CodProdotto', productId);
-        formData.append('Codice', productVer);
-        formData.append('azione', 'delete');
-        try {
-                const response = await fetch(url, {
-                method: "POST",                   
-                body: formData
-            });
-            if (!response.ok) {
-                throw new Error(`Response status: ${response.status}`);
-            } 
-            const json = await response.json();
-            if (json["prodottoEliminato"]) {
-                sessionStorage.setItem('activeTab', 'pills-products-tab');
-                location.reload();
-            } else {
-                alert('Failed to delete product');
-            }
-        } catch (error) {
-            console.log(error.message);
+
+// Handle Category
+async function addCategory() {
+    
+    const modalCategory = document.getElementById('addCategoryForm');
+
+    const formData = new FormData(modalCategory);
+    formData.append('azione', 'add');
+
+    try {
+        const response =await fetch('utils/category.php', {
+        method: 'POST',
+        body: formData
+        });
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        } 
+        const json = await response.json();
+        if (json["categoriaAggiunta"]) {
+            sessionStorage.setItem('activeTab', 'pills-category-tab');
+            location.reload();
+        } else {
+            showMessage("Failed to add category!", false);
         }
+    } catch (error) {
+        console.log(error.message);
     }
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById('addCategoryModal'));
+    modal.hide();
+
 }
+
+async function deleteCategory() {
+    
+    const url = 'utils/category.php';
+    const formData = new FormData();
+    formData.append('categoryName', selectedCategoryID);
+    formData.append('azione', 'delete');
+    try {
+            const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+        if (!response.ok) {
+            showMessage("Failed to delete Category (maybe there are products in it?)", true);
+            throw new Error(`Response status: ${response.status}`);
+        } 
+        const json = await response.json();
+        if (json["categoriaEliminata"]) {
+            sessionStorage.setItem('activeTab', 'pills-category-tab');
+            location.reload();
+        } else {
+            showMessage("Failed to delete Category!", true);
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+    
+}
+
 
 const activeTab = sessionStorage.getItem('activeTab');
 sessionStorage.removeItem('activeTab');
@@ -236,3 +330,4 @@ if (activeTab) {
         tabToShow.click();
     }
 }
+

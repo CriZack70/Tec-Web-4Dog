@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title><?php echo $templateParams["titolo"]; ?></title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <!-- Load icon library -->
     <script src="https://kit.fontawesome.com/886c94414f.js" crossorigin="anonymous"></script>
     <!-- Bootstrap CSS -->
@@ -21,17 +21,20 @@
         </div>
         <div class="d-flex justify-content-center align-items-center mb-2 position-relative">
             <div class="d-flex flex-fill align-items-center">
-                <button class="btn btn-light me-1" href="mascotte.php"><span class="fas fa-dog"></span></button>
-                <span class="our-dogs ms-1 d-none d-md-block" href="mascotte.php">Le nostre Mascotte!</span>
+                <form class="d-flex justify-content-center align-items-center" action="mascotte.php">
+                    <button class="btn btn-light me-1"><span class="fas fa-dog"></span></button>
+                    <span class="our-dogs ms-1 d-none d-md-block">Le nostre Mascotte!</span>
+                </form>
             </div>
             <form class="d-flex flex-fill me-1" method="GET" action="cerca.php">
-                <input type="text" class="form-control" placeholder="Cerca..." name="search"/>
+                <input title="search" type="text" class="form-control" placeholder="Cerca..." name="search">
+                <!-- <label for="search"></label> -->
                 <button type="submit" class="btn btn-light ms-1"><span class="fa fa-search"></span></button>
             </form>
             <div class="d-flex flex-fill justify-content-end">
                 <div class="dropdown d-inline-block">
-                    <button class="btn btn-light dropdown-toggle p-2 ms-1" type="button" data-bs-toggle="dropdown">
-                        <em class="fas fa-user"></em> 
+                    <button class="btn btn-light dropdown-toggle p-2 mx-1" type="button" data-bs-toggle="dropdown">
+                        <em class="fas fa-user"></em>
                         <span class="">Profilo</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -61,7 +64,8 @@
                         <span class="not-badge badge-danger"><?php echo $unreadNotification; ?></span>
                         <?php endif; ?>
                         </a></li>
-                        <li><a class="dropdown-item<?php isActive("myDoggy.php");?>"  href="myDoggy.php">Il mio Doggy</a></li>
+                        <li><a class="dropdown-item <?php isActive("carte.php");?>" href="carte.php">Pagamenti</a></li>
+                        <li><a class="dropdown-item <?php isActive("myDoggy.php");?>"  href="myDoggy.php">Il mio Doggy</a></li>
                         <li><a class="dropdown-item <?php isActive("logout.php");?>" href="logout.php">Logout</a></li>
                         <?php endif; ?>
                     </ul>
@@ -86,7 +90,7 @@
         <?php if(isUserLoggedIn()):
         $username = $_SESSION["Nome"];
         ?>
-        <span class ="hello py-0 px-3 " style="text-align:right; font-size: 150%">Ciao <?php echo htmlspecialchars($username); ?>!</span>
+            <span class ="hello py-0 px-3 " style="text-align:right; font-size: 150%">Ciao <?php echo htmlspecialchars($username); ?>!</span>
         <?php endif;?>
 
         <?php
@@ -98,13 +102,13 @@
                         <label class="navbar-brand border-bottom border-dark">Categorie</label>
                         <button id="cat-button" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
                         onclick="toggleUpAndDown()">
-                            <em id="icon-down" class="fas fa-caret-down"></em> 
-                            <em id="icon-up" class="fas fa-caret-up d-none"></em> 
+                            <strong id="icon-down" class="fas fa-caret-down"></strong>
+                            <strong id="icon-up" class="fas fa-caret-up d-none"></strong>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav flex-column px-5">
                             <?php foreach($templateParams["categories"] as $categoria): ?>
-                                <li class="nav-item"><a class="nav-link border-bottom border-dark" <?php isActive("index.php");?> href="categoria.php?id=<?php echo $categoria["CodCategoria"]; ?>"><?php echo $categoria["Nome"]; ?></a></li>
+                                <li class="nav-item"><a class="nav-link border-bottom border-dark <?php isActive("index.php");?>" href="categoria.php?id=<?php echo $categoria["CodCategoria"]; ?>"><?php echo $categoria["Nome"]; ?></a></li>
                             <?php endforeach; ?>
                             </ul>
                         </div>

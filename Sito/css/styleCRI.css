@@ -48,17 +48,8 @@ header h1 {
 
 .d-block{
     font-size: 100%;
-    color:white;    
+    color:white;
 }
-
-
-/* Header navigation and search styles */
-/*
-header .btn {
-    transition: background-color 0.3s ease; /* Transizione fluida 
-    
-}
-*/
 
 .btn-cart {
     position: relative;
@@ -136,27 +127,23 @@ header .btn-search:hover {
 
 header form .visually-hidden{
     position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
-
-
 
 aside{
     background-color:yellow;
 }
 
-aside  ul  li  a:hover{
+aside ul li a:hover{
     font-weight: bold;
     font-size: 90%;
 }
-
 
 /* Stile per section2 */
 main > div > div > section:nth-child(2) {
@@ -178,18 +165,18 @@ main > div > div > section:nth-child(2) .card {
     border: 1px solid #ddd; /* Bordo leggero */
     border-radius: 5px; /* Arrotondamento angoli */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra */
-    
+
 }
 
 main > div > div > section:nth-child(2) .card-body img{
     border-bottom: 2px solid  red;
     margin-bottom: 5px;
 }
- 
+
 main > div > div > section:nth-child(2) .card-body a {
     text-decoration: none; /* Rimuove la sottolineatura */
     color:blue; /* Colore del link */
-    font-weight: bold; 
+    font-weight: bold;
 }
 
 main > div > div > section:nth-child(2) .card-body a:hover {
@@ -209,10 +196,9 @@ main > div > div > section:nth-child(3) {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra per effetto */
 }
 
-main .section5 ul li a {
-    font-family: Arial, sans-serif;  /* Imposto la dimensione delle 2 label */
+section:first-of-type ul li a {
+    font-family: Arial, sans-serif;
     font-size: 150%;
-
 }
 
   .btnlog{    /*bottone Accedi*/
@@ -237,9 +223,9 @@ main .section5 ul li a {
 
 .card-bodyW {
     width: 100%; /* Imposta la larghezza della card body al 100% della card */
-    text-align: center; /* Centra il contenuto */    
+    text-align: center; /* Centra il contenuto */
     padding-bottom: 30px; /* Aggiunge spazio per il checkbox */
-    
+
 }
 .card-checkbox {
     position: absolute;
@@ -253,14 +239,14 @@ main .section5 ul li a {
     max-width: 100%; /* Imposta la larghezza massima dell'immagine al 100% della card body */
     height: auto; /* Mantiene le proporzioni dell'immagine */
     display: block; /* Assicura che l'immagine sia un elemento a blocco */
-    margin-left:  0; 
+    margin-left:  0;
     margin-right: 0;
 }
- 
+
 .card-wish  .card-bodyW  a {
     text-decoration: none; /* Rimuove la sottolineatura */
     color:blue; /* Colore del link */
-    font-weight: bold; 
+    font-weight: bold;
     display: block; /* Assicura che il link sia un elemento a blocco */
     margin-top: 5px; /* Aggiunge uno spazio tra l'immagine e il testo */
     font-size: 70%;
@@ -298,7 +284,7 @@ main .section5 ul li a {
 }
 
 .buttonDog span:hover{
-    
+
     color: lightskyblue;
 }
 
@@ -318,5 +304,21 @@ footer {
 }
 
 a.text-decoration-none:hover {
-    color: #007bff !important; 
+    color: #007bff !important;
 }
+
+.row.flex-row {
+    padding: 0 3%;
+
+}
+
+section {
+    padding-top: 3%;
+}
+
+.row.bg-light {
+    position: relative;
+    top: -20px;
+}
+
+

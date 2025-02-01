@@ -25,6 +25,7 @@
                     <td><img src="<?= htmlspecialchars(UPLOAD_DIR.$item['Percorso_Immagine']) ?>" alt="<?= htmlspecialchars($item['Nome']) ?>" style="width: 50px;"></td>
                     <td>
                         <input 
+                            id="qta";
                             type="number" 
                             class="form-control quantita" 
                             value="<?= $item['Quantita'] ?>" 
@@ -32,6 +33,7 @@
                             max="<?= $item['Disponibilita'] ?>"
                             onchange="updateCart(<?= $item['CodProdotto'] ?>, <?= $item['Codice'] ?>, this.value)"
                             onKeyDown="return false">
+                        <label for="qta" hidden>Qta</label>
                     </td>
                     <td><span id="item-price"><?= number_format($item['Prezzo'], 2) ?></span> €</td>
                     <td class="totale-riga"><?= number_format($lineTotal, 2) ?> €</td>
@@ -43,7 +45,34 @@
         </tbody>
     </table>
 
-    <h3>Totale: <span id="totale"><?= number_format($total, 2) ?><span> €</h3>
-    <a href="ordini.php"><button class="btn btn-primary mb-3">Prosegui Ordine</button><a>
+    <h3>Totale: <span id="totale"><?= number_format($total, 2) ?></span> €</h3>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#paymentMethodModal">Prosegui Ordine</button>
     <?php endif; ?>
+</div>
+<!-- Modal for Selecting Payment Method -->
+<div class="modal fade" id="paymentMethodModal" tabindex="-1" aria-labelledby="paymentMethodModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="paymentMethodModalLabel">Seleziona un metodo di Pagamento</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="selectPaymentForm">
+                    <div class="mb-3">
+                        <label for="paymentMethod" class="form-label">Scegli una carta</label>
+                        <select id="paymentMethod" name="paymentMethod" class="form-select">
+                            <?php foreach($templateParams["carte"] as $card) : ?>
+                                <option value="<?= $card["Numero_Carta"] ?>"><?= str_repeat('*', 12) . substr($card['Numero_Carta'], -4); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                <a href="<?= empty($templateParams["carte"]) ? "carte.php" : "ordini.php" ?>" class="btn btn-primary">Conferma</a>
+            </div>
+        </div>
+    </div>
 </div>

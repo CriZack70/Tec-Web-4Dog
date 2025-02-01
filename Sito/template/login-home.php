@@ -5,9 +5,9 @@ unset($_SESSION["errorelogin"]);
 <script>
         let errorMessage = "<?php echo $errorMessage; ?>";
     </script>
-                        
-<section class="section5 mt-3 mb-2 border border-0 shadow-none" style="background-color: white;">
-        
+
+<section class="mt-3 mb-2 border border-0 shadow-none" style="background-color: white;">
+
 	<div class="container d-flex justify-content-center align-items-center mt-1 mb-2 ">
 		<div class="row w-100">
 			<div class="col-12 col-md-6 mx-auto my-auto">
@@ -27,19 +27,19 @@ unset($_SESSION["errorelogin"]);
 					</div>
 					<div class="tab-pane fade mx-auto my-auto mt-3 " id="registrati" role="tabpanel" aria-labelledby="registrati-tab">
 						<div class="reg-pane" id="registratiContent"></div>
-					</div>	
-					
-        
+					</div>
+
+
 				</div>
 			</div>
 	    </div>
-	</div>  
-	
+	</div>
+
 </section>
 
-				
-					
-					
-            
+
+
+
+
 
 

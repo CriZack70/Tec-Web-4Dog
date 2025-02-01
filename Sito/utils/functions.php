@@ -1,7 +1,7 @@
 <?php
 function isActive($pagename){
     if(basename($_SERVER['PHP_SELF'])==$pagename){
-        echo " class='active' ";
+        echo "active";
     }
 }
 
@@ -23,6 +23,5 @@ function registerAdmin($user){
     $_SESSION["idAdmin"] = $user["Id_Adm"];    
     $_SESSION["Nome"] = "DreamTeam";
 }
-
 
 ?>

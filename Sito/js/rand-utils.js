@@ -1,3 +1,4 @@
+// Arrow toggle for aside
 function toggleUpAndDown() {
     const button = document.getElementById('cat-button');
     const down = document.getElementById('icon-down');
@@ -15,3 +16,4 @@ function toggleUpAndDown() {
     }
     
 }
+

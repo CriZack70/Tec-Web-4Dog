@@ -1,7 +1,7 @@
 <?php
 require_once 'bootstrap.php';
 
-// Controlla se l'utente è loggato
+
 if (!isUserLoggedIn()) {
     header("Location: login.php");
     exit;
@@ -47,12 +47,12 @@ foreach($cartItems as $cartItem) {
     $dbh->clearCart($userId);
     
 
-    // Recupera i dettagli dell'ordine per visualizzarli nella pagina
-    $templateParams["orderDetails"] = $dbh->getOrderDetails($orderId);
+// Recupera i dettagli dell'ordine per visualizzarli nella pagina
+$templateParams["orderDetails"] = $dbh->getOrderDetails($orderId);
 
-    // Mostra pagina di conferma
-    $templateParams["titolo"] = "4Dogs - Ordine Completato";
-    $templateParams["name"] = "ordine-completato.php";
-    require 'template/base.php';
+
+$templateParams["titolo"] = "4Dogs - Ordine Completato";
+$templateParams["name"] = "ordine-completato.php";
+require 'template/base.php';
 
 ?>
