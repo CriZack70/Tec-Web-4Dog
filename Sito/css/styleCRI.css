@@ -270,6 +270,16 @@ main .section5 ul li a {
     text-decoration: underline; /* Aggiunge sottolineatura al passaggio del mouse */
     color: #0056b3; /* Colore del link al passaggio del mouse */
 }
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
  
 .my-dog{
     border: 1px solid #ddd; /* Bordo leggero */

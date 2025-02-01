@@ -25,41 +25,49 @@
                 <span class="our-dogs ms-1 d-none d-md-block" href="mascotte.php">Le nostre Mascotte!</span>
             </div>
             <form class="d-flex flex-fill me-1" method="GET" action="cerca.php">
-                <input type="text" class="form-control" placeholder="Cerca..." name="search">
+                <input type="text" class="form-control" placeholder="Cerca..." name="search"/>
                 <button type="submit" class="btn btn-light ms-1"><span class="fa fa-search"></span></button>
             </form>
             <div class="d-flex flex-fill justify-content-end">
                 <div class="dropdown d-inline-block">
                     <button class="btn btn-light dropdown-toggle p-2 ms-1" type="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-user"></i>
+                        <em class="fas fa-user"></em> 
                         <span class="">Profilo</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <?php if(!isUserLoggedIn() && !isAdminLoggedIn()): ?>
-                        <li><a class="dropdown-item"<?php isActive("login.php");?> href="login.php">Accedi</a></li>
-                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Ordini</a></li>
-                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Notifiche</a></li>
-                        <li><a class="dropdown-item" <?php isActive("login.php");?> href="login.php">Il mio Doggy</a></li>
+                        <?php if(!isUserLoggedIn() && !isAdminLoggedIn()): ?>                            
+                        <li><a class="dropdown-item<?php isActive("login.php");?>" href="login.php">Accedi</a></li>
+                        <li><a class="dropdown-item <?php isActive("login.php");?>" href="login.php">Ordini</a></li>
+                        <li><a class="dropdown-item <?php isActive("login.php");?>" href="login.php">Notifiche</a></li>
+                        <li><a class="dropdown-item <?php isActive("login.php");?>" href="login.php">Il mio Doggy</a></li>
                         <?php elseif(isAdminLoggedIn()) : ?>
-                        <li><a class="dropdown-item"<?php isActive("admin.php");?> href="admin.php">Admin</a></li>
+                        <li><a class="dropdown-item<?php isActive("admin.php");?>" href="admin.php">Admin</a></li>
+                        <li><a class="dropdown-item <?php isActive("notifiche-venditore.php");?>" href="notifiche-venditore.php">Notifiche
+                        <?php
+                        $unreadNotificationAd =$dbh->getUnreadNotificationsAdm();
+                        if ($unreadNotificationAd > 0): ?>
+                        <span class="not-badge badge-danger"><?php echo $unreadNotificationAd; ?></span>
+                        <?php endif; ?>
+                        </a></li>                        
                         <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
+                        
                         <?php elseif(isUserLoggedIn()):?>
-                        <li><a class="dropdown-item"<?php isActive("account.php");?> href="account.php">Account</a></li>
-                        <li><a class="dropdown-item" <?php isActive("ordini-totali.php");?> href="ordini-totali.php">Ordini</a></li>
-                        <li><a class="dropdown-item" <?php isActive("notifiche.php");?> href="notifiche.php"> Notifiche
+                        <li><a class="dropdown-item<?php isActive("account.php");?>" href="account.php">Account</a></li>
+                        <li><a class="dropdown-item <?php isActive("ordini-totali.php");?>" href="ordini-totali.php">Ordini</a></li>
+                        <li><a class="dropdown-item <?php isActive("notifiche.php");?>" href="notifiche.php"> Notifiche
                         <?php
                         $unreadNotification =$dbh->getUnreadNotifications($_SESSION["Email"]);
                         if ($unreadNotification > 0): ?>
                         <span class="not-badge badge-danger"><?php echo $unreadNotification; ?></span>
                         <?php endif; ?>
                         </a></li>
-                        <li><a class="dropdown-item"<?php isActive("myDoggy.php");?>  href="myDoggy.php">Il mio Doggy</a></li>
-                        <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
+                        <li><a class="dropdown-item<?php isActive("myDoggy.php");?>"  href="myDoggy.php">Il mio Doggy</a></li>
+                        <li><a class="dropdown-item <?php isActive("logout.php");?>" href="logout.php">Logout</a></li>
                         <?php endif; ?>
                     </ul>
                 </div>
                 <?php if(!isAdminLoggedIn()) : ?>
-                <a class="ms-1" href="carrello.php"><button class="btn btn-light btn-cart h-100 w-100"><i class="fa fa-shopping-cart"></i></button></a>
+                <a class="ms-1" href="carrello.php" title="Vai al carrello"><button class="btn btn-light btn-cart h-100 w-100"><em class="fa fa-shopping-cart"></em> </button></a>
                 <?php endif; ?>
                 <?php if(isUserLoggedIn()): 
                     $email = $_SESSION["Email"]; 
@@ -90,8 +98,8 @@
                         <label class="navbar-brand border-bottom border-dark">Categorie</label>
                         <button id="cat-button" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
                         onclick="toggleUpAndDown()">
-                            <i id="icon-down" class="fas fa-caret-down"></i>
-                            <i id="icon-up" class="fas fa-caret-up d-none"></i>
+                            <em id="icon-down" class="fas fa-caret-down"></em> 
+                            <em id="icon-up" class="fas fa-caret-up d-none"></em> 
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav flex-column px-5">

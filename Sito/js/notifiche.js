@@ -8,14 +8,20 @@ $(document).ready(function() {
         $('#notificaDescrizione').text(descrizione);
         $('#notificaData').text(data);
         $('#notificaDescrizione').prepend("Stato dell'Ordine: ");
+        $('#notificaData').prepend("Data aggiornamento  ");
 
         // Rimuovi l'attributo inert e mostra il modal
         $('#notificaModal').removeAttr('inert').modal('show');
 
+        const orderDetailsHtml = $(this).closest('.alert').find('.order-details').html();
+        $('#orderDetailsContainer').html(orderDetailsHtml);
+
+
+
         // Segna la notifica come letta
         $.post('update_notifica.php', { Numero: numero, Descrizione: descrizione, azione: 'letta' }, function() {
             // Aggiorna l'icona della bustina
-            $(`.notifica-oggetto[data-numero="${numero}"]`).siblings('.icon').find('i').removeClass('fa-envelope').addClass('fa-envelope-open');
+            $(`.notifica-oggetto[data-numero="${numero}"]`).siblings('.icon').find('em').removeClass('fa-envelope').addClass('fa-envelope-open');
             
             $(`.notifica-oggetto[data-numero="${numero}"]`).closest('.alert').addClass('alert-letta');
         });

@@ -28,8 +28,7 @@
                 <thead>
                     <tr>
                         <th>Cognome</th>
-                        <th>Nome</th>
-                        <th>CF</th>
+                        <th>Nome</th>                        
                         <th>Telefono</th>
                         <th>Email</th>
                         <th>Azioni</th>
@@ -39,8 +38,7 @@
                     <?php foreach ($templateParams["utenti"] as $utente): ?>
                     <tr>
                         <td><?= $utente['Cognome'] ?></td>
-                        <td><?= $utente['Nome'] ?></td>
-                        <td><?= $utente['CF'] ?></td>
+                        <td><?= $utente['Nome'] ?></td>                        
                         <td><?= $utente['Telefono'] ?></td>
                         <td><?= $utente['Email'] ?></td>
                         <td>

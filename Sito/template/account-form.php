@@ -63,7 +63,8 @@
                         <div class="card-bodyW" >
                             <img class="img-fluid" src="<?php echo UPLOAD_DIR.$wish["Percorso_Immagine"]; ?>" alt=""  />
                             <a href="prodotto.php?id=<?php echo $wish["CodProdotto"]; ?>" ><?php echo $wish["Nome"]; ?> </a>
-                            <input type="checkbox" class="card-checkbox" name="prodotti[]" value="<?php echo $wish["CodProdotto"]; ?>" disabled />
+                            <input type="checkbox" class="card-checkbox" id="prodotto-<?php echo $wish["CodProdotto"]; ?>" name="prodotti[]" value="<?php echo $wish["CodProdotto"]; ?>" disabled />
+                            <label for="prodotto-<?php echo $wish["CodProdotto"]; ?>" class="sr-only">Seleziona <?php echo $wish["Nome"]; ?></label>
                         </div>
                     </div>
                
@@ -99,7 +100,7 @@
             <?php endif; ?> 
                 <div class="my-dog col-md-6 col-lg-8 mt-2  align-items-center" style="text-align:center;">    
                 <a href="./myDoggy.php" class="buttonDog " style=" max-width: 95%;">
-                    <img src="./imgs/Doggy.jpg" alt="" class="img-fluid"/>
+                    <img src="./imgs/Doggy.jpg" alt="Vai alla pagina del tuo Doggy" class="img-fluid"/>
                     <div class="d-block d-md-inline">
                         <span>Il mio Doggy</span>
                     </div>

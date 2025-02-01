@@ -1,3 +1,4 @@
+<?php $total=0; ?>
 <div class="container mt-4">
     <h2>Il mio Carrello</h2>
 

@@ -9,7 +9,7 @@ if (!isUserLoggedIn()) {
 $userId = $_SESSION['Email'];
 
 // Recupera gli ordini effettuati dall'utente
-$orders = $dbh->getUserOrders($userId); // Assicurati che questa funzione esista
+$orders = $dbh->getUserOrders($userId); 
 
 // Passa i dati al template
 $templateParams["titolo"] = "4Dogs - I miei ordini";

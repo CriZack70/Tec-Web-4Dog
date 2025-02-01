@@ -376,6 +376,7 @@ class DatabaseHelper{
         $stmt->execute();
     }
 
+   
     // Svuota il carrello dell'utente
     public function clearCart($email) {
         $query = "DELETE FROM carrello WHERE Email = ?";
@@ -385,11 +386,15 @@ class DatabaseHelper{
     }
 
     public function getOrderDetails($orderId) {
-        $stmt = $this->db->prepare("SELECT d.Numero, d.CodProdotto, d.Codice, d.Quantita, d.Prezzo, p.Nome, p.Percorso_Immagine
+        $stmt = $this->db->prepare("SELECT d.Numero, d.CodProdotto, d.Codice, d.Quantita, d.Prezzo, p.Nome, p.Percorso_Immagine, 
+                                        (SELECT ROUND(SUM(d1.Quantita * d1.Prezzo), 2) 
+                                        FROM ordine_prodotto d1 
+                                        WHERE d1.Numero = d.Numero) AS TotaleOrdine
                                     FROM ordine_prodotto d
                                     INNER JOIN prodotto p ON d.CodProdotto = p.CodProdotto
-                                    WHERE d.Numero = ?");
-        $stmt->bind_param("i", $orderId); // Assicurati di legare l'ID dell'ordine come intero
+                                    WHERE d.Numero = ?
+                                    ");
+        $stmt->bind_param("i", $orderId); 
         $stmt->execute();
 
         $result = $stmt->get_result();
@@ -518,6 +523,111 @@ class DatabaseHelper{
 
         return $stmt->execute();
     }
+
+    public function insertorderNotification($data, $orderId){
+        $query = "INSERT INTO notifica_venditore (Email_Admin, Data, Numero) VALUES ('fedeclacri@4dogs.it', ?, ? )";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $data, $orderId);
+
+        return $stmt->execute();
+    }
+
+    public function insertDisponibilityNotification($data, $codice){
+        $query = "INSERT INTO notifica_venditore (Email_Admin, Data, Codice) VALUES ('fedeclacri@4dogs.it', ?, ? )";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("si", $data,  $codice);
+
+        return $stmt->execute();
+    }
+
+    
+
+    public function  getUnreadAdminNotifications($email){
+        $query = "SELECT COUNT(*) AS totalNot FROM notifica_venditore, ordine WHERE notifica_venditore.Email_Admin  = ?  AND notifica_venditore.Letta = 0";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            return $row['totalNot'];
+        } else {
+            return 0; // Restituisce 0 se non ci sono risultati
+        }
+    }
+
+     //aggiorna la disponibilità prodotto
+
+     public function updateQuantity($codide,$quantity){
+        $quantity = (int)$quantity;
+        $query = " UPDATE versione_prodotto SET Disponibilita = Disponibilita - ?
+                WHERE Codice = ?";
+         $stmt = $this->db->prepare($query);
+         $stmt->bind_param("ii", $quantity, $codide);
+         $stmt->execute();
+
+         $querySelect = "SELECT Disponibilita FROM versione_prodotto WHERE Codice = ?";
+         $stmtSelect = $this->db->prepare($querySelect);
+         $stmtSelect->bind_param("i", $codide);
+         $stmtSelect->execute();
+         $result = $stmtSelect->get_result();
+         $row = $result->fetch_assoc();
+     
+         return $row['Disponibilita'];
+    
+        }
+
+       
+        public function getNotificationsOrdersAdm(){
+            $query = "SELECT notifica_venditore.Id, notifica_venditore.Data, notifica_venditore.Numero, notifica_venditore.Letta 
+            FROM notifica_venditore
+            WHERE notifica_venditore.Numero IS NOT NULL
+            ORDER BY notifica_venditore.Data DESC ";
+            $stmt = $this->db->prepare($query);            
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);    
+        }
+
+        public function getNotificationsDispAdm(){
+            $query = "SELECT notifica_venditore.Id, notifica_venditore.Data, notifica_venditore.Codice, notifica_venditore.Letta, prodotto.Percorso_Immagine, prodotto.CodProdotto
+            FROM notifica_venditore 
+            JOIN versione_prodotto ON notifica_venditore.Codice = versione_prodotto.Codice
+            JOIN prodotto ON versione_prodotto.CodProdotto = prodotto.CodProdotto
+            WHERE notifica_venditore.Codice IS NOT NULL
+            ORDER BY notifica_venditore.Data DESC ";
+            $stmt = $this->db->prepare($query);            
+            $stmt->execute();
+            $result = $stmt->get_result();
+            return $result->fetch_all(MYSQLI_ASSOC);    
+        }
+    
+        public function updateNotificationsStatusAdm($id){
+            $query = "UPDATE notifica_venditore SET Letta = 1 WHERE Id = ? ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("i", $id);
+            return  $stmt->execute();
+        }
+    
+        public function deleteNotificationsAdm($id){
+            $query = "DELETE FROM notifica_venditore  WHERE Id = ? ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bind_param("i", $id);       
+            return  $stmt->execute();
+        }
+        
+        public function  getUnreadNotificationsAdm(){
+            $query = "SELECT COUNT(*) AS totalNotAdm FROM notifica_venditore WHERE  notifica_venditore.Letta = 0";
+            $stmt = $this->db->prepare($query);            
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($row = $result->fetch_assoc()) {
+                return $row['totalNotAdm'];
+            } else {
+                return 0; // Restituisce 0 se non ci sono risultati
+            }
+        }
+
+   
 }
 
 ?>
