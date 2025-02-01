@@ -1,7 +1,8 @@
-function updateProductDetails(price, availability, version) {
+function updateProductDetails(price, availability, codVersion, versionText) {
     document.getElementById('price').textContent = price;
     document.getElementById('availability').textContent = availability;
-    document.getElementById('version').textContent = version;
+    document.getElementById('version').textContent = versionText;
+    document.getElementById('codVersione').value = codVersion;
     document.getElementById('quantity').value = 1;
     document.getElementsByClassName('btn-plus')[0].disabled = false;
     document.getElementsByClassName('btn-minus')[0].disabled = true;

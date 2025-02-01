@@ -28,7 +28,7 @@
             <?php foreach ($infoprodotto as $versione): $selezionato =  $versione['TagliaCane'] . " - " . $versione['EtaCane'] . " - " . $versione['Composizione_Materiale']  ?>
                 <li>
                     <a class="dropdown-item" href="#" 
-                        onclick="updateProductDetails('<?= $versione['Prezzo'] ?>', '<?= $versione['Disponibilita'] ?>', '<?= $selezionato ?>'); return false;">
+                        onclick="updateProductDetails('<?= $versione['Prezzo'] ?>', '<?= $versione['Disponibilita'] ?>', '<?= $versione['Codice'] ?>', '<?= $selezionato ?>'); return false;">
                         Per cani taglia: <?= $versione['TagliaCane'] ?> -  età:  <?= $versione['EtaCane'] ?> - <?= $versione['Composizione_Materiale'] ?>
                     </a>
                 </li>
