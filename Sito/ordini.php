@@ -16,6 +16,8 @@ if (empty($cartItems)) {
     exit;
 }
 
+$total = 0;
+
 foreach($cartItems as $cartItem) {
     $total += $cartItem['Prezzo'] * $cartItem['Quantita'];
 }
