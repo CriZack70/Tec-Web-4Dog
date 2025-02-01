@@ -29,7 +29,7 @@ elseif (isset($templateParams["relatedprod"])):
 <section class="mt-1">
     <div class="container">
         <div class="row bg-light">
-            <h4 class="text-center">Approfittane ora!!</h4>
+            <h4 class="text-center py-2">Approfittane ora!!</h4>
         </div>
     </div>
 </section>
