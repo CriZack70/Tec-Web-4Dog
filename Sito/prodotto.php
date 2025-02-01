@@ -16,6 +16,7 @@ if(isset($_GET["id"])){
 }
 $templateParams["prodotto"] = $dbh->getProductById($idprodotto);
 $templateParams["infoprodotto"] = $dbh->getProductVersions($idprodotto);
+$templateParams["default"] = $dbh->getProductDefaultInfos($idprodotto);
 
 if (isUserLoggedIn()) {
     $user =  $_SESSION["Email"];
