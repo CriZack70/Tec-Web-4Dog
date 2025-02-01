@@ -590,21 +590,7 @@ class DatabaseHelper{
 
         return $stmt->execute();
     }
-
-    
-
-    public function  getUnreadAdminNotifications($email){
-        $query = "SELECT COUNT(*) AS totalNot FROM notifica_venditore, ordine WHERE notifica_venditore.Email_Admin  = ?  AND notifica_venditore.Letta = 0";
-        $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($row = $result->fetch_assoc()) {
-            return $row['totalNot'];
-        } else {
-            return 0; // Restituisce 0 se non ci sono risultati
-        }
-    }
+       
 
      //aggiorna la disponibilità prodotto
 
