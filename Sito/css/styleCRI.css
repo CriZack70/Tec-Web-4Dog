@@ -196,6 +196,7 @@ main > div > div > section:nth-child(3) {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra per effetto */
 }
 
+
 section:first-of-type ul li a {
     font-family: Arial, sans-serif;
     font-size: 150%;

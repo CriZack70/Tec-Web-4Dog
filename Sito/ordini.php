@@ -8,7 +8,7 @@ if (!isUserLoggedIn()) {
 }
 
 $userId = $_SESSION['Email'];
-$total=0;
+
 // Controlla se il carrello è vuoto
 $cartItems = $dbh->getCart($userId);
 if (empty($cartItems)) {
