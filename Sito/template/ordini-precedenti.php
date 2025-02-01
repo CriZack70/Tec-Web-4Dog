@@ -6,9 +6,15 @@
         <p>Non hai ancora effettuato ordini.</p>
     <?php else: ?>
         <?php foreach ($templateParams["orders"] as $orderId => $order): ?>
+            <?php 
+            // Chiama la funzione getOrderDetails per ottenere i dettagli dell'ordine
+            $orderDetails = $dbh->getOrderDetails($orderId);
+            // Estrai il totale dell'ordine
+            $totaleOrdine = isset($orderDetails[0]['TotaleOrdine']) ? $orderDetails[0]['TotaleOrdine'] : 0;
+        ?>            
             <div class="card mb-4">
                 <div class="card-header">
-                    <strong>Ordine #<?= $orderId ?></strong> - Effettuato il: <?= date("d/m/Y H:i", strtotime($order['Data'])) ?>
+                    <strong>Ordine #<?= $orderId ?></strong> - Effettuato il: <?= date("d/m/Y H:i", strtotime($order['Data'])) ?> - Totale Ordine: € <?= $totaleOrdine ?>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">

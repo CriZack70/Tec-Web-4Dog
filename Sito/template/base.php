@@ -38,13 +38,24 @@
                         <span class="">Profilo</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <?php if(!isUserLoggedIn() && !isAdminLoggedIn()): ?>
-                        <li><a class="dropdown-item <?php isActive("login.php");?>" href="login.php">Accedi</a></li>
+                        <?php if(!isUserLoggedIn() && !isAdminLoggedIn()): ?>                            
+                        <li><a class="dropdown-item<?php isActive("login.php");?>" href="login.php">Accedi</a></li>
+                        <li><a class="dropdown-item <?php isActive("login.php");?>" href="login.php">Ordini</a></li>
+                        <li><a class="dropdown-item <?php isActive("login.php");?>" href="login.php">Notifiche</a></li>
+                        <li><a class="dropdown-item <?php isActive("login.php");?>" href="login.php">Il mio Doggy</a></li>
                         <?php elseif(isAdminLoggedIn()) : ?>
-                        <li><a class="dropdown-item <?php isActive("admin.php");?>" href="admin.php">Admin</a></li>
-                        <li><a class="dropdown-item <?php isActive("logout.php");?>" href="logout.php">Logout</a></li>
+                        <li><a class="dropdown-item<?php isActive("admin.php");?>" href="admin.php">Admin</a></li>
+                        <li><a class="dropdown-item <?php isActive("notifiche-venditore.php");?>" href="notifiche-venditore.php">Notifiche
+                        <?php
+                        $unreadNotificationAd =$dbh->getUnreadNotificationsAdm();
+                        if ($unreadNotificationAd > 0): ?>
+                        <span class="not-badge badge-danger"><?php echo $unreadNotificationAd; ?></span>
+                        <?php endif; ?>
+                        </a></li>                        
+                        <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
+                        
                         <?php elseif(isUserLoggedIn()):?>
-                        <li><a class="dropdown-item <?php isActive("account.php");?>" href="account.php">Account</a></li>
+                        <li><a class="dropdown-item<?php isActive("account.php");?>" href="account.php">Account</a></li>
                         <li><a class="dropdown-item <?php isActive("ordini-totali.php");?>" href="ordini-totali.php">Ordini</a></li>
                         <li><a class="dropdown-item <?php isActive("notifiche.php");?>" href="notifiche.php"> Notifiche
                         <?php
@@ -60,7 +71,7 @@
                     </ul>
                 </div>
                 <?php if(!isAdminLoggedIn()) : ?>
-                <form action="carrello.php"><button class="btn btn-light btn-cart h-100 w-100"><em class="fa fa-shopping-cart"></em></button></form>
+                <a class="ms-1" href="carrello.php" title="Vai al carrello"><button class="btn btn-light btn-cart h-100 w-100"><em class="fa fa-shopping-cart"></em> </button></a>
                 <?php endif; ?>
                 <?php if(isUserLoggedIn()): 
                     $email = $_SESSION["Email"]; 

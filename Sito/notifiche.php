@@ -9,8 +9,9 @@ if(isUserLoggedIn()){
     $templateParams["titolo"] = "4Dogs - Notifiche";
     $templateParams["titolo_pagina"] = "Le mie Notifiche";   
     $notification = $dbh->getNotifications($email);
-
+     
     $templateParams["notifications"]= $notification;
+    
     
 }
 

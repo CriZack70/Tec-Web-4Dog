@@ -6,12 +6,12 @@ function isActive($pagename){
 }
 
 function isUserLoggedIn(){
-    return !empty($_SESSION['Email']);
+    return !empty($_SESSION["Email"]);
 }
 
 
 function isAdminLoggedIn(){
-    return !empty($_SESSION['idAdmin']);
+    return !empty($_SESSION["idAdmin"]);
 }
 
 function registerLoggedUser($user){
