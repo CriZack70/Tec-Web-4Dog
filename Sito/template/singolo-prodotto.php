@@ -3,10 +3,16 @@
     <p>Prodotto non presente</p>
 </div>
 <?php 
-    else:
+else: 
+    if (isset($templateParams["default"]) && !empty($templateParams["default"])) {
+        $prodotto = $templateParams["prodotto"][0];
+        $infoprodotto = $templateParams["infoprodotto"];
+        $versioneDefault = $templateParams["default"][0];
+    } else {
         $prodotto = $templateParams["prodotto"][0];
         $infoprodotto = $templateParams["infoprodotto"];
         $versioneDefault = $infoprodotto[0];
+    }
 ?>
 <div class="d-flex flex-column flex-md-row align-items-center">
     <img class="img-fluid rounded shadow me-3 mb-3 mt-3" style="min-width: 250px; max-width: 30%;" src="<?php echo UPLOAD_DIR.$prodotto["Percorso_Immagine"]; ?>" alt=""/>
@@ -29,7 +35,7 @@
                 <li>
                     <a class="dropdown-item" href="#" 
                         onclick="updateProductDetails('<?= $versione['Prezzo'] ?>', '<?= $versione['Disponibilita'] ?>', '<?= $versione['Codice'] ?>', '<?= $selezionato ?>'); return false;">
-                        Per cani taglia: <?= $versione['TagliaCane'] ?> -  età:  <?= $versione['EtaCane'] ?> - <?= $versione['Composizione_Materiale'] ?>
+                        Per cani taglia: <?= $versione['TagliaCane'] ?> -  Età:  <?= $versione['EtaCane'] ?> - Composizione <?= $versione['Composizione_Materiale'] ?>
                     </a>
                 </li>
             <?php endforeach; ?>

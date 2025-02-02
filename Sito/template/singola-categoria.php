@@ -3,7 +3,7 @@
 <?php endif; ?>
 <?php if (!empty($templateParams["casualprod"])): ?>
 <section>
-    <h3 class="text-center">Ecco la nostra selezione</h3>
+    <h3 class="text-center py-3" style="background-color: white">Ecco la nostra selezione</h3>
     <?php
         require 'prodotti-casuali.php';
     ?>

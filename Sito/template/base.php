@@ -93,7 +93,7 @@
         <?php
         if(isset($templateParams["shop"])){
         ?>
-            <div class="col-md-2 col-lg-2 mb-3">
+            <div class="col-md-2 col-lg-2  mb-3">
                 <aside class="navbar flex-column navbar-light">
                     <div class="container-fluid justify-content-center">
                         <label class="navbar-brand border-bottom border-dark">Categorie</label>
