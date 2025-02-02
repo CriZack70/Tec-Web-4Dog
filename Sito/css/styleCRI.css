@@ -257,6 +257,10 @@ section:first-of-type ul li a {
     text-decoration: underline; /* Aggiunge sottolineatura al passaggio del mouse */
     color: #0056b3; /* Colore del link al passaggio del mouse */
 }
+
+
+
+
 .sr-only {
     position: absolute;
     width: 1px;

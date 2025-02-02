@@ -95,6 +95,15 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    public function getBrandProducts($brand){
+        $stmt = $this->db->prepare("SELECT CodProdotto, Nome, Percorso_Immagine FROM prodotto WHERE Brand = ? ORDER BY RAND()");        
+        $stmt->bind_param('s', $brand);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 
     public function checkLogin($usermail){
         $query = "SELECT Email, Password, Nome FROM utente_registrato WHERE  Email = ?";

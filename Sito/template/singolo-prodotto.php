@@ -35,7 +35,7 @@ else:
                 <li>
                     <a class="dropdown-item" href="#" 
                         onclick="updateProductDetails('<?= $versione['Prezzo'] ?>', '<?= $versione['Disponibilita'] ?>', '<?= $versione['Codice'] ?>', '<?= $selezionato ?>'); return false;">
-                        Per cani taglia: <?= $versione['TagliaCane'] ?> -  Età:  <?= $versione['EtaCane'] ?> - Composizione <?= $versione['Composizione_Materiale'] ?>
+                        Per cani taglia: <?= $versione['TagliaCane'] ?> -  Età:  <?= $versione['EtaCane'] ?> - Composizione/Materiale: <?= $versione['Composizione_Materiale'] ?>
                     </a>
                 </li>
             <?php endforeach; ?>
