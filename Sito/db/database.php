@@ -330,10 +330,10 @@ class DatabaseHelper{
         }
     }
 
-    public function createNotification($orderId, $status) {
-        $query = "INSERT INTO notifica (Numero, Descrizione) VALUES (?, ?)";
+    public function createNotification($orderId, $status, $data) {
+        $query = "INSERT INTO notifica (Numero, Descrizione, Data, Letta) VALUES (?, ? , ? , 0)";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("is", $orderId, $status);
+        $stmt->bind_param("iss", $orderId, $status, $data);
 
         return $stmt->execute();
     }
@@ -523,7 +523,7 @@ class DatabaseHelper{
         
         return $ver && $prod;
     }
-
+    
     public function addVersion($productId, $size, $age, $fabric, $price, $quantity) {
         $query = "INSERT INTO versione_prodotto (CodProdotto, TagliaCane, EtaCane, Composizione_Materiale, Prezzo, Disponibilita) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
@@ -594,7 +594,7 @@ class DatabaseHelper{
     }
 
     public function removeCategory($idcategory) {
-        $query = "DELETE FROM categoria_prodotto WHERE Nome = ?";
+        $query = "DELETE FROM categoria_prodotto WHERE CodCategoria = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idcategory);
         
