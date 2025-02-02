@@ -167,7 +167,7 @@
                         <tr class="align-middle">
                             <td><?= $categoria['Nome'] ?></td>
                             <td>
-                                <button class="btn btn-danger btn-sm my-1" onclick="confirmDeleteCategory('<?= $categoria['Nome'] ?>')">Rimuovi</button>
+                                <button class="btn btn-danger btn-sm my-1" onclick="confirmDeleteCategory('<?= $categoria['CodCategoria'] ?>')">Rimuovi</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>

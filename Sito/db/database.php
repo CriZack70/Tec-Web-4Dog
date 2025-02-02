@@ -593,13 +593,14 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
-    public function removeCategory($name) {
+    public function removeCategory($idcategory) {
         $query = "DELETE FROM categoria_prodotto WHERE Nome = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $name);
+        $stmt->bind_param("i", $idcategory);
         
         return $stmt->execute();
     }
+    
     public function insertorderNotification($data, $orderId){
         $query = "INSERT INTO notifica_venditore (Email_Admin, Data, Numero) VALUES ('fedeclacri@4dogs.it', ?, ? )";
         $stmt = $this->db->prepare($query);

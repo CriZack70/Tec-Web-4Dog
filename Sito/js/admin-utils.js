@@ -326,7 +326,7 @@ async function deleteCategory() {
     
     const url = 'utils/category.php';
     const formData = new FormData();
-    formData.append('categoryName', selectedCategoryID);
+    formData.append('categoryID', selectedCategoryID);
     formData.append('azione', 'delete');
     try {
             const response = await fetch(url, {
