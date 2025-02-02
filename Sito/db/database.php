@@ -432,8 +432,6 @@ class DatabaseHelper{
         return $orders;
     }
 
-
-
     public function getAllUsers() {
         $stmt = $this->db->prepare("SELECT * FROM utente_registrato");
         $stmt->execute();
@@ -475,10 +473,18 @@ class DatabaseHelper{
         return $stmt->execute();
     }
 
-    public function deleteProduct($productId, $productVer) {
+    public function deleteVersion($productId, $productVer) {
         $query = "DELETE FROM versione_prodotto WHERE CodProdotto = ? AND Codice = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("ii", $productId, $productVer);
+
+        return $stmt->execute();
+    }
+
+    public function deleteProduct($productId) {
+        $query = "DELETE FROM prodotto WHERE CodProdotto = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("i", $productId);
 
         return $stmt->execute();
     }

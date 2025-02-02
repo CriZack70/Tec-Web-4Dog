@@ -135,7 +135,7 @@
                                 <td><?= $versione['Disponibilita'] ?></td>
                                 <td>
                                     <button class="btn btn-warning btn-sm my-1 me-1" onclick="confirmEditProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Modifica</button>
-                                    <button class="btn btn-danger btn-sm my-1" onclick="confirmDeleteProduct(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Rimuovi</button>
+                                    <button class="btn btn-danger btn-sm my-1" onclick="confirmDeleteVersion(<?= $prodotto['CodProdotto'] ?>, <?= $versione['Codice'] ?>)">Rimuovi</button>
                                 </td>
                             </tr>
                             <?php endif; ?>
@@ -143,6 +143,7 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <button class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#deleteProductModal">Elimina Prodotto</button>
         </div>
         <script>
         $(document).ready(function(){
@@ -336,11 +337,39 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Siete sicuri di voler eliminare questo prodotto?
+                    <form id="DelProdForm">
+                        <div class="mb-3">
+                            <label for="productToDelete" class="form-label">Prodotto da rimuovere</label>
+                            <select class="form-select" id="productToDelete" name="productToDelete" required>
+                                <option value="" disabled selected>Seleziona un prodotto da eliminare:</option>
+                                <?php foreach($templateParams["prodotti"] as $prodotto) : ?>
+                                    <option value="<?= $prodotto["CodProdotto"] ?>"><?= $prodotto["Nome"] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
                     <button type="button" class="btn btn-danger" id="confirmDeleteBtn" onclick="deleteProduct()" >Elimina</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Confirmation Version Modal -->
+    <div class="modal fade" id="deleteVersionModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabelVersion" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmModalLabelVersion">Conferma Eliminazione Prodotto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Siete sicuri di voler eliminare questa versione?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
+                    <button type="button" class="btn btn-danger" id="confirmVersionDeleteBtn" onclick="deleteVersion()" >Elimina</button>
                 </div>
             </div>
         </div>
@@ -391,7 +420,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="editForm">
-                    <div class="mb-3">
+                        <div class="mb-3">
                             <label for="editCategory" class="form-label">Categoria</label>
                             <select class="form-select" id="editCategory" name="editCategory" required>
                                 <option value="" disabled selected>Seleziona una categoria</option>

@@ -22,10 +22,10 @@ function confirmDeleteUser(userID) {
     modal.show();
 }
 
-function confirmDeleteProduct(productID, versionID) {
+function confirmDeleteVersion(productID, versionID) {
     selectedProductID = productID;
     selectedVersionID = versionID;
-    const modal = new bootstrap.Modal(document.getElementById('deleteProductModal'));
+    const modal = new bootstrap.Modal(document.getElementById('deleteVersionModal'));
     modal.show();
 }
 
@@ -234,6 +234,36 @@ async function editProduct() {
 
 async function deleteProduct() {
     
+    const modalDelProd = document.getElementById('DelProdForm');
+
+    const url = 'utils/products.php';
+    const formData = new FormData(modalDelProd);
+
+    formData.append('azione', 'remove');
+    try {
+            const response = await fetch(url, {
+            method: "POST",                   
+            body: formData
+        });
+        if (!response.ok) {
+            showMessage("Failed to delete Product (Maybe still some version of it?)", false);
+            throw new Error(`Response status: ${response.status}`);
+        } 
+        const json = await response.json();
+        if (json["prodottoEliminato"]) {
+            showMessage("Product deleted correctly", true);
+            sessionStorage.setItem('activeTab', 'pills-products-tab');
+        } else {
+            showMessage("Failed to delete Product", false);
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
+    
+}
+
+async function deleteVersion() {
+    
     const url = 'utils/products.php';
     const formData = new FormData();
     formData.append('CodProdotto', selectedProductID);
@@ -248,16 +278,15 @@ async function deleteProduct() {
             throw new Error(`Response status: ${response.status}`);
         } 
         const json = await response.json();
-        if (json["prodottoEliminato"]) {
+        if (json["versioneEliminata"]) {
             sessionStorage.setItem('activeTab', 'pills-products-tab');
             location.reload();
         } else {
-            showMessage("Failed to delete Product!", true);
+            showMessage("Failed to delete Version!", false);
         }
     } catch (error) {
         console.log(error.message);
     }
-    
 }
 
 
@@ -305,7 +334,7 @@ async function deleteCategory() {
             body: formData
         });
         if (!response.ok) {
-            showMessage("Failed to delete Category (maybe there are products in it?)", true);
+            showMessage("Failed to delete Category (maybe there are products in it?)", false);
             throw new Error(`Response status: ${response.status}`);
         } 
         const json = await response.json();
@@ -313,7 +342,7 @@ async function deleteCategory() {
             sessionStorage.setItem('activeTab', 'pills-category-tab');
             location.reload();
         } else {
-            showMessage("Failed to delete Category!", true);
+            showMessage("Failed to delete Category!", false);
         }
     } catch (error) {
         console.log(error.message);
