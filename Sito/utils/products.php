@@ -8,11 +8,15 @@ $result["prodottoEliminato"] = false;
 $result["prodottoModificato"] = false;
 $result["prodottoAggiunto"] = false;
 $result["versioneAggiunta"] = false;
+$result["versioneEliminata"] = false;
+
 
 $action = $_POST["azione"];
 
 $productId = $_POST["CodProdotto"];
 $productVer = $_POST["Codice"];
+
+$product = $_POST["productToDelete"];
 
 $productName = $_POST['productName'] ?? '';
 $productCategory = $_POST['productCategory'] ?? '';
@@ -44,9 +48,9 @@ switch ($action) {
 
     case 'delete':
         if (isset($productVer) && isset($productId)) {
-            $done = $dbh->deleteProduct($productId, $productVer);
+            $done = $dbh->deleteVersion($productId, $productVer);
             if ($done) {
-                $result["prodottoEliminato"] = true;
+                $result["versioneEliminata"] = true;
             }
         }
         break;
@@ -65,6 +69,15 @@ switch ($action) {
             $done = $dbh->addVersion($versionCod, $versionSize, $versionAge, $versionFabric, $versionPrice, $versionQuantity);
             if ($done) {
                 $result["versioneAggiunta"] = true;
+            }
+        }
+        break;
+
+    case 'remove':
+        if (isset($product)) {
+            $done = $dbh->deleteProduct($product);
+            if ($done) {
+                $result["prodottoEliminato"] = true;
             }
         }
         break;

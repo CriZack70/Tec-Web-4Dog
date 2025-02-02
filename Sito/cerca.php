@@ -6,6 +6,7 @@ $templateParams["titolo"] = "4Dogs - One of our best";
 $templateParams["shop"] = true;
 $templateParams["name"] = "singola-categoria.php";
 $templateParams["categories"] = $dbh->getCategories();
+$templateParams["brands"] = "our_brands.php";
 $templateParams["js"] = array("js/rand-utils.js");
 //Home Template
 $ricerca = -1;

@@ -97,7 +97,7 @@
                 <aside class="navbar flex-column navbar-light">
                     <div class="container-fluid justify-content-center">
                         <label class="navbar-brand border-bottom border-dark">Categorie</label>
-                        <button id="cat-button" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+                        <button id="cat-button" class="navbar-toggler mt-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
                         onclick="toggleUpAndDown()">
                             <strong id="icon-down" class="fas fa-caret-down"></strong>
                             <strong id="icon-up" class="fas fa-caret-up d-none"></strong>
