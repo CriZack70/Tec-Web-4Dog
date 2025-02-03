@@ -15,10 +15,12 @@ let selectedProductID = null;
 let selectedVersionID = null;
 let selectedUserID = null;
 let selectedCategoryID = null;
+let updateUserAction = null;
 
-function confirmDeleteUser(userID) {
+function confirmUpdateUser(userID, state) {
     selectedUserID = userID;
-    const modal = new bootstrap.Modal(document.getElementById('deleteUserModal'));
+    updateUserAction = state;
+    const modal = new bootstrap.Modal(document.getElementById('changeUserModal'));
     modal.show();
 }
 
@@ -44,30 +46,32 @@ function confirmEditProduct(productID, versionID) {
 
 
 // Handle user actions
-async function deleteUser() {
+async function updateUser() {
     const url = 'utils/users.php';
     const formData = new FormData();
     formData.append('userId', selectedUserID);
+    formData.append('change', updateUserAction);
     try {
             const response = await fetch(url, {
             method: "POST",                   
             body: formData
         });
         if (!response.ok) {
+            showMessage("Failed to change user state (Maybe it's already there?)", false);
             throw new Error(`Response status: ${response.status}`);
         } 
         const json = await response.json();
-        if (json["utenteEliminato"]) {
+        if (json["utenteAggiornato"]) {
             sessionStorage.setItem('activeTab', 'pills-users-tab');
             location.reload();
         } else {
-            showMessage("Failed to delete user", false);
+            showMessage("Failed to change user state", false);
         }
     } catch (error) {
         console.log(error.message);
     }
 
-    bootstrap.Modal.getInstance(document.getElementById('deleteUserModal')).hide();
+    bootstrap.Modal.getInstance(document.getElementById('changeUserModal')).hide();
 }
 
 

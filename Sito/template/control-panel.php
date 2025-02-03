@@ -34,6 +34,7 @@
                         <th>Nome</th>
                         <th>Telefono</th>
                         <th>Email</th>
+                        <th>Stato</th>
                         <th>Azioni</th>
                     </tr>
                 </thead>
@@ -44,8 +45,10 @@
                         <td><?= $utente['Nome'] ?></td>
                         <td><?= $utente['Telefono'] ?></td>
                         <td><?= $utente['Email'] ?></td>
+                        <td><?= $utente['Attivo'] == true ? 'Attivo' : 'Bloccato'; ?></td>
                         <td>
-                            <button class="btn btn-danger btn-sm" onclick="confirmDeleteUser('<?= $utente['Email'] ?>')">Cancella</button>
+                            <button class="btn btn-primary btn-sm my-1" onclick="confirmUpdateUser('<?= $utente['Email'] ?>', 1)">Attiva</button>
+                            <button class="btn btn-danger btn-sm my-1" onclick="confirmUpdateUser('<?= $utente['Email'] ?>', false)">Disattiva</button>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -374,20 +377,20 @@
             </div>
         </div>
     </div>
-    <!-- Delete Confirmation Users Modal -->
-    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabelUser" aria-hidden="true">
+    <!-- Active Confirmation Users Modal -->
+    <div class="modal fade" id="changeUserModal" tabindex="-1" aria-labelledby="changeConfirmModalLabelUser" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteConfirmModalLabelUser">Conferma Eliminazione Utente</h5>
+                    <h5 class="modal-title" id="changeConfirmModalLabelUser">Conferma Azione Utente</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Siete sicuri di voler eliminare questo utente?
+                    Siete sicuri di voler cambiare stato di questo utente?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
-                    <button type="button" class="btn btn-danger" id="userDeleteBtn" onclick="deleteUser()" >Elimina</button>
+                    <button type="button" class="btn btn-danger" id="userConfirmBtn" onclick="updateUser()" >Cambia</button>
                 </div>
             </div>
         </div>
@@ -405,7 +408,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancella</button>
-                    <button type="button" class="btn btn-danger" id="categoryDeleteBtn" onclick="deleteCategory()" >Elimina</button>
+                    <button type="button" class="btn btn-danger" id="categoryDeleteBtn" onclick="deleteCategory()" >Cancella</button>
                 </div>
             </div>
         </div>

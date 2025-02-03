@@ -484,10 +484,10 @@ class DatabaseHelper{
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function deleteUser($user) {
-        $query = "DELETE FROM utente_registrato WHERE Email = ?";
+    public function refreshUser($active, $user) {
+        $query = "UPDATE utente_registrato SET Attivo = ? WHERE Email = ?";
         $stmt = $this->db->prepare($query);
-        $stmt->bind_param("s", $user);
+        $stmt->bind_param("is", $active, $user);
 
         return $stmt->execute();
     }
@@ -594,7 +594,7 @@ class DatabaseHelper{
     }
 
     public function removeCategory($idcategory) {
-        $query = "DELETE FROM categoria_prodotto WHERE Nome = ?";
+        $query = "DELETE FROM categoria_prodotto WHERE CodCategoria = ?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param("i", $idcategory);
         
