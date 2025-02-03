@@ -39,7 +39,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <?php if(!isUserLoggedIn() && !isAdminLoggedIn()): ?>                            
-                        <li><a class="dropdown-item <?php isActive("login.php");?>" href="login.php">Accedi</a></li>
+                        <li><a id="accedi-link"class="dropdown-item <?php isActive("login.php");?>" href="login.php">Accedi</a></li>
                         <?php elseif(isAdminLoggedIn()) : ?>
                         <li><a class="dropdown-item <?php isActive("admin.php");?>" href="admin.php">Admin</a></li>
                         <li><a class="dropdown-item <?php isActive("notifiche-venditore.php");?>" href="notifiche-venditore.php">Notifiche

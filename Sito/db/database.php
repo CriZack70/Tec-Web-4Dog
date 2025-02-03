@@ -106,13 +106,22 @@ class DatabaseHelper{
 
 
     public function checkLogin($usermail){
-        $query = "SELECT Email, Password, Nome FROM utente_registrato WHERE  Email = ?";
+        $query = "SELECT Email, Password, Nome FROM utente_registrato WHERE  Email = ? AND Attivo = 1";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('s', $usermail);
         $stmt->execute();
         $result = $stmt->get_result();
 
         return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function checkDisactiveUser($usermail){
+        $query = "SELECT Email, Password, Nome FROM utente_registrato WHERE  Email = ? AND Attivo = 0";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('s', $usermail);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return  $exist = $result->num_rows > 0;
     }
 
     public function checkAdmin($id) {
@@ -138,8 +147,8 @@ class DatabaseHelper{
 
     public function createUser($usermail,  $surname, $name, $tel, $password){
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = "INSERT INTO utente_registrato (Email, Cognome, Nome, Telefono, Password)
-            VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO utente_registrato (Email, Cognome, Nome, Telefono, Password, Attivo)
+            VALUES (?, ?, ?, ?, ?, 1)";
 
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('sssss', $usermail,  $surname, $name, $tel, $hashedPassword);

@@ -2,12 +2,12 @@
 <script src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
 <div class="container mt-5 mb-5">
     <h2 class="text-center">Pannello di Controllo</h2>
-    <div class="d-flex justify-content-center align-items-center mb-4">
+    <div class="d-flex justify-content-center align-items-center mb-4" id="mainContent">
         <h3>Benvenuti, Amministratori!</h3>
     </div>
 
     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="class=" role="presentation">
+        <li class="nav-item" role="presentation">
             <button class="nav-link" id="pills-users-tab" data-bs-toggle="pill" data-bs-target="#users-tab" type="button" role="tab" aria-controls="users-tab" aria-selected="true">Users</button>
         </li>
         <li class="nav-item" role="presentation">

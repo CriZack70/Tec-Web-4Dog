@@ -11,7 +11,7 @@
         <div class="col-md-6">
             <img src="./imgs/choko.jpeg" alt="Choko" class="img-fluid rounded shadow">
             <h4 class="mt-3">Choko</h4>
-            <p>Choko è un ... adulto, responsabile e saggio. Sempre interessato agli alberi per strada ma non va a genio coi pastori tedeschi.</p>
+            <p>Choko è un meticcio molossoide adulto, responsabile ed educato. Sempre interessato al cibo, alle persone e ai cuccioli ma non gli vanno proprio a genio i pastori tedeschi !</p>
         </div>
 
     </div>
