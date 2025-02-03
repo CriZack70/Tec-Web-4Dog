@@ -13,7 +13,7 @@ $action = $_POST["azione"];
 $orderStatus = $_POST['orderStatus'] ?? '';
 $orderID = $_POST['orderID'] ?? '';
 
-if (isset($orderID) && isset($orderStatus)) {
+if (!empty($orderID) && !empty($orderStatus)) {
 
     switch($action) {
 
@@ -25,7 +25,9 @@ if (isset($orderID) && isset($orderStatus)) {
             break;
 
         case 'send':
-            $done = $dbh->createNotification($orderID, $orderStatus);
+            $data = new DateTime();
+            $formattedDate = $data->format('Y-m-d');
+            $done = $dbh->createNotification($orderID, $orderStatus, $formattedDate);
             if ($done) {
                 $result["notificaInviata"] = true;
             }

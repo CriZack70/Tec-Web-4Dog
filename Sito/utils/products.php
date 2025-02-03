@@ -13,10 +13,10 @@ $result["versioneEliminata"] = false;
 
 $action = $_POST["azione"];
 
-$productId = $_POST["CodProdotto"];
-$productVer = $_POST["Codice"];
+$productId = $_POST["CodProdotto"] ?? '';
+$productVer = $_POST["Codice"]  ?? '';
 
-$product = $_POST["productToDelete"];
+$product = $_POST["productToDelete"]?? '';
 
 $productName = $_POST['productName'] ?? '';
 $productCategory = $_POST['productCategory'] ?? '';
@@ -33,7 +33,7 @@ $versionQuantity = $_POST['versionQuantity'] ?? '';
 
 switch ($action) {
     case 'edit':
-        if (isset($productVer) && isset($productId)) {
+        if (!empty($productVer) && !empty($productId)) {
             $price = $_POST["editPrice"];
             $productCategory = $_POST['editCategory'];
             $disp = $_POST["editQuantity"];
@@ -47,7 +47,7 @@ switch ($action) {
         break;
 
     case 'delete':
-        if (isset($productVer) && isset($productId)) {
+        if (!empty($productVer) && !empty($productId)) {
             $done = $dbh->deleteVersion($productId, $productVer);
             if ($done) {
                 $result["versioneEliminata"] = true;
@@ -56,7 +56,7 @@ switch ($action) {
         break;
 
     case 'new':
-        if (isset($productCategory)) {
+        if (!empty($productCategory)) {
             $done = $dbh->addProduct($productName, $productBrand, $productDescription, $productImage, $productCategory);
             if ($done) {
                 $result["prodottoAggiunto"] = true;
@@ -65,7 +65,7 @@ switch ($action) {
         break;
     
     case 'add':
-        if (isset($versionCod)) {
+        if (!empty($versionCod)) {
             $done = $dbh->addVersion($versionCod, $versionSize, $versionAge, $versionFabric, $versionPrice, $versionQuantity);
             if ($done) {
                 $result["versioneAggiunta"] = true;
@@ -74,7 +74,7 @@ switch ($action) {
         break;
 
     case 'remove':
-        if (isset($product)) {
+        if (!empty($product)) {
             $done = $dbh->deleteProduct($product);
             if ($done) {
                 $result["prodottoEliminato"] = true;
