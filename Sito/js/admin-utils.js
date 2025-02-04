@@ -21,6 +21,7 @@ function confirmUpdateUser(userID, state) {
     selectedUserID = userID;
     updateUserAction = state;
     const modal = new bootstrap.Modal(document.getElementById('changeUserModal'));
+    document.getElementById('mainContent').setAttribute('inert', '');
     modal.show();
 }
 
@@ -28,12 +29,14 @@ function confirmDeleteVersion(productID, versionID) {
     selectedProductID = productID;
     selectedVersionID = versionID;
     const modal = new bootstrap.Modal(document.getElementById('deleteVersionModal'));
+    document.getElementById('mainContent').setAttribute('inert', '');
     modal.show();
 }
 
 function confirmDeleteCategory(categoryID) {
     selectedCategoryID = categoryID;
     const modal = new bootstrap.Modal(document.getElementById('deleteCategoryModal'));
+    document.getElementById('mainContent').setAttribute('inert', '');
     modal.show();
 }
 
@@ -41,13 +44,13 @@ function confirmEditProduct(productID, versionID) {
     selectedProductID = productID;
     selectedVersionID = versionID;
     const modal = new bootstrap.Modal(document.getElementById('editProductModal'));
+    document.getElementById('mainContent').setAttribute('inert', '');
     modal.show();
 }
 
 
 // Handle user actions
-async function updateUser() {
-    const url = 'utils/users.php';
+async function updateUser() {   
     const formData = new FormData();
     formData.append('userId', selectedUserID);
     formData.append('change', updateUserAction);
@@ -63,7 +66,14 @@ async function updateUser() {
         const json = await response.json();
         if (json["utenteAggiornato"]) {
             sessionStorage.setItem('activeTab', 'pills-users-tab');
-            location.reload();
+            if (updateUserAction === 1) {
+                showMessage("L'utente è stato attivato con successo.", true);
+            } else if (updateUserAction === false) {
+                showMessage("L'utente è stato disattivato con successo." , true);
+            }
+            setTimeout(() => {
+                location.reload();
+            }, 1500);
         } else {
             showMessage("Failed to change user state", false);
         }
@@ -72,6 +82,7 @@ async function updateUser() {
     }
 
     bootstrap.Modal.getInstance(document.getElementById('changeUserModal')).hide();
+    document.getElementById('mainContent').setAttribute('inert', '');
 }
 
 
@@ -114,6 +125,7 @@ async function updateOrderStatus() {
 
     const modal = bootstrap.Modal.getInstance(document.getElementById('statusModal'));
     modal.hide();
+    document.getElementById('mainContent').setAttribute('inert', '');
 }
 
 async function sendNotification(orderID, orderStatus) {
@@ -177,6 +189,7 @@ async function addProduct() {
 
     const modal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
     modal.hide();
+    document.getElementById('mainContent').setAttribute('inert', '');
 
 }
 
@@ -211,6 +224,7 @@ async function addVersion() {
 
     const modal = bootstrap.Modal.getInstance(document.getElementById('addVersionModal'));
     modal.hide();
+    document.getElementById('mainContent').setAttribute('inert', '');
 
 }
 
@@ -240,6 +254,7 @@ async function editProduct() {
     } catch (error) {
         console.log(error.message);
     }
+    document.getElementById('mainContent').removeAttribute('inert');
 }
 
 async function deleteProduct() {
@@ -270,7 +285,7 @@ async function deleteProduct() {
     } catch (error) {
         console.log(error.message);
     }
-    
+    document.getElementById('mainContent').removeAttribute('inert');  
 }
 
 async function deleteVersion() {
@@ -297,6 +312,7 @@ async function deleteVersion() {
     } catch (error) {
         console.log(error.message);
     }
+    document.getElementById('mainContent').removeAttribute('inert');
 }
 
 
@@ -332,6 +348,7 @@ async function addCategory() {
 
     const modal = bootstrap.Modal.getInstance(document.getElementById('addCategoryModal'));
     modal.hide();
+    document.getElementById('mainContent').removeAttribute('inert');
 }
 
 async function deleteCategory() {
@@ -366,6 +383,7 @@ async function deleteCategory() {
         console.log("Error:", error.message);
         showMessage("An error occurred while deleting the category", false);
     }
+    document.getElementById('mainContent').removeAttribute('inert');
 }
 
 

@@ -7,10 +7,14 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
     $password = $_POST["password"];
     $admin_result = $dbh->checkAdmin($usermail);
     $login_result = $dbh->checkLogin($usermail);   
-    
+    $notActive = $dbh->checkDisactiveUser($usermail);
     if(count($admin_result)==0){
         if(count($login_result)==0){
-            $_SESSION["errorelogin"] = "Utente non trovato!";
+            if($notActive){
+                $_SESSION["errorelogin"] = "Il tuo Utente è Sospeso!";
+            }else {
+                 $_SESSION["errorelogin"] = "Utente non trovato!";
+             }
         }else{
             $hashed_password = $login_result[0]["Password"];
             if (password_verify($password, $hashed_password)) {
@@ -31,8 +35,8 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
             registerAdmin($admin_result[0]);
             header("Location: admin.php");
             exit;         
-        } else {      
-            $_SESSION["errorelogin"] = "Email o password errati!!";
+        } else {                 
+                $_SESSION["errorelogin"] = "Email o password errati!!";            
         }
     }
 }
