@@ -26,15 +26,15 @@ foreach($cartItems as $cartItem) {
 
 
 
-    // Inserisci l'ordine nella tabella 'ordini'
-    $dataOrdine = date("Y-m-d H:i:s"); // Data e ora attuale
+    // Inserisce l'ordine nella tabella 'ordini'
+    $dataOrdine = date("Y-m-d H:i:s"); 
     $orderId = $dbh->insertOrder($userId, $dataOrdine, $total);
     $dbh->insertorderNotification($dataOrdine, $orderId);
-    // Inserisci ogni prodotto del carrello nella tabella 'dettagli_ordine'
+    // Inserisce ogni prodotto del carrello nella tabella 'dettagli_ordine'
     foreach ($cartItems as $item) {
         $dbh->insertOrderDetail(
             $orderId,
-            $item['CodProdotto'], // Codice della versione prodotto
+            $item['CodProdotto'], 
             $item['Codice'],
             $item['Quantita'],
             $item['Prezzo']

@@ -56,7 +56,7 @@ class DatabaseHelper{
     }
 
     public function getProductVersions($idprodotto) {
-        $query = "SELECT * FROM versione_prodotto WHERE CodProdotto=?";
+        $query = "SELECT Codprodotto, Codice, TagliaCane, SessoCane, EtaCane, Composizione_Materiale, FORMAT(Prezzo, 2) AS Prezzo_Form, Disponibilita FROM versione_prodotto WHERE CodProdotto=?";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i',$idprodotto);
         $stmt->execute();
@@ -76,7 +76,7 @@ class DatabaseHelper{
     }
 
     public function getProductDefaultInfos($idprodotto) {
-        $query = "SELECT * FROM versione_prodotto WHERE CodProdotto=? AND Disponibilita > 0 ";
+        $query = "SELECT Codprodotto, Codice, TagliaCane, SessoCane, EtaCane, Composizione_Materiale, FORMAT(Prezzo, 2) AS Prezzo_Form, Disponibilita FROM versione_prodotto WHERE CodProdotto=? AND Disponibilita > 0 ";
         $stmt = $this->db->prepare($query);
         $stmt->bind_param('i',$idprodotto);
         $stmt->execute();

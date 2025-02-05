@@ -39,7 +39,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <?php if(!isUserLoggedIn() && !isAdminLoggedIn()): ?>                            
-                        <li><a id="accedi-link"class="dropdown-item <?php isActive("login.php");?>" href="login.php">Accedi</a></li>
+                        <li><a id="accedi-link" class="dropdown-item <?php isActive("login.php");?>" href="login.php">Accedi</a></li>
                         <?php elseif(isAdminLoggedIn()) : ?>
                         <li><a class="dropdown-item <?php isActive("admin.php");?>" href="admin.php">Admin</a></li>
                         <li><a class="dropdown-item <?php isActive("notifiche-venditore.php");?>" href="notifiche-venditore.php">Notifiche
@@ -52,7 +52,7 @@
                         <li><a class="dropdown-item" <?php isActive("logout.php");?> href="logout.php">Logout</a></li>
                         
                         <?php elseif(isUserLoggedIn()):?>
-                        <li><a class="dropdown-item<?php isActive("account.php");?>" href="account.php">Account</a></li>
+                        <li><a class="dropdown-item <?php isActive("account.php"); ?>" href="account.php">Account</a></li>
                         <li><a class="dropdown-item <?php isActive("ordini-totali.php");?>" href="ordini-totali.php">Ordini</a></li>
                         <li><a class="dropdown-item <?php isActive("notifiche.php");?>" href="notifiche.php"> Notifiche
                         <?php
@@ -68,7 +68,9 @@
                     </ul>
                 </div>
                 <?php if(!isAdminLoggedIn()) : ?>
-                <a class="ms-1" href="carrello.php" title="Vai al carrello"><button class="btn btn-light btn-cart h-100 w-100"><em class="fa fa-shopping-cart"></em> </button></a>
+                    <a class="ms-1" href="carrello.php" title="Vai al carrello">
+                        <span class="btn btn-light btn-cart h-100 w-100"><em class="fa fa-shopping-cart"></em></span>
+                    </a>           
                 <?php endif; ?>
                 <?php if(isUserLoggedIn()): 
                     $email = $_SESSION["Email"]; 
@@ -156,4 +158,5 @@
     ?>
 
 </body>
+
 </html>

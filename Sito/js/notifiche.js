@@ -10,7 +10,7 @@ $(document).ready(function() {
         $('#notificaDescrizione').prepend("Stato dell'Ordine: ");
         $('#notificaData').prepend("Data aggiornamento  ");
 
-        // Rimuovi l'attributo inert e mostra il modal
+        // Rimuove l'attributo inert e mostra il modal
         $('#notificaModal').removeAttr('inert').modal('show');
 
         const orderDetailsHtml = $(this).closest('.alert').find('.order-details').html();
@@ -28,7 +28,7 @@ $(document).ready(function() {
     });
 
     $('#notificaModal').on('hidden.bs.modal', function () {
-        // Aggiungi l'attributo inert quando il modal è nascosto
+        // Aggiunge l'attributo inert quando il modal è nascosto
         $(this).attr('inert', '');
     });
 

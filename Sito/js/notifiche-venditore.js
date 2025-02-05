@@ -15,7 +15,7 @@ $(document).ready(function() {
         $('#notificaData').text(data);        
         $('#notificaData').prepend("effettuato il ");
 
-        // Rimuovi l'attributo inert e mostra il modal
+        // Rimuove l'attributo inert e mostra il modal
         $('#notificaModal').removeAttr('inert').modal('show');
 
         const orderDetailsHtml = $(this).closest('.alert').find('.order-details').html();
@@ -56,7 +56,7 @@ $('.notifica-prodotto').on('click', function() {
         $('#notificaDescrizione').append(`<br>Composizione: ${composizione}`);
         $('#notificaDescrizione').append(`<br>Prezzo: €${prezzo}`);
 
-     // Rimuovi l'attributo inert e mostra il modal
+     // Rimuove l'attributo inert e mostra il modal
      $('#notificaModal').removeAttr('inert').modal('show');
 
 
@@ -70,7 +70,7 @@ $('.notifica-prodotto').on('click', function() {
 });
 
 $('#notificaModal').on('hidden.bs.modal', function () {
-    // Aggiungi l'attributo inert quando il modal è nascosto
+    // Aggiunge l'attributo inert quando il modal è nascosto
     $(this).attr('inert', '');
 });
 

@@ -20,7 +20,7 @@ else:
         <h2 class="display-5"><?php echo $prodotto["Nome"]; ?></h2>
         <h3 class="text-muted">Brand: <?php echo $prodotto["Brand"]; ?></h3>
         <p><?php echo $prodotto["Descrizione"]; ?></p>
-        <p class="fs-4 text-success"><strong>Prezzo: </strong><span id="price"><?= number_format($versioneDefault["Prezzo"], 2) ?></span> €</p>
+        <p class="fs-4 text-success"><strong>Prezzo: </strong><span id="price"><?= number_format($versioneDefault["Prezzo_Form"], 2) ?></span> €</p>
         <p class="text-<?= $versioneDefault["Disponibilita"] > 0 ? 'success' : 'danger' ?>"><strong>Disponibilità: </strong>
             <span id="availability"><?= $versioneDefault["Disponibilita"] ?></span>
         </p>
@@ -34,7 +34,7 @@ else:
             <?php foreach ($infoprodotto as $versione): $selezionato =  $versione['TagliaCane'] . " - " . $versione['EtaCane'] . " - " . $versione['Composizione_Materiale']  ?>
                 <li>
                     <a class="dropdown-item" href="#" 
-                        onclick="updateProductDetails('<?= $versione['Prezzo'] ?>', '<?= $versione['Disponibilita'] ?>', '<?= $versione['Codice'] ?>', '<?= $selezionato ?>'); return false;">
+                        onclick="updateProductDetails('<?= $versione['Prezzo_Form'] ?>', '<?= $versione['Disponibilita'] ?>', '<?= $versione['Codice'] ?>', '<?= $selezionato ?>'); return false;">
                         Per cani taglia: <?= $versione['TagliaCane'] ?> -  Età:  <?= $versione['EtaCane'] ?> - Composizione/Materiale: <?= $versione['Composizione_Materiale'] ?>
                     </a>
                 </li>

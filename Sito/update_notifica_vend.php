@@ -1,12 +1,10 @@
 <?php
-echo "File eseguito"; // Debug
 require_once 'bootstrap.php';
 
 if (isAdminLoggedIn()) {
     if (isset($_POST["Id"]) && isset($_POST["azione"])) {
         $id = $_POST["Id"];        
-        $azione = $_POST["azione"];
-        var_dump($id, $azione); // Debug
+        $azione = $_POST["azione"];        
 
         if ($azione === "letta") {
             $dbh->updateNotificationsStatusAdm($id);

@@ -5,7 +5,7 @@ $templateParams["js"] = array("./js/gestisci-Doggy.js");
 // Controlla se l'utente è loggato
 if (isUserLoggedIn()) {
     // Ottieni l'ID utente dalla sessione
-    $user_email = $_SESSION['Email']; // Assicurati che 'user_id' sia il nome corretto nella sessione
+    $user_email = $_SESSION['Email']; 
 
     // Recupera i dettagli del cane associato all'utente loggato
     $dog = $dbh->getDogByEmail($user_email);
@@ -20,7 +20,7 @@ if (isUserLoggedIn()) {
             "eta" => $dog[0]["Eta"]
         ]; // Prendi il primo (e unico) cane trovato
         
-        $templateParams["action"] = "modifica"; // Azione specifica per il form*/
+        $templateParams["action"] = "modifica";
         $templateParams["titolo_pagina"] = "Modifica o Cancella i dati del tuo Doggy";
     } else {
         // Nessun cane trovato: Mostra il form vuoto per l'inserimento
@@ -30,7 +30,7 @@ if (isUserLoggedIn()) {
             "sesso" => "",
             "eta" => ""
         ];
-        $templateParams["action"] = "inserisci"; // Azione specifica per il form
+        $templateParams["action"] = "inserisci"; 
         $templateParams["titolo_pagina"] = "Inserisci i dati del tuo Doggy";
         
     }
@@ -44,6 +44,5 @@ if (isUserLoggedIn()) {
     exit;
 }
 
-// Carica il template base
 require 'template/base.php';
 ?>

@@ -1,5 +1,3 @@
-<!-- Tab content Accedi-->
-
     <h2 style="text-align:center; ">Accedi</h2>        
     
     <form  id="loginForm"  action="login.php" method="POST">

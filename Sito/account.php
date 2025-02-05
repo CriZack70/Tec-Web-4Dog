@@ -28,9 +28,5 @@ if(isUserLoggedIn()){
 }
 
 
-
-
-
-// Carica il template base
 require 'template/base.php';
 ?>

@@ -18,7 +18,7 @@
                     <div class="mb-3">
                         <label for="taglia" class="form-label">Taglia:</label>
                         <select id="taglia" name="taglia" class="form-select" disabled>
-                            <option value="" disabled selected>Seleziona una taglia</option>
+                            <option value="" <?php echo empty($templateParams["dog"]["taglia"]) ? "selected" : ""; ?>>Seleziona una taglia</option>
                             <option value="S" <?php echo $templateParams["dog"]["taglia"] === "S" ? "selected" : ""; ?>>Piccola</option>
                             <option value="M" <?php echo $templateParams["dog"]["taglia"] === "M" ? "selected" : ""; ?>>Media</option>
                             <option value="L" <?php echo $templateParams["dog"]["taglia"] === "L" ? "selected" : ""; ?>>Grande</option>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="mb-3">
                     <select id="eta" name="eta" class="form-select" disabled>
-                            <option value="" disabled selected>Seleziona età</option>
+                            <option value="" <?php echo empty( $templateParams["dog"]["eta"] )? "selected" : ""; ?>>Seleziona età</option>
                             <option value="Puppy" <?php echo $templateParams["dog"]["eta"] === "Puppy" ? "selected" : ""; ?>>Puppy</option>
                             <option value="Adult" <?php echo $templateParams["dog"]["eta"] === "Adult" ? "selected" : ""; ?>>Adult</option>
                             <option value="Senior" <?php echo $templateParams["dog"]["eta"] === "Senior" ? "selected" : ""; ?>>Senior</option>

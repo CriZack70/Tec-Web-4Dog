@@ -8,7 +8,6 @@ if (!isUserLoggedIn()) {
 
 $userId = $_SESSION['Email'];
 
-//Base Template
 $templateParams["titolo"] = "4Dogs - Il mio carrello";
 $templateParams["shop"] = true;
 $templateParams["name"] = "prodotti-cart.php";

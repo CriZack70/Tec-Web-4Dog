@@ -4,7 +4,7 @@
 
 
 <div class="container d-flex justify-content-center align-items-center mt-5 mb-2 ">  
-<div id="notifications"class="notifications">
+<div id="notifications" class="notifications">
         <?php if(isset($templateParams["notifications"]) && !empty($templateParams["notifications"])): ?>
             <?php foreach($templateParams["notifications"] as $notifica): ?>
     <?php

@@ -110,9 +110,25 @@ button.btn.dropdown-toggle {
 }
 
 
-header .dropdown-item{
-    color: black;
+header .dropdown-item{    
+    color: black ;
+    text-decoration: none ;
 }
+
+header .dropdown-item.active {
+    background-color: #228b22 ;/* Colore di sfondo quando attivo */
+    color: white ; /* Colore del testo quando attivo */
+    text-decoration: none ; /* Assicurati che non ci sia sottolineatura */
+    padding-left: 10px ; /* Aggiungi padding per evitare spostamenti */
+}
+
+header .dropdown-item:focus {
+    background-color: #228b22; /* Colore di sfondo quando in focus */
+    color: white; /* Colore del testo quando in focus */
+    text-decoration: none; /* Assicurati che non ci sia sottolineatura */
+}
+
+
 
 header .btn-search {
     background-color: white;
@@ -124,6 +140,7 @@ header .btn-search:hover {
     color: black;
     border: none;
 }
+
 
 header form .visually-hidden{
     position: absolute;

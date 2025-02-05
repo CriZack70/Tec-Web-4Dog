@@ -1,7 +1,7 @@
 <?php
 require_once 'bootstrap.php';
 
-//Base Template
+
 $templateParams["titolo"] = "4Dogs - Brand";
 $templateParams["shop"] = true;
 $templateParams["name"] = "singola-categoria.php";
