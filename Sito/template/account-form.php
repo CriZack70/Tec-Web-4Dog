@@ -56,7 +56,7 @@
             <form id="wishForm" action="update-wish.php" method="post">
             <div class="row flex-row flex-nowrap overflow-auto " style="background-color:rgba(122, 220, 30, 0.26);">
 
-
+            
             <?php foreach($userWish as $wish): ?>
 
                     <div class="card-wish">
@@ -68,10 +68,10 @@
                         </div>
                     </div>
 
-            <?php endforeach;
-
-             ?>
-             </div>
+            <?php endforeach; ?>
+            
+            </div>
+            
 
 
             <div class="row">
@@ -95,8 +95,10 @@
             </form>
 
 
-            <?php else: ?>
-                <div class="row flex-row flex-nowrap overflow-auto " style="min-height: 50px; background-color:rgba(122, 220, 30, 0.26);"></div>
+            <?php else: ?>                
+                <div class="row flex-row flex-nowrap overflow-auto" style="min-height: 50px; background-color:rgba(122, 220, 30, 0.26);">
+                    <p class="align-self-center text-center mt-2">La tua lista desideri è vuota..</p>
+                </div>
             <?php endif; ?>
                 <div class="my-dog col-md-6 col-lg-8 mt-2  align-items-center" style="text-align:center;">
                 <a href="./myDoggy.php" class="buttonDog " style=" max-width: 95%;">

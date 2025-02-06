@@ -116,16 +116,16 @@ header .dropdown-item{
 }
 
 header .dropdown-item.active {
-    background-color: #228b22 ;/* Colore di sfondo quando attivo */
-    color: white ; /* Colore del testo quando attivo */
-    text-decoration: none ; /* Assicurati che non ci sia sottolineatura */
-    padding-left: 10px ; /* Aggiungi padding per evitare spostamenti */
+    background-color:yellowgreen ;
+    color: white ;
+    text-decoration: none ;
+    padding-left: 10px ; 
 }
 
 header .dropdown-item:focus {
-    background-color: #228b22; /* Colore di sfondo quando in focus */
-    color: white; /* Colore del testo quando in focus */
-    text-decoration: none; /* Assicurati che non ci sia sottolineatura */
+    background-color:gray; 
+    color: white; 
+    text-decoration: none;
 }
 
 
@@ -162,14 +162,14 @@ aside ul li a:hover{
     font-size: 90%;
 }
 
-/* Stile per section2 */
+
 main > div > div > section:nth-child(2) {
     margin-top: 5%;
     border: 2px solid #ddd; /* Bordo attorno alla sezione */
     border-radius: 8px; /* Angoli arrotondati */
     margin-bottom: 0; /* Spaziatura tra le sezioni */
-    background-color: #64a1a741; /* Sfondo leggero */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra per effetto */
+    background-color: #64a1a741;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 main > div > div > section:nth-child(2) h3 {
@@ -181,7 +181,7 @@ main > div > div > section:nth-child(2) .card {
     margin-bottom: 15px; /* Spaziatura tra le card */
     border: 1px solid #ddd; /* Bordo leggero */
     border-radius: 5px; /* Arrotondamento angoli */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -191,7 +191,7 @@ main > div > div > section:nth-child(2) .card-body img{
 }
 
 main > div > div > section:nth-child(2) .card-body a {
-    text-decoration: none; /* Rimuove la sottolineatura */
+    text-decoration: none;
     color:blue; /* Colore del link */
     font-weight: bold;
 }
@@ -209,8 +209,8 @@ main > div > div > section:nth-child(3) {
     border-radius: 8px; /* Angoli arrotondati */
     padding: 5px 20px 5px 20px; /* Spaziatura interna */
     margin-bottom: 5%; /* Spaziatura tra le sezioni */
-    background-color: #f8f9fa; /* Sfondo leggero */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra per effetto */
+    background-color: #f8f9fa; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -291,8 +291,8 @@ section:first-of-type ul li a {
  
 .my-dog{
     border: 1px solid #ddd; /* Bordo leggero */
-    border-radius: 5px; /* Arrotondamento angoli */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra */
+    border-radius: 5px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 .buttonDog{
     text-decoration: none;

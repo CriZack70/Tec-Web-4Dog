@@ -1,5 +1,5 @@
 <div class="container mt-4">
-    <h2>Ordine Completato</h2>
+    <h3>Ordine Completato</h3>
     <p>Grazie per aver effettuato un ordine! Ecco i dettagli:</p>
 
     <table class="table table-striped table-borderless">

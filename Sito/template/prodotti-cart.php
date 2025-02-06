@@ -3,7 +3,7 @@
     <h2>Il mio Carrello</h2>
 
     <?php if (empty($templateParams["cartprod"])): ?>
-        <p>Il carrello è vuoto.</p>
+        <h3>Il carrello è vuoto.</h3>
     <?php else: ?>
     <table class="table table-striped table-borderless">
         <thead class="table-info">

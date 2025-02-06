@@ -5,8 +5,8 @@
 <section class="section9 mt-3" style="background-color: white; border: none; box-shadow: none; ">
 <div class="container  mt-5 mb-2">
     <div class="row justify-content-center">
-        <!-- Colonna per le notifiche -->
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4 me-5">
+        <!-- Colonna per le notifiche -->       
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4 ">
             <h3 style = "text-align:center;"> Notifiche ordini</h3>
             <div id="notifications" class="notifications">
                 <?php if(isset($templateParams["notificationsOrderAdm"]) && !empty($templateParams["notificationsOrderAdm"])): ?>
