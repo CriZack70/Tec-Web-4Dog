@@ -1,3 +1,4 @@
+
 // Custom alert notification
 function showMessage(message, isSuccess) {
     const toastElement = document.getElementById('toastMessage');

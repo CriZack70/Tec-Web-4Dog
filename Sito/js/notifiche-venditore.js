@@ -62,10 +62,17 @@ $('.notifica-prodotto').on('click', function() {
 
     // Segna la notifica come letta
     $.post('update_notifica_vend.php', { Id: id, azione: 'letta' }, function() {
-        // Aggiorna l'icona della bustina
-        $('.notifica-prodotto[data-id="${id}"]').siblings('.icon').find('em').removeClass('fa-envelope').addClass('fa-envelope-open');
+        console.log(`Notifica prodotto con id ${id} segnata come letta`);
         
-        $('.notifica-prodotto[data-id="${id}"]').closest('.alert').addClass('alert-letta');
+        // Aggiorna l'icona della bustina
+        const iconElement = $(`.notifica-prodotto[data-id='${id}']`).siblings('.icon').find('em');
+        console.log(iconElement);
+        iconElement.removeClass('fa-envelope').addClass('fa-envelope-open');
+        
+        // Aggiorna l'alert
+        const alertElement = $(`.notifica-prodotto[data-id='${id}']`).closest('.alert');
+        console.log(alertElement);
+        alertElement.addClass('alert-letta');
     });
 });
 

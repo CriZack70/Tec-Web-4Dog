@@ -31,7 +31,7 @@ $templateParams["js"] = array("js/rand-utils.js");
             "sesso" => $sesso,
             "eta" => $eta
         ];
-        $templateParams["casualprod"] = $dbh->casualProdDoggy($taglia, $eta, $sesso, 4);
+        $templateParams["casualprod"] = $dbh->casualProdDoggy($taglia, $eta, $sesso, 8);
         $templateParams["brands"] = "our_brands.php";
        
     }

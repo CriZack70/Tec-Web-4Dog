@@ -57,7 +57,9 @@
         </div>
         <script>
         $(document).ready(function(){
-            $('#usersTable').dataTable();
+            $('#orderTable').dataTable({
+            "order": [[0, "desc"]] // Ordina la prima colonna (indice 0) in ordine decrescente
+             });
         });
         </script>
 
@@ -82,7 +84,7 @@
                         <td><?= $ordine['Numero'] ?></td>
                         <td><?= $ordine['Email'] ?></td>
                         <td><?= $ordine['Totale'] ?></td>
-                        <td><?= $ordine['Data'] ?></td>
+                        <td><?= date('d-m-Y H:i:s', strtotime($ordine['Data'])) ?></td>
                         <td><?= $ordine['Stato'] ?></td>
                         <td>
                             <button class="btn btn-primary btn-sm my-1 me-1" onclick="openStatusModal(<?= $ordine['Numero'] ?>)">Aggiorna Stato</button>

@@ -7,17 +7,17 @@ unset($_SESSION["errorelogin"]);
     </script>
 
 <section class="mt-3 mb-2 border border-0 shadow-none" style="background-color: white;">
-
+		<h2 class="visually-hidden">Pagina di login/registrazione</h2>
 	<div class="container d-flex justify-content-center align-items-center mt-1 mb-2 ">
 		<div class="row w-100">
 			<div class="col-12 col-md-6 mx-auto my-auto">
 				<!-- Nav tabs -->
-				<ul class="nav nav-tabs ">
+				<ul class="nav nav-tabs" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="accedi-tab" data-bs-toggle="tab" href="#accedi" role="tab" aria-controls="accedi" aria-selected="true">Accedi</a>
 					</li>
 					<li class="nav-item">
-						<a class=" nav-link "id="registrati-tab" data-bs-toggle="tab" href="#registrati" role="tab" aria-controls="registrati" aria-selected="false">Registrati</a>
+						<a class="nav-link" id="registrati-tab" data-bs-toggle="tab" href="#registrati" role="tab" aria-controls="registrati" aria-selected="false">Registrati</a>
 					</li>
 				</ul>
 				<!-- Nav tabTab pane -->

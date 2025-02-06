@@ -288,12 +288,19 @@ class DatabaseHelper{
     }
 
     public function casualProdDoggy($taglia, $eta, $sesso, $n) {
-        $stmt = $this->db->prepare("SELECT versione_prodotto.CodProdotto, prodotto.Nome, prodotto.Percorso_Immagine FROM versione_prodotto, prodotto
-         WHERE versione_prodotto.CodProdotto= prodotto.CodProdotto AND ( versione_prodotto.TagliaCane = ? OR EtaCane= ? OR SessoCane = ? ) LIMIT ? ");
-        $stmt->bind_param('sssi',$taglia, $eta, $sesso,  $n);
+        $stmt = $this->db->prepare("
+            SELECT DISTINCT versione_prodotto.CodProdotto, prodotto.Nome, prodotto.Percorso_Immagine 
+            FROM versione_prodotto 
+            JOIN prodotto ON versione_prodotto.CodProdotto = prodotto.CodProdotto 
+            WHERE versione_prodotto.TagliaCane = ? 
+            OR versione_prodotto.EtaCane = ? 
+            OR versione_prodotto.SessoCane = ? 
+            LIMIT ?
+        ");
+        $stmt->bind_param('sssi', $taglia, $eta, $sesso, $n);
         $stmt->execute();
         $result = $stmt->get_result();
-
+    
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 

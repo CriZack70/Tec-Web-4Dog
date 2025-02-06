@@ -12,7 +12,7 @@
         <div class="col-md-2">
             <div class="card">
                 <div class="card-body">
-                <a href="marchi.php?brand=Natural Trainer"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_NaturalTrainer.jpg" alt="Natural Trainer" /></a>
+                <a href="marchi.php?brand=Natural%20Trainer"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_NaturalTrainer.jpg" alt="Natural Trainer" /></a>
                 </div>
             </div>
         </div>
@@ -33,14 +33,14 @@
         <div class="col-md-2">
             <div class="card">
                 <div class="card-body">
-                <a href="marchi.php?brand=Taste Of The Wild"><img class="card-img-top img-fluid w-50 mx-auto" src="./imgs/logo_TasteOfTheWild.jpg" alt="Taste Of The Wild" /></a>
+                <a href="marchi.php?brand=Taste%20Of%20Thef%20Wild"><img class="card-img-top img-fluid w-50 mx-auto" src="./imgs/logo_TasteOfTheWild.jpg" alt="Taste Of The Wild" /></a>
                 </div>
             </div>
         </div>
         <div class="col-md-2">
             <div class="card">
                 <div class="card-body">
-                <a href="marchi.php?brand=Almo Nature"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_AlmoNature.jpg" alt="Almo Nature" /></a>
+                <a href="marchi.php?brand=Almo%20Nature"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_AlmoNature.jpg" alt="Almo Nature" /></a>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
         <div class="col-md-2">
             <div class="card">
                 <div class="card-body">
-                <a href="marchi.php?brand=Royal Canin"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_RoyalCanin.jpg" alt="Royal Canin" /></a>
+                <a href="marchi.php?brand=Royal%20Canin"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_RoyalCanin.jpg" alt="Royal Canin" /></a>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="col-md-2">
             <div class="card">
                 <div class="card-body">
-                <a href="marchi.php?brand=Phil & Sons"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_Phil_&_Sons.jpg" alt="Phil & Sons" /></a>
+                <a href="marchi.php?brand=Phil%20&%20Sons"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_Phil_&_Sons.jpg" alt="Phil & Sons" /></a>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@
         <div class="col-md-2">
             <div class="card">
                 <div class="card-body">
-                <a href="marchi.php?brand=Wolf of Wilderness"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_Wolf_of_Wilderness.jpg" alt="Wolf of Wilderness" /></a>
+                <a href="marchi.php?brand=Wolf%20of%20Wilderness"><img class="card-img-top img-fluid  w-50 mx-auto" src="./imgs/logo_Wolf_of_Wilderness.jpg" alt="Wolf of Wilderness" /></a>
                 </div>
             </div>
         </div>
